@@ -39,13 +39,13 @@ export class CanvasComponent implements AfterViewInit {
   const radius = 7;
   const segments = 240;
   const material = new THREE.MeshBasicMaterial( {color: 0x00ff90} );
-  const geometry = new THREE.BoxGeometry(radius, segments);
+  const geometry = new THREE.CircleBufferGeometry(radius, segments);
   const circle = new THREE.Mesh( geometry, material );
   this.scene.add( circle );
 
-/*this.y_asix( new THREE.Vector3( 0, -10, 0 ),  new THREE.Vector3( 0, 10, 0 ));
+  this.y_asix( new THREE.Vector3( 0, -10, 0 ),  new THREE.Vector3( 0, 10, 0 ));
   this.x_asix( new THREE.Vector3( -10,  0, 0 ),  new THREE.Vector3( 10, 0, 0 ));
-
+/*
   const mini_radius = 3;
   const mini_segments = 240;
   const color_mini_circle = new THREE.MeshBasicMaterial( {color: 0x000090} );

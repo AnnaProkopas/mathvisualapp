@@ -1,4 +1,14 @@
-#app-canvas {
+app-canvas {
 	height: 500px;
-	width: 500px;
+	width: 300px;
+}
+app-left-menu {
+	width: 200px;
+	height: 500px;
+}
+
+.inline{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
