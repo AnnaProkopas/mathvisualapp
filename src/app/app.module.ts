@@ -10,7 +10,7 @@ import { CanvasComponent } from './canvas/canvas.component';
   declarations: [
     AppComponent,
     LeftMenuComponent,
-    CanvasComponent
+    CanvasComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,16 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Directive, Input, ViewChild, HostListener } from '@angular/core';
 import * as THREE from 'three';
+// import "./js/EnableThreeExamples";
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css']
 })
+/*
+@Directive({selector: 'canvas'})
+class Canvas {
+}*/
 
 export class CanvasComponent implements AfterViewInit {
   private renderer: THREE.WebGLRenderer;
@@ -38,16 +43,14 @@ export class CanvasComponent implements AfterViewInit {
   const circle = new THREE.Mesh( geometry, material );
   this.scene.add( circle );
 
-  this.y_asix( new THREE.Vector3( 0, -10, 0 ),  new THREE.Vector3( 0, 10, 0 ));
+/*this.y_asix( new THREE.Vector3( 0, -10, 0 ),  new THREE.Vector3( 0, 10, 0 ));
   this.x_asix( new THREE.Vector3( -10,  0, 0 ),  new THREE.Vector3( 10, 0, 0 ));
 
   const mini_radius = 3;
   const mini_segments = 240;
   const color_mini_circle = new THREE.MeshBasicMaterial( {color: 0x000090} );
   const mini_circle = new THREE.Mesh( new THREE.BoxGeometry(mini_radius, mini_segments), color_mini_circle );
-  this.scene.add( mini_circle );
-  
-  console.log("I'm finish))");
+  this.scene.add( mini_circle );*/
 }
 
 private x_asix(fromDot: THREE.Vector3, toDot: THREE.Vector3) {
@@ -84,9 +87,9 @@ private y_asix(fromDot: THREE.Vector3, toDot: THREE.Vector3) {
 
 
 private createLight() {
-  /* const light = new THREE.PointLight(0xffffff, 1, 1000);
+  const light = new THREE.PointLight(0xffffff, 1, 1000);
   light.position.set(0, 0, 100);
-  this.scene.add(light);*/
+  this.scene.add(light);
 }
 
 private createCamera() {
@@ -98,7 +101,7 @@ private createCamera() {
       this.far_plane
   );
 
-  this.camera.position.set(0, 0, this.near_plane - 10);
+  this.camera.position.set(0, 0, this.far_plane);
   this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 }
 
@@ -111,24 +114,28 @@ private getAspectRatio(): number {
 }
 
 private startRendering() {
-  this.renderer = new THREE.WebGLRenderer(); /* {
+  this.renderer = new THREE.WebGLRenderer();/*{
       canvas: this.canvas,
       antialias: true
-  });
-  this.renderer.setPixelRatio(devicePixelRatio);*/
+  });*/
+  this.renderer.setPixelRatio(devicePixelRatio);
   this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-/*
+
   this.renderer.shadowMap.enabled = true;
   this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   this.renderer.setClearColor(0xffffff, 1);
-  this.renderer.autoClear = true;*/
-  this.render();
+  this.renderer.autoClear = true;
+  let component: CanvasComponent = this;
+  (function render() {
+    //requestAnimationFrame(render);
+    component.render();
+    }());
 }
 
 public render() {
   this.renderer.render(this.scene, this.camera);
 }
-
+/*
 @HostListener('window:resize', ['$event'])
 public onResize(event: Event) {
     this.canvas.style.width = "100%";
@@ -144,14 +151,14 @@ public onResize(event: Event) {
 @HostListener('document:keypress', ['$event'])
 public onKeyPress(event: KeyboardEvent) {
     console.log("onKeyPress: " + event.key);
-}
-
-
+}*/
   ngAfterViewInit() {
     this.createScene();
     this.createLight();
     this.createCamera();
     this.startRendering();
+    this.canvasRef.nativeElement.appendChild(this.renderer.domElement);
+    this.render();
     // document.getElementById("scene").appendChild(this.renderer.domElement);
   }
 }
