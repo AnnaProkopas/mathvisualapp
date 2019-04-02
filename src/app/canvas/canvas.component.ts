@@ -1,25 +1,24 @@
-import { AfterViewInit, Component, ElementRef, Directive, Input, ViewChild, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener } from '@angular/core';
 import * as THREE from 'three';
-// import "./js/EnableThreeExamples";
+import { Tree } from '@angular/router/src/utils/tree';
+import { last } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css']
 })
-/*
-@Directive({selector: 'canvas'})
-class Canvas {
-}*/
 
 export class CanvasComponent implements AfterViewInit {
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
-  private cameraTarget: THREE.Vector3;
   public scene: THREE.Scene;
 
   public near_plane = 99;
   public far_plane = 100;
+
+  public pointer: THREE.Mesh;
+  public circle: {radius: number, x: number, y: number};
 
   @ViewChild('canvas')
   private canvasRef: ElementRef;
@@ -35,23 +34,23 @@ export class CanvasComponent implements AfterViewInit {
   private createScene() {
   this.scene = new THREE.Scene();
   this.scene.background = new THREE.Color(0xffffff);
-
-  const radius = 7;
+  
+  this.circle = {radius: 10,  x: 0, y: 0};
   const segments = 240;
   const material = new THREE.MeshBasicMaterial( {color: 0x00ff90} );
-  const geometry = new THREE.CircleBufferGeometry(radius, segments);
+  const geometry = new THREE.CircleBufferGeometry(this.circle.radius, segments);
   const circle = new THREE.Mesh( geometry, material );
   this.scene.add( circle );
 
-  this.y_asix( new THREE.Vector3( 0, -10, 0 ),  new THREE.Vector3( 0, 10, 0 ));
-  this.x_asix( new THREE.Vector3( -10,  0, 0 ),  new THREE.Vector3( 10, 0, 0 ));
-/*
-  const mini_radius = 3;
-  const mini_segments = 240;
+  this.y_asix( new THREE.Vector3( 0, -13, 0 ),  new THREE.Vector3( 0, 15, 0 ));
+  this.x_asix( new THREE.Vector3( -13,  0, 0 ),  new THREE.Vector3( 15, 0, 0 ));
+
+  const mini_radius = 1;
   const color_mini_circle = new THREE.MeshBasicMaterial( {color: 0x000090} );
-  const mini_circle = new THREE.Mesh( new THREE.BoxGeometry(mini_radius, mini_segments), color_mini_circle );
-  this.scene.add( mini_circle );*/
-}
+    this.pointer = new THREE.Mesh( new THREE.CircleBufferGeometry(mini_radius, segments, 0, this.circle.radius), color_mini_circle );
+    this.pointer.position.x = this.circle.x + this.circle.radius;
+    this.scene.add( this.pointer );
+  }
 
 private x_asix(fromDot: THREE.Vector3, toDot: THREE.Vector3) {
   let y = new THREE.Geometry();
@@ -132,25 +131,79 @@ private startRendering() {
     }());
 }
 
-public render() {
-  this.renderer.render(this.scene, this.camera);
-}
+  public render() {
+    this.renderer.render(this.scene, this.camera);
+  }
+
+  /* EVENTS */
+  private last : boolean;
+
+  public onMouseDown(event: MouseEvent) {
+    console.log("onMouseDown");
+    event.preventDefault();
+
+    const EPS = 0.5;
+    const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
+    if (Math.abs(pos.x - this.pointer.position.x) <= EPS && Math.abs(pos.y - this.pointer.position.y) <= EPS) {
+      this.last = true;
+    }
+  }
+
+  public worldToCanvas (input: THREE.Vector2): THREE.Vector3 {
+    const vec = new THREE.Vector3(); // create once and reuse
+    const pos = new THREE.Vector3(); // create once and reuse
+    vec.set(
+      ((input.x - this.canvas.offsetLeft) / this.canvas.clientWidth) * 2 - 1,
+      - ((input.y - this.canvas.offsetTop) / this.canvas.clientHeight) * 2 + 1,
+      0.5 );
+    vec.unproject(this.camera);
+    vec.sub(this.camera.position).normalize();
+    const distance = - this.camera.position.z / vec.z;
+    pos.copy(this.camera.position).add( vec.multiplyScalar( distance ) );
+    return pos;
+  }
+/* r^2 = x^2 + y^2 */
+  public onMouseMove(event: MouseEvent) {
+    if (this.last) {
+      const EPS = 15;
+      const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
+      if (Math.abs(pos.x - this.pointer.position.x) <= EPS &&
+          Math.abs(pos.y - this.pointer.position.y) <= EPS) {
+        const x = (pos.x < 0 ? -1 : 1) * this.circle.radius / Math.sqrt(1 + Math.pow(pos.y / pos.x, 2));
+        this.pointer.position.y = (pos.y < 0 ? -1 : 1) *
+          Math.sqrt(this.circle.radius ** 2 - x ** 2);
+        this.pointer.position.x = x;
+        if (pos.x < 0) {
+          console.log("negative x: " + this.pointer.position.x);
+          console.log("negative y: " + this.pointer.position.y);
+        }
+        this.render();
+      }
+      else console.log("Hi!");
+    }
+  }
+
+  public onMouseUp(event: MouseEvent) {
+    console.log("onMouseUp");
+    this.last = false;
+  }
+
 /*
 @HostListener('window:resize', ['$event'])
 public onResize(event: Event) {
-    this.canvas.style.width = "100%";
-    this.canvas.style.height = "100%";
-    console.log("onResize: " + this.canvas.clientWidth + ", " + this.canvas.clientHeight);
+  this.canvas.style.width = "100%";
+  this.canvas.style.height = "100%";
+  console.log("onResize: " + this.canvas.clientWidth + ", " + this.canvas.clientHeight);
 
-    this.camera.aspect = this.getAspectRatio();
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-    this.render();
+  this.camera.aspect = this.getAspectRatio();
+  this.camera.updateProjectionMatrix();
+  this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+  this.render();
 }
 
 @HostListener('document:keypress', ['$event'])
 public onKeyPress(event: KeyboardEvent) {
-    console.log("onKeyPress: " + event.key);
+  console.log("onKeyPress: " + event.key);
 }*/
   ngAfterViewInit() {
     this.createScene();
