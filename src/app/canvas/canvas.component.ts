@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { Tree } from '@angular/router/src/utils/tree';
 import { last } from '@angular/router/src/utils/collection';
 import { ElementFinder } from 'protractor';
+import { Scene } from 'three';
 
 @Component({
   selector: 'app-canvas',
@@ -11,6 +12,7 @@ import { ElementFinder } from 'protractor';
 })
 
 export class CanvasComponent implements AfterViewInit {
+  @Input() partTrigonometry: number[];
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
   public scene: THREE.Scene;
@@ -46,12 +48,13 @@ export class CanvasComponent implements AfterViewInit {
   this.y_asix( new THREE.Vector3( 0, -13, 0 ),  new THREE.Vector3( 0, 15, 0 ));
   this.x_asix( new THREE.Vector3( -13,  0, 0 ),  new THREE.Vector3( 15, 0, 0 ));
 
-  const mini_radius = 1;
-  const color_mini_circle = new THREE.MeshBasicMaterial( {color: 0x000090} );
+    const mini_radius = 1;
+    const color_mini_circle = new THREE.MeshBasicMaterial( {color: 0x000090} );
     this.pointer = new THREE.Mesh( new THREE.CircleBufferGeometry(mini_radius, segments, 0, this.circle.radius), color_mini_circle );
     this.pointer.position.x = this.circle.x + this.circle.radius;
     this.scene.add( this.pointer );
     this.createSin();
+    this.createCos();
   }
 
 private x_asix(fromDot: THREE.Vector3, toDot: THREE.Vector3) {
@@ -138,35 +141,32 @@ private startRendering() {
   }
 
   /* EVENTS */
-  private last: boolean;
+  private mouseOnLastPosPointer: boolean;
 
   public onMouseDown(event: MouseEvent) {
     console.log("onMouseDown");
     event.preventDefault();
 
-    const EPS = 0.5;
+    const EPS = 0.6;
     const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
     if (Math.abs(pos.x - this.pointer.position.x) <= EPS && Math.abs(pos.y - this.pointer.position.y) <= EPS) {
-      this.last = true;
+      this.mouseOnLastPosPointer = true;
+    }
+
+    if (this.partTrigonometry[0]) {
+      this.scene.add(this.lineSin);
+    } else {
+      this.scene.remove(this.lineSin);
+    }
+    if (this.partTrigonometry[1]) {
+      this.scene.add(this.lineCos);
+    } else {
+      this.scene.remove(this.lineCos);
     }
   }
 
-  public worldToCanvas (input: THREE.Vector2): THREE.Vector3 {
-    const vec = new THREE.Vector3(); // create once and reuse
-    const pos = new THREE.Vector3(); // create once and reuse
-    vec.set(
-      ((input.x - this.canvas.offsetLeft) / this.canvas.clientWidth) * 2 - 1,
-      - ((input.y - this.canvas.offsetTop) / this.canvas.clientHeight) * 2 + 1,
-      0.5 );
-    vec.unproject(this.camera);
-    vec.sub(this.camera.position).normalize();
-    const distance = - this.camera.position.z / vec.z;
-    pos.copy(this.camera.position).add( vec.multiplyScalar( distance ) );
-    return pos;
-  }
-/* r^2 = x^2 + y^2 */
   public onMouseMove(event: MouseEvent) {
-    if (this.last) {
+    if (this.mouseOnLastPosPointer) {
       const EPS = 15;
       const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
       if (Math.abs(pos.x - this.pointer.position.x) <= EPS &&
@@ -175,21 +175,20 @@ private startRendering() {
         this.pointer.position.y = (pos.y < 0 ? -1 : 1) *
           Math.sqrt(this.circle.radius ** 2 - x ** 2);
         this.pointer.position.x = x;
-        if (pos.x < 0) {
-          console.log('negative x: ' + this.pointer.position.x);
-          console.log('negative y: ' + this.pointer.position.y);
-        }
+
+        this.drawSin();
+        this.drawCos();
+
         this.render();
       } else {
-          console.log('Hi!');
+          this.mouseOnLastPosPointer = false;
       }
-      this.drawSin();
     }
   }
 
   public onMouseUp(event: MouseEvent) {
-    console.log('onMouseUp');
-    this.last = false;
+    console.log('Up');
+    this.mouseOnLastPosPointer = false;
   }
 
   public getAngle(): number {
@@ -210,6 +209,7 @@ private startRendering() {
   }
 
   public lineSin: THREE.Mesh;
+  public lineCos: THREE.Mesh;
 
   public createSin() {
     const material = new THREE.MeshBasicMaterial( {color: 0x100010} );
@@ -217,11 +217,35 @@ private startRendering() {
     this.lineSin = new THREE.Mesh( geometry, material );
     this.lineSin.position.y = 0;
     this.lineSin.position.x = 0;
-    this.scene.add(this.lineSin);
   }
   public drawSin() {
     this.lineSin.geometry = new THREE.BoxGeometry(1, Math.abs(this.pointer.position.y));
     this.lineSin.position.y = this.pointer.position.y / 2;
+  }
+  public createCos() {
+    const material = new THREE.MeshBasicMaterial( {color: 0x100010} );
+    const geometry = new THREE.BoxGeometry(this.pointer.position.x, 1);
+    this.lineCos = new THREE.Mesh( geometry, material );
+    this.lineCos.position.y = 0;
+    this.lineCos.position.x = 0;
+  }
+  public drawCos() {
+    this.lineCos.geometry = new THREE.BoxGeometry(Math.abs(this.pointer.position.x), 1);
+    this.lineCos.position.x = this.pointer.position.x / 2;
+  }
+
+  public worldToCanvas (input: THREE.Vector2): THREE.Vector3 {
+    const vec = new THREE.Vector3(); // create once and reuse
+    const pos = new THREE.Vector3(); // create once and reuse
+    vec.set(
+      ((input.x - this.canvas.offsetLeft) / this.canvas.clientWidth) * 2 - 1,
+      - ((input.y - this.canvas.offsetTop) / this.canvas.clientHeight) * 2 + 1,
+      0.5 );
+    vec.unproject(this.camera);
+    vec.sub(this.camera.position).normalize();
+    const distance = - this.camera.position.z / vec.z;
+    pos.copy(this.camera.position).add( vec.multiplyScalar( distance ) );
+    return pos;
   }
 
 /*
