@@ -212,8 +212,10 @@ export class CanvasComponent implements AfterViewInit {
   private selectionCos = { lineCos: new THREE.Mesh(), dottedLineCos: new THREE.Mesh() };
   private graphSin : THREE.Geometry;
   private dotSin: THREE.Mesh;
+  private sceneSin: THREE.Scene;
   private graphCos : THREE.Geometry;
   private dotCos: THREE.Mesh;
+  private sceneCos: THREE.Scene;
 
   private createSin() {
     const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
@@ -249,6 +251,13 @@ export class CanvasComponent implements AfterViewInit {
     this.dotSin.position.y = this.pointer.position.y / 2;
     this.dotSin.position.z = 1;
 
+    let sinText = new THREE.Mesh(new THREE.TextGeometry("sin:"), 
+      new THREE.MeshBasicMaterial({ color: 0x000000 }));
+    sinText.position.x = 25;
+    sinText.position.y = 10; 
+      this.scene.add(sinText);
+    
+    this.sceneSin = sinScene;
     this.scene.add(sinScene);
   }
 
@@ -262,9 +271,11 @@ export class CanvasComponent implements AfterViewInit {
 
   public showSin() {
     this.selectionSin.lineSin.visible = true;
+    this.sceneSin.visible = true;
   }
   public hideSin() {
     this.selectionSin.lineSin.visible = false;
+    this.sceneSin.visible = false;
   }
 
   private createCos() {
@@ -299,6 +310,7 @@ export class CanvasComponent implements AfterViewInit {
     this.dotCos.position.y = this.pointer.position.x / 2;
     this.dotCos.position.z = 1;
 
+    this.sceneCos = cosScene;
     this.scene.add(cosScene);
     this.hideCos();
   }
