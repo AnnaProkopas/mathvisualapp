@@ -208,14 +208,11 @@ export class CanvasComponent implements AfterViewInit {
     return (angle * 180) / Math.PI;
   }
 
-  private selectionSin = { lineSin: new THREE.Mesh(), dottedLineSin: new THREE.Mesh() };
-  private selectionCos = { lineCos: new THREE.Mesh(), dottedLineCos: new THREE.Mesh() };
-  private graphSin : THREE.Geometry;
-  private dotSin: THREE.Mesh;
-  private sceneSin: THREE.Scene;
-  private graphCos : THREE.Geometry;
-  private dotCos: THREE.Mesh;
-  private sceneCos: THREE.Scene;
+  private selectionSin = { lineSin: new THREE.Mesh(), dottedLineSin: new THREE.Mesh(),
+    graphSin : new THREE.Geometry(), dotSin: new THREE.Mesh(), sceneSin: new THREE.Scene() };
+
+  private selectionCos = { lineCos: new THREE.Mesh(), dottedLineCos: new THREE.Mesh(),
+    graphCos : new THREE.Geometry(), dotCos: new THREE.Mesh(), sceneCos: new THREE.Scene()} ;
 
   private createSin() {
     const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
@@ -223,9 +220,7 @@ export class CanvasComponent implements AfterViewInit {
     this.selectionSin.lineSin = new THREE.Mesh(geometry, material);
     this.selectionSin.lineSin.position.y = 0;
     this.selectionSin.lineSin.position.x = 0;
-
     this.scene.add(this.selectionSin.lineSin);
-    this.hideSin();
 
     let sinScene = new THREE.Scene();
     sinScene = this.y_asix(sinScene, new THREE.Vector3( 0, -10, 0 ),  new THREE.Vector3( 0, 10, 0 ));
@@ -237,45 +232,47 @@ export class CanvasComponent implements AfterViewInit {
         new THREE.Vector3(i,
           this.circle.radius * Math.sin(Math.PI * i / this.circle.radius / 2 + this.getAngle()) / 2, 0));
     }
-    this.graphSin = graph;
-    const line2 = new THREE.Line(this.graphSin, 
+
+    this.selectionSin.graphSin = graph;
+    const line2 = new THREE.Line(this.selectionSin.graphSin,
       new THREE.LineBasicMaterial({ color: 0xFFA07A , linewidth: 2.5}));
     sinScene.add(line2);
     sinScene.position.set(0, -27, 0);
 /*Math.PI * i  = x */
-    this.dotSin = new THREE.Mesh(new THREE.CircleBufferGeometry(1, 240, 0, this.circle.radius), 
+    this.selectionSin.dotSin = new THREE.Mesh(new THREE.CircleBufferGeometry(1, 240, 0, this.circle.radius),
       new THREE.MeshBasicMaterial({ color: 0x000090 }));
-    this.dotSin.position.x =  (this.getAngle() -
+    this.selectionSin.dotSin.position.x =  (this.getAngle() -
       ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * 2 * this.circle.radius;
-    sinScene.add(this.dotSin);
-    this.dotSin.position.y = this.pointer.position.y / 2;
-    this.dotSin.position.z = 1;
+    sinScene.add(this.selectionSin.dotSin);
+    this.selectionSin.dotSin.position.y = this.pointer.position.y / 2;
+    this.selectionSin.dotSin.position.z = 1;
 
-    let sinText = new THREE.Mesh(new THREE.TextGeometry("sin:"), 
+    /*let sinText = new THREE.Mesh(new THREE.TextGeometry("sin:"),
       new THREE.MeshBasicMaterial({ color: 0x000000 }));
     sinText.position.x = 25;
-    sinText.position.y = 10; 
-      this.scene.add(sinText);
-    
-    this.sceneSin = sinScene;
+    sinText.position.y = 10;
+    this.scene.add(sinText);*/
+
+    this.selectionSin.sceneSin = sinScene;
     this.scene.add(sinScene);
+    this.hideSin();
   }
 
   private drawSin() {
     this.selectionSin.lineSin.geometry = new THREE.BoxGeometry(1, Math.abs(this.pointer.position.y));
     this.selectionSin.lineSin.position.y = this.pointer.position.y / 2;
-    this.dotSin.position.x = (this.getAngle() -
+    this.selectionSin.dotSin.position.x = (this.getAngle() -
       ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * 2 * this.circle.radius;
-    this.dotSin.position.y = this.pointer.position.y / 2;
+    this.selectionSin.dotSin.position.y = this.pointer.position.y / 2;
   }
 
   public showSin() {
     this.selectionSin.lineSin.visible = true;
-    this.sceneSin.visible = true;
+    this.selectionSin.sceneSin.visible = true;
   }
   public hideSin() {
     this.selectionSin.lineSin.visible = false;
-    this.sceneSin.visible = false;
+    this.selectionSin.sceneSin.visible = false;
   }
 
   private createCos() {
@@ -296,37 +293,39 @@ export class CanvasComponent implements AfterViewInit {
         new THREE.Vector3(i,
           this.circle.radius * Math.cos(Math.PI * i / this.circle.radius / 2 + this.getAngle()) / 2, 0));
     }
-    this.graphCos = graph;
-    const line2 = new THREE.Line(this.graphCos,
+    this.selectionCos.graphCos = graph;
+    const line2 = new THREE.Line(this.selectionCos.graphCos,
       new THREE.LineBasicMaterial({ color: 0x20B2AA , linewidth: 2.5}));
     cosScene.add(line2);
     cosScene.position.set(0, -50, 0);
 /*Math.PI * i  = x */
-    this.dotCos = new THREE.Mesh(new THREE.CircleBufferGeometry(1, 240, 0, this.circle.radius), 
+    this.selectionCos.dotCos = new THREE.Mesh(new THREE.CircleBufferGeometry(1, 240, 0, this.circle.radius), 
       new THREE.MeshBasicMaterial({ color: 0x000090 }));
-    this.dotCos.position.x =  (this.getAngle() -
+    this.selectionCos.dotCos.position.x =  (this.getAngle() -
       ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * 2 * this.circle.radius;
-    cosScene.add(this.dotCos);
-    this.dotCos.position.y = this.pointer.position.x / 2;
-    this.dotCos.position.z = 1;
+    cosScene.add(this.selectionCos.dotCos);
+    this.selectionCos.dotCos.position.y = this.pointer.position.x / 2;
+    this.selectionCos.dotCos.position.z = 1;
 
-    this.sceneCos = cosScene;
+    this.selectionCos.sceneCos = cosScene;
     this.scene.add(cosScene);
     this.hideCos();
   }
   private drawCos() {
     this.selectionCos.lineCos.geometry = new THREE.BoxGeometry(Math.abs(this.pointer.position.x), 1);
     this.selectionCos.lineCos.position.x = this.pointer.position.x / 2;
-    this.dotCos.position.x =  (this.getAngle() -
+    this.selectionCos.dotCos.position.x =  (this.getAngle() -
       ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * 2 * this.circle.radius;
-    this.dotCos.position.y = this.pointer.position.x / 2;
+    this.selectionCos.dotCos.position.y = this.pointer.position.x / 2;
   }
 
   public showCos() {
     this.selectionCos.lineCos.visible = true;
+    this.selectionCos.sceneCos.visible = true;
   }
   public hideCos() {
     this.selectionCos.lineCos.visible = false;
+    this.selectionCos.sceneCos.visible = false;
   }
 
   private worldToCanvas(input: THREE.Vector2): THREE.Vector3 {
