@@ -1,14 +1,12 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener } from '@angular/core';
 import * as THREE from 'three';
-import { Tree } from '@angular/router/src/utils/tree';
-import { last } from '@angular/router/src/utils/collection';
-import { ElementFinder } from 'protractor';
-import { Scene } from 'three';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.css']
+  styleUrls: ['./canvas.component.css'],
+  providers: [DataService]
 })
 
 export class CanvasComponent implements AfterViewInit {
@@ -26,7 +24,7 @@ export class CanvasComponent implements AfterViewInit {
   @ViewChild('canvas')
   private canvasRef: ElementRef;
 
-  constructor() {
+  constructor(private dataService: DataService) {
     this.render = this.render.bind(this);
   }
 
@@ -138,6 +136,9 @@ export class CanvasComponent implements AfterViewInit {
   }
 
   public render() {
+    if (this.renderer === undefined) {
+      return;
+    }
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -269,10 +270,12 @@ export class CanvasComponent implements AfterViewInit {
   public showSin() {
     this.selectionSin.lineSin.visible = true;
     this.selectionSin.sceneSin.visible = true;
+    this.render();
   }
   public hideSin() {
     this.selectionSin.lineSin.visible = false;
     this.selectionSin.sceneSin.visible = false;
+    this.render();
   }
 
   private createCos() {
@@ -322,10 +325,12 @@ export class CanvasComponent implements AfterViewInit {
   public showCos() {
     this.selectionCos.lineCos.visible = true;
     this.selectionCos.sceneCos.visible = true;
+    this.render();
   }
   public hideCos() {
     this.selectionCos.lineCos.visible = false;
     this.selectionCos.sceneCos.visible = false;
+    this.render();
   }
 
   private worldToCanvas(input: THREE.Vector2): THREE.Vector3 {
