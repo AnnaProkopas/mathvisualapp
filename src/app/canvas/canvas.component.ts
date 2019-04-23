@@ -48,45 +48,12 @@ export class CanvasComponent implements AfterViewInit {
 
     const mini_radius = 1;
     const color_mini_circle = new THREE.MeshBasicMaterial({ color: 0x000090 });
-    this.pointer = new THREE.Mesh(new THREE.CircleBufferGeometry(mini_radius, segments, 0, this.circle.radius), color_mini_circle);
+    this.pointer = new THREE.Mesh(
+      new THREE.CircleBufferGeometry(mini_radius, segments, 0, this.circle.radius), color_mini_circle);
     this.pointer.position.x = this.circle.x + this.circle.radius;
     this.scene.add(this.pointer);
     this.createSin();
     this.createCos();
-  }
-
-  private x_asix(localScene: THREE.Scene, fromDot: THREE.Vector3, toDot: THREE.Vector3): THREE.Scene {
-    let y = new THREE.Geometry();
-    const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
-    y.vertices.push(fromDot);
-    y.vertices.push(toDot);
-    localScene.add(new THREE.Line(y, black_material));
-    y = new THREE.Geometry();
-    y.vertices.push(new THREE.Vector3(toDot.x - 2, toDot.y + 1, 0));
-    y.vertices.push(toDot);
-    localScene.add(new THREE.Line(y, black_material));
-    y = new THREE.Geometry();
-    y.vertices.push(toDot);
-    y.vertices.push(new THREE.Vector3(toDot.x - 2, toDot.y - 1, 0));
-    localScene.add(new THREE.Line(y, black_material));
-    return localScene;
-  }
-
-  private y_asix(localScene: THREE.Scene, fromDot: THREE.Vector3, toDot: THREE.Vector3): THREE.Scene {
-    let y = new THREE.Geometry();
-    const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
-    y.vertices.push(fromDot);
-    y.vertices.push(toDot);
-    localScene.add(new THREE.Line(y, black_material));
-    y = new THREE.Geometry();
-    y.vertices.push(new THREE.Vector3(toDot.x + 1, toDot.y - 2, 0));
-    y.vertices.push(toDot);
-    localScene.add(new THREE.Line(y, black_material));
-    y = new THREE.Geometry();
-    y.vertices.push(toDot);
-    y.vertices.push(new THREE.Vector3(toDot.x - 1, toDot.y - 2, 0));
-    localScene.add(new THREE.Line(y, black_material));
-    return localScene;
   }
 
   private createLight() {
@@ -314,6 +281,7 @@ export class CanvasComponent implements AfterViewInit {
     this.scene.add(cosScene);
     this.hideCos();
   }
+
   private drawCos() {
     this.selectionCos.lineCos.geometry = new THREE.BoxGeometry(Math.abs(this.pointer.position.x), 1);
     this.selectionCos.lineCos.position.x = this.pointer.position.x / 2;
@@ -374,5 +342,38 @@ export class CanvasComponent implements AfterViewInit {
     this.canvasRef.nativeElement.appendChild(this.renderer.domElement);
     this.render();
     // document.getElementById("scene").appendChild(this.renderer.domElement);
+  }
+  private x_asix(localScene: THREE.Scene, fromDot: THREE.Vector3, toDot: THREE.Vector3): THREE.Scene {
+    let y = new THREE.Geometry();
+    const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
+    y.vertices.push(fromDot);
+    y.vertices.push(toDot);
+    localScene.add(new THREE.Line(y, black_material));
+    y = new THREE.Geometry();
+    y.vertices.push(new THREE.Vector3(toDot.x - 2, toDot.y + 1, 0));
+    y.vertices.push(toDot);
+    localScene.add(new THREE.Line(y, black_material));
+    y = new THREE.Geometry();
+    y.vertices.push(toDot);
+    y.vertices.push(new THREE.Vector3(toDot.x - 2, toDot.y - 1, 0));
+    localScene.add(new THREE.Line(y, black_material));
+    return localScene;
+  }
+
+  private y_asix(localScene: THREE.Scene, fromDot: THREE.Vector3, toDot: THREE.Vector3): THREE.Scene {
+    let y = new THREE.Geometry();
+    const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
+    y.vertices.push(fromDot);
+    y.vertices.push(toDot);
+    localScene.add(new THREE.Line(y, black_material));
+    y = new THREE.Geometry();
+    y.vertices.push(new THREE.Vector3(toDot.x + 1, toDot.y - 2, 0));
+    y.vertices.push(toDot);
+    localScene.add(new THREE.Line(y, black_material));
+    y = new THREE.Geometry();
+    y.vertices.push(toDot);
+    y.vertices.push(new THREE.Vector3(toDot.x - 1, toDot.y - 2, 0));
+    localScene.add(new THREE.Line(y, black_material));
+    return localScene;
   }
 }

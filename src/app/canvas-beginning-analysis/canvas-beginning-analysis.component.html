@@ -1,2 +1,3 @@
 <div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"></div>
-<label>f(x)=</label><input type="text" #function/>
+<label>f(x) = </label><input type="text" [(ngModel)]="expression" (ngModelChange)="saverange()"/><br>
+<label>f'(x) = {{derivateFunction}}</label>

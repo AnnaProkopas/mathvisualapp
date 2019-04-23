@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { CanvasBeginningAnalysisComponent } from './canvas-beginning-analysis/canvas-beginning-analysis.component';
+import { CanvasStereometryComponent } from './canvas-stereometry/canvas-stereometry.component';
 /*
 const appRoutes: Routes = [
   //{path: '', component: HomeComponent},
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     AppComponent,
     CanvasComponent,
     CanvasBeginningAnalysisComponent,
+    CanvasStereometryComponent,
   ],
   imports: [
     BrowserModule,
