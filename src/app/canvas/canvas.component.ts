@@ -55,6 +55,7 @@ export class CanvasComponent implements AfterViewInit {
     this.createSin();
     this.createCos();
     this.createTg();
+    this.createCtg();
   }
 
   private createLight() {
@@ -144,6 +145,7 @@ export class CanvasComponent implements AfterViewInit {
         this.drawSin();
         this.drawCos();
         this.drawTg();
+        this.drawCtg();
 
         this.render();
       } else {
@@ -183,14 +185,6 @@ export class CanvasComponent implements AfterViewInit {
 
   private selectionSin = { lineSin: new THREE.Mesh(), dottedLineSin: new THREE.Mesh(),
     dotSin: new THREE.Mesh(), sceneSin: new THREE.Scene() };
-
-  private selectionCos = { lineCos: new THREE.Mesh(), dottedLineCos: new THREE.Mesh(), 
-    dotCos: new THREE.Mesh(), sceneCos: new THREE.Scene()} ;
-
-  private selectionTg = { lineTg: new THREE.Mesh(), dottedLineTg: new THREE.Mesh(),
-      dotTg: new THREE.Mesh(), sceneTg: new THREE.Scene(),
-      slopingLine: new THREE.Line() } ;
-
   private createSin() {
     const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
     const geometry = new THREE.BoxGeometry(1, this.pointer.position.y);
@@ -248,6 +242,8 @@ export class CanvasComponent implements AfterViewInit {
     this.render();
   }
 
+  private selectionCos = { lineCos: new THREE.Mesh(), dottedLineCos: new THREE.Mesh(), 
+    dotCos: new THREE.Mesh(), sceneCos: new THREE.Scene()} ;
   private createCos() {
     const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
     const geometry = new THREE.BoxGeometry(this.pointer.position.x, 1);
@@ -300,6 +296,9 @@ export class CanvasComponent implements AfterViewInit {
     this.render();
   }
 
+  private selectionTg = { lineTg: new THREE.Mesh(), dottedLineTg: new THREE.Mesh(),
+    dotTg: new THREE.Mesh(), sceneTg: new THREE.Scene(),
+    slopingLine: new THREE.Line() } ;
   private createTg() {
     const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
     const geometry = new THREE.BoxGeometry(1, -1);
@@ -396,6 +395,105 @@ export class CanvasComponent implements AfterViewInit {
     this.selectionTg.slopingLine.visible = false;
     this.selectionTg.lineTg.visible = false;
     this.selectionTg.sceneTg.visible = false;
+    this.render();
+  }
+
+  private selectionCtg = { lineCtg: new THREE.Mesh(), dottedLineCtg: new THREE.Mesh(),
+    dotCtg: new THREE.Mesh(), sceneCtg: new THREE.Scene(),
+    slopingLine: new THREE.Line() } ;
+  private ctg(x: number) {
+    return 1 / Math.tan(x);
+  }
+  private arcctg(x: number) {
+    return Math.PI / 2 - Math.atan(x);
+  }
+  private createCtg() {
+    const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
+    const geometry = new THREE.BoxGeometry(-1, 1);
+    this.selectionCtg.lineCtg = new THREE.Mesh(geometry, material);
+    this.selectionCtg.lineCtg.position.x = 0;
+    this.selectionCtg.lineCtg.position.y = this.circle.radius;
+    this.scene.add(this.selectionCtg.lineCtg);
+
+    let geom = new THREE.Geometry();
+    geom.vertices.push(new THREE.Vector3(0, 0, 0));
+    geom.vertices.push( new THREE.Vector3(10, 0, 0 ));
+    this.selectionCtg.slopingLine = new THREE.Line(geom, new THREE.LineBasicMaterial({ color: 0x8B008B}));
+    this.scene.add(this.selectionCtg.slopingLine);
+
+    let CtgScene = new THREE.Scene();
+    CtgScene = this.y_asix(CtgScene, new THREE.Vector3( 0, -25, 0 ),  new THREE.Vector3( 0, 25, 0 ));
+    CtgScene = this.x_asix(CtgScene, new THREE.Vector3( -25, 0, 0 ),  new THREE.Vector3( 25, 0, 0 ));
+
+    const graph_material =new THREE.LineBasicMaterial({ color: 0xCC2E71 , linewidth: 2.5});
+    //1я часть графика [-pi, 0]
+    let graph = new THREE.Geometry();
+    for (let i = this.arcctg(2.3) - Math.PI; i <= this.arcctg(-2.3) - Math.PI; i += 1 * Math.PI / 180) {
+      graph.vertices.push(
+        new THREE.Vector3(i * 180 / 8 / Math.PI, this.ctg(i) * 10, 0));
+    }
+    CtgScene.add(new THREE.Line(graph, graph_material));
+    //2я часть графика [0, pi]
+    graph = new THREE.Geometry();
+    for (let i = this.arcctg(2.3); i <= this.arcctg(-2.3); i += 1 * Math.PI / 180) {
+      graph.vertices.push(
+        new THREE.Vector3(i * 180 / 8 / Math.PI, this.ctg(i) * 10, 0));
+    }
+    CtgScene.add(new THREE.Line(graph, graph_material));
+
+    CtgScene.position.set(0, -50, 0);
+/*Math.PI * i  = x */
+    this.selectionCtg.dotCtg = new THREE.Mesh(new THREE.CircleBufferGeometry(1, 240, 0, this.circle.radius), 
+      new THREE.MeshBasicMaterial({ color: 0x000090 }));
+    this.selectionCtg.dotCtg.position.x =  (this.getAngle() -
+      ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * this.circle.radius;
+    CtgScene.add(this.selectionCtg.dotCtg);
+    this.selectionCtg.dotCtg.position.y = Math.tan(this.getAngle()) * this.circle.radius;
+    this.selectionCtg.dotCtg.position.z = 1;
+
+    this.selectionCtg.sceneCtg = CtgScene;
+    this.scene.add(CtgScene);
+    this.hideCtg();
+  }
+
+  private drawCtg() {
+    let angle = this.getAngle();
+    let geom = new THREE.Geometry();
+    let width_line = this.circle.radius / (this.pointer.position.y / this.pointer.position.x);
+    let w = 1.5 * this.circle.radius;
+    //если около пи/2 (проверяем крайние значения)
+    //if (Math.abs(Math.abs(angle - Math.PI) - Math.PI) < Math.PI / 2 - atan_h) {
+    if (Math.abs(width_line) > w) {
+      w *= (width_line < 0) ? -1 : 1;
+      const y = w * (this.pointer.position.y / this.pointer.position.x);
+      geom.vertices.push(new THREE.Vector3(w, y, 0));
+      width_line = w;
+    } else {
+      geom.vertices.push(new THREE.Vector3(width_line, this.circle.radius, 0));
+    } //линия может идти как от указателя, так и от 0,0
+    if (angle < 0) {
+      geom.vertices.push(this.pointer.position);
+      //debugger;
+    } else {
+      geom.vertices.push(new THREE.Vector3(0, 0, 0));
+    }
+    this.selectionCtg.slopingLine.geometry = geom;
+    this.selectionCtg.lineCtg.geometry = new THREE.BoxGeometry(Math.abs(width_line), 1);
+    this.selectionCtg.lineCtg.position.x = width_line / 2;
+
+    this.selectionCtg.dotCtg.position.x = angle * 180 / Math.PI / 8;
+    this.selectionCtg.dotCtg.position.y = this.ctg(angle) * 10;
+  }
+  public showCtg() {
+    this.selectionCtg.slopingLine.visible = true;
+    this.selectionCtg.lineCtg.visible = true;
+    this.selectionCtg.sceneCtg.visible = true;
+    this.render();
+  }
+  public hideCtg() {
+    this.selectionCtg.slopingLine.visible = false;
+    this.selectionCtg.lineCtg.visible = false;
+    this.selectionCtg.sceneCtg.visible = false;
     this.render();
   }
 

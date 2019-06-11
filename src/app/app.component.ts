@@ -50,5 +50,10 @@ export class AppComponent {
   }
   public changeCtan() {
     this.partTrig[3] = !this.partTrig[3];
+    if (this.partTrig[3]) {
+      this.trigRef.showCtg();
+    } else {
+      this.trigRef.hideCtg();
+    }
   }
 }
