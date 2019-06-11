@@ -28,30 +28,22 @@
         <input class="ac-checkbox" id="ac-2" name="accordion-1" type="radio" 
             value="2" [(ngModel)]="numShowCanvas"/>
         <label class="ac-label"for="ac-2">Начала анализа</label>
-        <article>
-            <p></p>
-        </article>
     </div>
     <div>
         <input class="ac-checkbox" id="ac-3" name="accordion-1" type="radio" 
             value="3" [(ngModel)]="numShowCanvas"/>
         <label class="ac-label" for="ac-3">Векторы</label>
-        <article>
-            <p></p>
-        </article>
     </div>
     <div>
         <input class="ac-checkbox" id="ac-4" name="accordion-1" type="radio" 
             value="4" [(ngModel)]="numShowCanvas"/>
         <label class="ac-label" for="ac-4">Стереометрия</label>
-        <article>
-            <p></p>
-        </article>
     </div>
 </section>	
 </div>
 <div [ngSwitch]="numShowCanvas">
     <app-canvas #appcanvas *ngSwitchCase="1"></app-canvas>
     <app-canvas-beginning-analysis *ngSwitchCase="2"></app-canvas-beginning-analysis>
-    <label *ngSwitchDefault>Nothing :-(</label>
+    <app-canvas-stereometry *ngSwitchCase="4"></app-canvas-stereometry>
+    <label *ngSwitchDefault>  </label>
 </div>

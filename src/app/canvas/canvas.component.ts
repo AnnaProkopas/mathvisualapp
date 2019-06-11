@@ -54,6 +54,7 @@ export class CanvasComponent implements AfterViewInit {
     this.scene.add(this.pointer);
     this.createSin();
     this.createCos();
+    this.createTg();
   }
 
   private createLight() {
@@ -117,7 +118,7 @@ export class CanvasComponent implements AfterViewInit {
     event.preventDefault();
 
     const EPS = 0.6;
-    const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
+    const pos = this.worldToCanvas(new THREE.Vector2(event.pageX, event.pageY));
     if (Math.abs(pos.x - this.pointer.position.x) <= EPS && Math.abs(pos.y - this.pointer.position.y) <= EPS) {
       this.mouseOnLastPosPointer = true;
     }
@@ -132,7 +133,7 @@ export class CanvasComponent implements AfterViewInit {
   public onMouseMove(event: MouseEvent) {
     if (this.mouseOnLastPosPointer) {
       const EPS = 15;
-      const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
+      const pos = this.worldToCanvas(new THREE.Vector2(event.pageX, event.pageY));
       if (Math.abs(pos.x - this.pointer.position.x) <= EPS &&
         Math.abs(pos.y - this.pointer.position.y) <= EPS) {
         const x = (pos.x < 0 ? -1 : 1) * this.circle.radius / Math.sqrt(1 + Math.pow(pos.y / pos.x, 2));
@@ -142,6 +143,7 @@ export class CanvasComponent implements AfterViewInit {
 
         this.drawSin();
         this.drawCos();
+        this.drawTg();
 
         this.render();
       } else {
@@ -164,8 +166,8 @@ export class CanvasComponent implements AfterViewInit {
     let angle = Math.acos(cosAngle(new THREE.Vector2(this.circle.radius, 0),
       this.pointer.position));
     if (angle > 0 && this.pointer.position.y < 0) {
-      angle = Math.PI - angle;
-    } else if (angle < 0) {
+      angle = 2 * Math.PI - angle;
+    } else if (angle ) {
       angle = (this.pointer.position.y < 0) ? Math.PI - angle : -1 * angle;
     }
     // const sin = this.pointer.position.y;
@@ -181,6 +183,10 @@ export class CanvasComponent implements AfterViewInit {
 
   private selectionCos = { lineCos: new THREE.Mesh(), dottedLineCos: new THREE.Mesh(),
     graphCos : new THREE.Geometry(), dotCos: new THREE.Mesh(), sceneCos: new THREE.Scene()} ;
+
+  private selectionTg = { lineTg: new THREE.Mesh(), dottedLineTg: new THREE.Mesh(),
+      graphTg : new THREE.Geometry(), dotTg: new THREE.Mesh(), sceneTg: new THREE.Scene(),
+      slopingLine: new THREE.Line() } ;
 
   private createSin() {
     const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
@@ -225,7 +231,6 @@ export class CanvasComponent implements AfterViewInit {
     this.scene.add(sinScene);
     this.hideSin();
   }
-
   private drawSin() {
     this.selectionSin.lineSin.geometry = new THREE.BoxGeometry(1, Math.abs(this.pointer.position.y));
     this.selectionSin.lineSin.position.y = this.pointer.position.y / 2;
@@ -233,7 +238,6 @@ export class CanvasComponent implements AfterViewInit {
       ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * 2 * this.circle.radius;
     this.selectionSin.dotSin.position.y = this.pointer.position.y / 2;
   }
-
   public showSin() {
     this.selectionSin.lineSin.visible = true;
     this.selectionSin.sceneSin.visible = true;
@@ -281,7 +285,6 @@ export class CanvasComponent implements AfterViewInit {
     this.scene.add(cosScene);
     this.hideCos();
   }
-
   private drawCos() {
     this.selectionCos.lineCos.geometry = new THREE.BoxGeometry(Math.abs(this.pointer.position.x), 1);
     this.selectionCos.lineCos.position.x = this.pointer.position.x / 2;
@@ -289,7 +292,6 @@ export class CanvasComponent implements AfterViewInit {
       ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * 2 * this.circle.radius;
     this.selectionCos.dotCos.position.y = this.pointer.position.x / 2;
   }
-
   public showCos() {
     this.selectionCos.lineCos.visible = true;
     this.selectionCos.sceneCos.visible = true;
@@ -298,6 +300,105 @@ export class CanvasComponent implements AfterViewInit {
   public hideCos() {
     this.selectionCos.lineCos.visible = false;
     this.selectionCos.sceneCos.visible = false;
+    this.render();
+  }
+
+  private createTg() {
+    const material = new THREE.MeshBasicMaterial({ color: 0x100010 });
+    const geometry = new THREE.BoxGeometry(1, -1);
+    this.selectionTg.lineTg = new THREE.Mesh(geometry, material);
+    this.selectionTg.lineTg.position.y = 0;
+    this.selectionTg.lineTg.position.x = this.circle.radius;
+    this.scene.add(this.selectionTg.lineTg);
+
+    let geom = new THREE.Geometry();
+    geom.vertices.push(new THREE.Vector3(0, 0, 0));
+    geom.vertices.push( new THREE.Vector3(10, 10 * this.pointer.position.y / this.pointer.position.x, 0 ));
+    this.selectionTg.slopingLine = new THREE.Line(geom, new THREE.LineBasicMaterial({ color: 0x008B8B}));
+    this.scene.add(this.selectionTg.slopingLine);
+
+    let TgScene = new THREE.Scene();
+    TgScene = this.y_asix(TgScene, new THREE.Vector3( 0, -25, 0 ),  new THREE.Vector3( 0, 25, 0 ));
+    TgScene = this.x_asix(TgScene, new THREE.Vector3( -10, 0, 0 ),  new THREE.Vector3( 10, 0, 0 ));
+
+    const graph = new THREE.Geometry();
+    for (let i = -80; i <= 80; i++) {
+      graph.vertices.push(
+        new THREE.Vector3(i / 8, Math.tan(Math.PI * i / 180) * 10, 0));
+    }
+    this.selectionTg.graphTg = graph;
+    const line2 = new THREE.Line(this.selectionTg.graphTg,
+      new THREE.LineBasicMaterial({ color: 0x2ECC71 , linewidth: 2.5}));
+    TgScene.add(line2);
+    TgScene.position.set(0, -50, 0);
+/*Math.PI * i  = x */
+    this.selectionTg.dotTg = new THREE.Mesh(new THREE.CircleBufferGeometry(1, 240, 0, this.circle.radius), 
+      new THREE.MeshBasicMaterial({ color: 0x000090 }));
+    this.selectionTg.dotTg.position.x =  (this.getAngle() -
+      ((this.pointer.position.y < 0) ? Math.PI : 0)) / Math.PI * this.circle.radius;
+    TgScene.add(this.selectionTg.dotTg);
+    this.selectionTg.dotTg.position.y = Math.tan(this.getAngle()) * this.circle.radius;
+    this.selectionTg.dotTg.position.z = 1;
+
+    this.selectionTg.sceneTg = TgScene;
+    this.scene.add(TgScene);
+    this.hideTg();
+  }
+  private getCoordinateQuarters (angle: number) {
+    if (angle < 0) {
+      angle -= 2 * Math.PI * Math.ceil(angle / 2 / Math.PI);
+    } else if (angle > 2 * Math.PI) {
+      angle -= 2 * Math.PI * Math.floor(angle / 2 / Math.PI);
+    }
+    let i = 1;
+    while (angle < i * Math.PI / 2 && i < 4) {
+      i++;
+    }
+    return i;
+  }
+  private drawTg() {
+    let angle = this.getAngle();
+    let geom = new THREE.Geometry();
+    let height_line = 0;
+    let h = 1.2 * this.circle.radius;
+    const atan_h = Math.atan(h);
+    //если около пи/2 (проверяем крайние значения)
+    //if (Math.abs(Math.abs(angle - Math.PI) - Math.PI) < Math.PI / 2 - atan_h) {
+    if ((angle > atan_h && angle < Math.PI - atan_h) || 
+        (angle > Math.PI + atan_h && angle < Math.PI * 2 - atan_h)) {
+      
+      h *= (this.circle.radius * this.pointer.position.y / this.pointer.position.x < 0) ? -1 : 1;
+      const x = h / (this.pointer.position.y / this.pointer.position.x);
+      geom.vertices.push(new THREE.Vector3(x, h, 0));
+      height_line = h;
+    } else {
+      height_line = this.circle.radius * this.pointer.position.y / this.pointer.position.x;
+      geom.vertices.push(new THREE.Vector3(this.circle.radius, height_line, 0));
+    } //линия может идти как от указателя, так и от 0,0
+    if (angle > Math.PI / 2 && angle < 3 * Math.PI / 2) {
+      geom.vertices.push(this.pointer.position);
+      //debugger;
+    } else {
+      geom.vertices.push(new THREE.Vector3(0, 0, 0));
+    }
+    this.selectionTg.slopingLine.geometry = geom;
+
+    angle = (angle > Math.PI) ? angle - Math.PI * 2 : angle;
+
+    this.selectionTg.lineTg.geometry = new THREE.BoxGeometry(1, Math.abs(height_line));
+    this.selectionTg.lineTg.position.y = height_line / 2;
+
+    this.selectionTg.dotTg.position.x = angle * 180 / Math.PI / 8;
+    this.selectionTg.dotTg.position.y = Math.tan(angle) * 10;
+  }
+  public showTg() {
+    this.selectionTg.lineTg.visible = true;
+    this.selectionTg.sceneTg.visible = true;
+    this.render();
+  }
+  public hideTg() {
+    this.selectionTg.lineTg.visible = false;
+    this.selectionTg.sceneTg.visible = false;
     this.render();
   }
 
