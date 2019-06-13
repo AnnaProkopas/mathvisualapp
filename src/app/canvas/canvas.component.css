@@ -1,4 +1,24 @@
 #canvas {
-    width: 500px;
-    height: 700px;
+    width: 250px;
+    height: 250px;
+}
+#canvasSmall {
+    width: 300px;
+    height: 150px;
+}
+#canvasBig {
+    width: 300px;
+    height: 300px;
+}
+
+.inline{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.incolumn{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 }

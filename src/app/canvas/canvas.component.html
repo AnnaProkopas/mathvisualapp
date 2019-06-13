@@ -1,1 +1,12 @@
-<div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"></div>
+<div class="inline">
+    <div class="incolumn">
+        <div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
+            (mousemove)="onMouseMove($event)"></div>
+        <div id="canvasSmall" #canvasSin *ngIf="visibleSin"></div>
+        <div id="canvasSmall" #canvasCos *ngIf="visibleCos"></div>
+    </div>
+    <div class="incolumn">
+        <div id="canvasBig" #canvasTg *ngIf="visibleTg"></div>
+        <div id="canvasBig" #canvasCtg *ngIf="visibleCtg"></div>
+    </div>
+</div>

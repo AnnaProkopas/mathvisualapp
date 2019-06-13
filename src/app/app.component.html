@@ -10,40 +10,41 @@
   </ul>
 </div>-->
 
-<section class="ac-container">
-    <div>
-        <input class="ac-checkbox" id="ac-1" name="accordion-1" type="radio" 
-            value="1" [(ngModel)]="numShowCanvas"/>
-        <label class="ac-label" for="ac-1">Тригонометрия</label>
-        <article class="ac-list">
-        	<div>
-            	<input type="checkbox" (change)="changeSin()">Sin<Br>
-            	<input type="checkbox" (change)="changeCos()">Cos<Br>
-            	<input type="checkbox" (change)="changeTan()">Tan<Br>
-            	<input type="checkbox" (change)="changeCtan()">Ctan<Br>
+        <section class="ac-container">
+            <div>
+                <input class="ac-checkbox" id="ac-1" name="accordion-1" type="radio" value="1"
+                    [(ngModel)]="numShowCanvas" />
+                <label class="ac-label" for="ac-1">Тригонометрия</label>
+                <article class="ac-list">
+                    <div>
+                        <input type="checkbox" (change)="changeSin()">Sin<Br>
+                        <input type="checkbox" (change)="changeCos()">Cos<Br>
+                        <input type="checkbox" (change)="changeTan()">Tan<Br>
+                        <input type="checkbox" (change)="changeCtan()">Ctan<Br>
+                    </div>
+                </article>
             </div>
-        </article>
+            <div>
+                <input class="ac-checkbox" id="ac-2" name="accordion-1" type="radio" value="2"
+                    [(ngModel)]="numShowCanvas" />
+                <label class="ac-label" for="ac-2">Начала анализа</label>
+            </div>
+            <div>
+                <input class="ac-checkbox" id="ac-3" name="accordion-1" type="radio" value="3"
+                    [(ngModel)]="numShowCanvas" />
+                <label class="ac-label" for="ac-3">Векторы</label>
+            </div>
+            <div>
+                <input class="ac-checkbox" id="ac-4" name="accordion-1" type="radio" value="4"
+                    [(ngModel)]="numShowCanvas" />
+                <label class="ac-label" for="ac-4">Стереометрия</label>
+            </div>
+        </section>
     </div>
-    <div>
-        <input class="ac-checkbox" id="ac-2" name="accordion-1" type="radio" 
-            value="2" [(ngModel)]="numShowCanvas"/>
-        <label class="ac-label"for="ac-2">Начала анализа</label>
+    <div [ngSwitch]="numShowCanvas">
+        <app-canvas #appcanvas *ngSwitchCase="1"></app-canvas>
+        <app-canvas-beginning-analysis *ngSwitchCase="2"></app-canvas-beginning-analysis>
+        <app-canvas-stereometry *ngSwitchCase="4"></app-canvas-stereometry>
+        <label *ngSwitchDefault> </label>
     </div>
-    <div>
-        <input class="ac-checkbox" id="ac-3" name="accordion-1" type="radio" 
-            value="3" [(ngModel)]="numShowCanvas"/>
-        <label class="ac-label" for="ac-3">Векторы</label>
-    </div>
-    <div>
-        <input class="ac-checkbox" id="ac-4" name="accordion-1" type="radio" 
-            value="4" [(ngModel)]="numShowCanvas"/>
-        <label class="ac-label" for="ac-4">Стереометрия</label>
-    </div>
-</section>	
-</div>
-<div [ngSwitch]="numShowCanvas">
-    <app-canvas #appcanvas *ngSwitchCase="1"></app-canvas>
-    <app-canvas-beginning-analysis *ngSwitchCase="2"></app-canvas-beginning-analysis>
-    <app-canvas-stereometry *ngSwitchCase="4"></app-canvas-stereometry>
-    <label *ngSwitchDefault>  </label>
 </div>

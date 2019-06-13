@@ -12,7 +12,7 @@ import { DataService } from './data.service';
 export class AppComponent {
   @ViewChild('appcanvas') trigRef: CanvasComponent;
   title = 'mathvisualapp';
-  public numShowCanvas: string = '4';
+  public numShowCanvas: string = '1';
   constructor(private dataService: DataService) {  }
   /*trigonometrySelect(evt) {
     var target = evt.target;
