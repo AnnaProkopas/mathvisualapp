@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener, Output, EventEmitter } from '@angular/core';
 import * as THREE from 'three';
-import { CubeService } from '../cube.service';
+import { CubeService, Way } from '../cube.service';
 import { TrustedHtmlString } from '@angular/core/src/sanitization/bypass';
 
 @Component({
@@ -121,44 +121,46 @@ export class CanvasStereometryComponent implements AfterViewInit {
     m.rotation.x = Math.PI / 2;
     this.scene.add(m);
   }
-  private generateText(arr: {text: string, position: THREE.Vector3}[]) {
+  private generateText(arr: { text: string, position: THREE.Vector3 }[]) {
     const mesh = new THREE.Mesh(new THREE.Geometry(), new THREE.MeshPhongMaterial({ color: 0xfffffff }));
     this.scene.add(mesh);
     const loader = new THREE.FontLoader();
     let component: CanvasStereometryComponent = this;
     loader.load('https://threejs.org//examples/fonts/helvetiker_regular.typeface.json', function (_font) {
-    for (let el of arr) {
-    const geometry = new THREE.TextGeometry(el.text, {
-        font: Object(_font) as THREE.Font,
-        size: 5,
-        height: 0.1,
-        curveSegments: 12,
-        bevelEnabled: false,
-        bevelThickness: 1,
-        bevelSize: 0.2,
-        bevelSegments: 10
-      });
-      const textMaterial = new THREE.MeshPhongMaterial(
-        { color: 0xff0000 }
-      );
-      let m = new THREE.Mesh(geometry, textMaterial);
-      component.scene.add(m);
-      m = component.setPosition(m, el.position);
-      m.rotation.y = Math.PI / 4;
-      component.render();
-    }
+      for (let el of arr) {
+        const geometry = new THREE.TextGeometry(el.text, {
+          font: Object(_font) as THREE.Font,
+          size: 5,
+          height: 0.1,
+          curveSegments: 12,
+          bevelEnabled: false,
+          bevelThickness: 1,
+          bevelSize: 0.2,
+          bevelSegments: 10
+        });
+        const textMaterial = new THREE.MeshPhongMaterial(
+          { color: 0xff0000 }
+        );
+        let m = new THREE.Mesh(geometry, textMaterial);
+        component.scene.add(m);
+        m = component.setPosition(m, el.position);
+        m.rotation.y = Math.PI / 4;
+        component.render();
+      }
     });
   }
   private drawLineOnGroup(v1: THREE.Vector3, v2: THREE.Vector3) {
     let y = new THREE.Geometry();
     y.vertices.push(v1);
     y.vertices.push(v2);
-    let material = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
-    material.polygonOffset = true;
-    material.polygonOffsetFactor = -0.1;
+    let material = new THREE.LineBasicMaterial({ color: 0x090909, linewidth: 1.5, side: THREE.DoubleSide });
+    // var y = new THREE.CylinderGeometry( 0.5, 1, 100, 240 );
     material.polygonOffset = true;
     material.polygonOffsetFactor = -0.1;
     let mesh = new THREE.Line(y, material);
+    /*mesh.position.x = (v1.x + v2.x) / 2;
+    mesh.position.y = (v1.y + v2.y) / 2;
+    mesh.position.z = (v1.z + v2.z) / 2;*/
     this.cube_line.add(mesh);
   }
   public initilaze() {
@@ -166,7 +168,6 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.y_asix(new THREE.Vector3(-this.cubeService.side, 0, 0), new THREE.Vector3(this.cubeService.side, 0, 0), this.material.blue);
     this.z_asix(new THREE.Vector3(0, -this.cubeService.side, 0), new THREE.Vector3(0, this.cubeService.side, 0), this.material.red);
     this.x_asix(new THREE.Vector3(0, 0, -this.cubeService.side), new THREE.Vector3(0, 0, this.cubeService.side), this.material.green);
-    ;
     this.generateText([{ text: 'x', position: new THREE.Vector3(0, -5, 99) },
     { text: 'y', position: new THREE.Vector3(99, -5, 0) },
     { text: 'z', position: new THREE.Vector3(5, 99, 0) }]);
@@ -193,19 +194,18 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.render();
 
     this.ray = new THREE.Ray(this.camera.position, null);
+    this.scene.add(this.section);
   }
 
   private isMouseDown: boolean = false;
   private radious: number = 270;
   private theta: number = 45;
   private onMouseDownTheta: number = 45;
-  private phi: number = 60; 
+  private phi: number = 60;
   private onMouseDownPhi: number = 60;
   private onMouseDownPosition = new THREE.Vector2();
   private onMouseLastPosition = new THREE.Vector2();
   private ray: THREE.Ray;
-  //private projector = new THREE.Projector();
-  private mouse = new THREE.Vector2();
   private raycaster = new THREE.Raycaster();
 
   /* EVENTS */
@@ -214,48 +214,47 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.isMouseDown = true;
     this.onMouseDownTheta = this.theta;
     this.onMouseDownPhi = this.phi;
-    this.onMouseDownPosition.x = this.onMouseLastPosition.x = event.clientX + event.pageX;
-    this.onMouseDownPosition.y = this.onMouseLastPosition.y = event.clientY + event.pageY;
+    this.onMouseDownPosition.x = this.onMouseLastPosition.x = event.pageX - this.canvas.offsetLeft;
+    this.onMouseDownPosition.y = this.onMouseLastPosition.y = event.pageY - this.canvas.offsetTop;
   }
   public onMouseMove(event: MouseEvent) {
     event.preventDefault();
-    const clientX = event.clientX + event.pageX;
-    const clientY = event.clientY + event.pageY;
-    this.mouse.x = ((clientX) / this.renderer.domElement.clientWidth) * 2 - 1;
-    this.mouse.y = -((clientY) / this.renderer.domElement.clientHeight) * 2 + 1;
-    this.raycaster.setFromCamera(this.mouse, this.camera);
+    const clientX = event.pageX - this.canvas.offsetLeft;
+    const clientY = event.pageY - this.canvas.offsetTop;
+    const mouse = new THREE.Vector2();
+    mouse.x = ((clientX) / this.canvas.clientWidth) * 2 - 1;
+    mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
+    this.raycaster.setFromCamera(mouse, this.camera);
     const intersects = this.raycaster.intersectObjects(this.onOffCubes, true);
-    console.log(intersects);
     if (intersects.length > 0) {
-      console.log("HERE");
-      this.helper.position.set(0, 0, 0);
+      //this.helper.position.set(0, 0, 0);
       this.helper.position.copy(intersects[0].point);
     }
 
     if (this.isMouseDown) {
-        this.theta = -((clientX - this.onMouseDownPosition.x) * 0.3)
-            + this.onMouseDownTheta;
-        this.phi = ((clientY - this.onMouseDownPosition.y) * 0.3)
-            + this.onMouseDownPhi;
-        this.phi = Math.min(180, Math.max(0, this.phi));
-        this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
-        this.camera.position.y = this.radious * Math.sin(this.phi * Math.PI / 360);
-        this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
-        this.onMouseLastPosition.x = clientX;
-        this.onMouseLastPosition.y = clientY;
+      this.theta = -((clientX - this.onMouseDownPosition.x) * 0.3)
+        + this.onMouseDownTheta;
+      this.phi = ((clientY - this.onMouseDownPosition.y) * 0.3)
+        + this.onMouseDownPhi;
+      this.phi = Math.min(180, Math.max(0, this.phi));
+      this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
+      this.camera.position.y = this.radious * Math.sin(this.phi * Math.PI / 360);
+      this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
+      this.onMouseLastPosition.x = clientX;
+      this.onMouseLastPosition.y = clientY;
     }
     this.render();
   }
   public onMouseUp(event: MouseEvent) {
     event.preventDefault();
-    const clientX = event.clientX + event.pageX;
-    const clientY = event.clientY + event.pageY;
+    const clientX = event.pageX - this.canvas.offsetLeft;
+    const clientY = event.pageY - this.canvas.offsetTop;
     this.isMouseDown = false;
     this.onMouseDownPosition.x = clientX - this.onMouseDownPosition.x;
     this.onMouseDownPosition.y = clientY - this.onMouseDownPosition.y;
 
     if (this.onMouseDownPosition.length() > 5) {
-        return;
+      return;
     }
     this.render();
   }
@@ -278,19 +277,18 @@ export class CanvasStereometryComponent implements AfterViewInit {
   mouseWheelFunc(event: any) {
     var event = window.event || event; // old IE support
     var delta = Math.max(-10, Math.min(10, (event.wheelDelta * 7
-    || event.wheelDeltaY || -event.deltaY * 4)));
+      || event.wheelDeltaY || -event.deltaY * 4)));
     if (delta > 0) {
-        this.mouseWheelUp.emit(event);
+      this.mouseWheelUp.emit(event);
     }
     // for IE
     event.returnValue = false;
     // for Chrome and Firefox
     if (event.preventDefault) {
-        event.preventDefault();
+      event.preventDefault();
     }
     this.onWheel(delta);
   }
-
   public onWheel(wheelDeltaY: number) {
     this.radious -= wheelDeltaY * 0.4;
     this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
@@ -298,5 +296,101 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
     this.camera.updateMatrix();
     this.render();
-}
+  }
+  private section = new THREE.Object3D();
+  @HostListener('document:click', ['$event']) onClick(event: any) {
+    event.preventDefault();
+    const mouse = new THREE.Vector2();
+    const clientX = event.pageX - this.canvas.offsetLeft;
+    const clientY = event.pageY - this.canvas.offsetTop;
+    mouse.x = ((clientX) / this.canvas.clientWidth) * 2 - 1;
+    mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
+    this.raycaster.setFromCamera(mouse, this.camera);
+    const intersects = this.raycaster.intersectObjects(this.onOffCubes, true);
+    //если точка на ребразх - то она добавляется в стек
+    if (intersects.length > 0) {
+      const p = intersects[0].point;
+      let hel = new THREE.Mesh(new THREE.SphereGeometry(1, 240), new THREE.MeshNormalMaterial());
+      hel = this.setPosition(hel, p);
+      if (this.cubeService.drawed) {
+        this.clearSelection();
+        for (const point of this.cubeService.stack) {
+          let h = new THREE.Mesh(new THREE.SphereGeometry(1, 240), new THREE.MeshNormalMaterial());
+          h = this.setPosition(h, point);
+          this.section.add(h);
+        }
+        this.cubeService.drawed = false;
+      }
+      this.cubeService.stack.push(hel.position);
+      this.section.add(hel);
+    }
+    const plane = this.cubeService.canBuildPlane();
+    if (plane === Way.Clear) {
+      this.clearSelection();
+      for (const p of this.cubeService.stack) {
+        let hel = new THREE.Mesh(new THREE.SphereGeometry(1, 240), new THREE.MeshNormalMaterial());
+        hel = this.setPosition(hel, p);
+        this.section.add(hel);
+      }
+      return;
+    }
+    if (plane === Way.DrawSimple || plane === Way.DrawHard) {
+      /*
+      проверка на принадлежность одной прямой:
+      */
+/*
+      if (condition_of_graph) {
+        geometry = new THREE.Geometry();
+        for (let dot of arr) {
+          if (onEdgeCube(dot)) {
+            geometry.vertices.push(dot);
+          }
+        }
+        geometry.faces = combinations(geometry.vertices.length);
+        geometry.computeBoundingSphere();
+        let material = new THREE.MeshBasicMaterial({ color: 0x90EE90, side: THREE.DoubleSide });
+        material.polygonOffset = true;
+        material.polygonOffsetFactor = -0.1;
+        let mesh = new THREE.Mesh(geometry, material);
+        mesh.renderOrder = 3;
+        section.add(mesh);
+        let color = 0x001000;
+        for (let i = 0; i < arr.length; i++) {
+          let a = new THREE.Mesh(new THREE.SphereGeometry(0.7, 240), black_material);
+          section.add(a);
+          a = setPosition(a, arr[i]);
+        }
+      } else {
+        let graph = generateGraph(stack.edge_num);
+        let work_plane = getWorkPlane(stack.edge_num, arr, graph, section);
+        let stackForDraw = [];
+        dfsAndDraw(work_plane, arr, graph, section, stackForDraw);
+
+        let i = 0
+        geometry = new THREE.Geometry();
+        for (let dot of arr) {
+          if (onEdgeCube(dot)) {
+            geometry.vertices.push(dot);
+          }
+
+        }
+        geometry.faces = combinations(geometry.vertices.length);
+
+        console.log(geometry);
+        geometry.computeBoundingSphere();
+        let material = new THREE.MeshBasicMaterial({ color: 0x90EE90, side: THREE.DoubleSide });
+        material.polygonOffset = true;
+        material.polygonOffsetFactor = -0.1;
+        let mesh = new THREE.Mesh(geometry, material);
+        section.add(mesh);
+      }*/
+      this.render();
+      this.cubeService.stack.shift();
+    }
+  }
+  private clearSelection() {
+    this.scene.remove(this.section);
+    this.section = new THREE.Object3D();
+    this.scene.add(this.section);
+  }
 }
