@@ -16,6 +16,7 @@ private planeToEdge = [
   [1, 2, -2, -1, 7, 6],
   [9, 8, 4, 7, -1, -2],
   [10, 11, 5, 6, -2, -1]];
+  public arr: THREE.Vector3[];
   public getDot(i: number): THREE.Vector3 {
     if (i >= this._stack.data.length) {
       console.error("Try to get don't exist dot.");
@@ -44,7 +45,8 @@ private planeToEdge = [
       */
       const a = this.partExpA(this.stack[0], this.stack[1], this.stack[2]), b = this.partExpB(this.stack[0], this.stack[1], this.stack[2]),
         c = this.partExpC(this.stack[0], this.stack[1], this.stack[2]), d = this.partExpD(this.stack[0], this.stack[1], this.stack[2]);
-      let arr = [], i = 0;
+      let i = 0;
+      this.arr = [];
       this._stack.edge_num = [];
       const condition_of_graph = this.isTreeDotsOnOnePlaneOfCube(this.stack[0], this.stack[1], this.stack[2])
         || this.isTwoDotOnOneEdgeOfCube(this.stack[0], this.stack[1]) ||
@@ -61,7 +63,7 @@ private planeToEdge = [
         } else {
           const l = numerator / denominator;
           const v = new THREE.Vector3(this.getCoord(edge.vert1.x, edge.vert2.x, l), this.getCoord(edge.vert1.y, edge.vert2.y, l), this.getCoord(edge.vert1.z, edge.vert2.z, l));
-          arr.push(v);
+          this.arr.push(v);
           if (!condition_of_graph) {
             for (let j = 0; j < 3; j++) {
               if (this._stack.edge_num[j] === undefined) {
@@ -118,21 +120,8 @@ private planeToEdge = [
   private twoOutOfThree(f: boolean, s: boolean, t: boolean): boolean {
     return (f && s) || (s && t) || (t && f);
   }
-  private onEdgeCube(d: THREE.Vector3): boolean {
+  public onEdgeCube(d: THREE.Vector3): boolean {
     return Math.abs(d.x) <= 50 && Math.abs(d.y) <= 50 && Math.abs(d.z) <= 50;
-  }
-  private combinations(n: number): THREE.Face3[] {
-    const a = Array.apply(null, Array(n)).map(function (_, i) { return i; });
-    const out = [];
-    for (let i = 0; i < n - 1; i++) {
-      for (let j = i + 2; j < n; j++) {
-        const x = a.slice(i, i + 2).concat(a[j]);
-        out.push(new THREE.Face3(x[0], x[1], x[2]));
-      }
-    }
-    const x = a.slice(-2).concat(a[0]);
-    out.push(new THREE.Face3(x[0], x[1], x[2]));
-    return out;
   }
   private maxArray(array: any[]): number {
     let max = array[0];
@@ -142,6 +131,19 @@ private planeToEdge = [
       }
     }
     return max;
+  }
+  public generateExtra() {/*
+    let graph = this.generateGraph(this._stack.edge_num);
+    let work_plane = this.getWorkPlane(this._stack.edge_num, this.arr, graph, section);
+    let stackForDraw = [];
+    dfsAndDraw(work_plane, this.arr, graph, section, stackForDraw);
+
+    const geometry = new THREE.Geometry();
+    for (let dot of this.arr) {
+      if (this.onEdgeCube(dot)) {
+        geometry.vertices.push(dot);
+      }
+    }*/
   }
 
   constructor() {
