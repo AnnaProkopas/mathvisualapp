@@ -1,4 +1,5 @@
-<div id="canvas" #canvas (mousedown)="onMouseDown($event)" 
-(mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"
-(mouseWheelUp)="mouseWheelFunc($event)"
-(click)="onClick($event)"></div>
+<div class="help-text-box">
+    <label>{{user_assistance}}</label>
+</div>
+<div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
+    (mousemove)="onMouseMove($event)" (mouseWheelUp)="mouseWheelFunc($event)" (click)="onClick($event)"></div>

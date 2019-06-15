@@ -1,0 +1,15 @@
+
+Date: 2019-06-15T06:21:20.205Z
+Hash: e9fc25f89e042a994f99
+Time: 34192ms
+chunk {main} main.js, main.js.map (main) 128 kB [initial] [rendered]
+chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 240 kB [initial] [rendered]
+chunk {runtime} runtime.js, runtime.js.map (runtime) 6.08 kB [entry] [rendered]
+chunk {styles} styles.js, styles.js.map (styles) 16.3 kB [initial] [rendered]
+chunk {vendor} vendor.js, vendor.js.map (vendor) 6.55 MB [initial] [rendered]
+
+WARNING in ./src/app/app.component.css
+Module Warning (from ./node_modules/postcss-loader/src/index.js):
+Warning
+
+(40:5) Gradient has outdated direction syntax. New syntax is like `to left` instead of `right`.

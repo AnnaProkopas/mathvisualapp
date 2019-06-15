@@ -50,7 +50,7 @@ export class CubeService {
   public canBuildPlane() {
     if (this._stack.data.length === 3) {
       if (this.isTreeDotsOnCommonStraightInCube(this.stack[0], this.stack[1], this.stack[2])) {
-        alert("Все три точки находятся на одной прямой.");
+        //alert("Все три точки находятся на одной прямой.");
         this._stack.data.shift();
         return WAY.Clear;
       }

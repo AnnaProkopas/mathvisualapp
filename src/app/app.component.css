@@ -2,6 +2,10 @@ app-canvas {
 	height: 1000px;
 	width: 600px;
 }
+app-canvas-stereometry {
+    height: 1000px;
+    width: 700px;
+}
 .left-menu {
 	width: 200px;
 	height: 500px;
@@ -14,7 +18,7 @@ app-canvas {
     margin-left: 15%;
 }
 
-body {background: #e0e3ec url(http://netcribe.com/example/bgnoise_lg.jpg) repeat top left;}
+body {background: #e0e3ec repeat top left;}
 .ac-container{
     width: inherit;
     margin: 10px auto 30px auto;
@@ -33,11 +37,10 @@ body {background: #e0e3ec url(http://netcribe.com/example/bgnoise_lg.jpg) repeat
     line-height: 33px;
     font-size: 19px;
     background: -moz-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(100%,#eaeaea));
-    background: -webkit-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
+    /*background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(100%,#eaeaea));
+    */background: -webkit-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
     background: -o-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
     background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
-    background: linear-gradient(top, #ffffff 1%,#eaeaea 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 );
     /*box-shadow: 
         0px 0px 0px 1px rgba(155,155,155,0.3), 
