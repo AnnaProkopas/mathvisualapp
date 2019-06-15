@@ -1,5 +1,19 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
+import { TrustedHtmlString } from '@angular/core/src/sanitization/bypass';
+import { Vector3 } from 'three';
+
+export enum WAY {
+  DRAW_SIMPLE = 0,
+  DRAW_HARD = 1,
+  Clear = 2,
+  WAIT = 3
+}
+export enum TYPE {
+  LINE = 0,
+  LINES = 1,
+  PLANE = 2
+}
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +23,13 @@ export class CubeService {
   public edges: { vert1: THREE.Vector3, vert2: THREE.Vector3, plane: number[] }[];
   private _stack: { data: THREE.Vector3[], edge_num: number[], drawed: boolean };
 
-private planeToEdge = [
-  [-1, -2, 0, 1, 9, 10],
-  [-2, -1, 3, 2, 8, 11],
-  [0, 3, -1, -2, 4, 5],
-  [1, 2, -2, -1, 7, 6],
-  [9, 8, 4, 7, -1, -2],
-  [10, 11, 5, 6, -2, -1]];
+  private planeToEdge = [
+    [-1, -2, 0, 1, 9, 10],
+    [-2, -1, 3, 2, 8, 11],
+    [0, 3, -1, -2, 4, 5],
+    [1, 2, -2, -1, 7, 6],
+    [9, 8, 4, 7, -1, -2],
+    [10, 11, 5, 6, -2, -1]];
   public arr: THREE.Vector3[];
   public getDot(i: number): THREE.Vector3 {
     if (i >= this._stack.data.length) {
@@ -38,7 +52,7 @@ private planeToEdge = [
       if (this.isTreeDotsOnCommonStraightInCube(this.stack[0], this.stack[1], this.stack[2])) {
         alert("Все три точки находятся на одной прямой.");
         this._stack.data.shift();
-        return Way.Clear;
+        return WAY.Clear;
       }
       /*
         основные вычисления для получения координат точек
@@ -77,13 +91,13 @@ private planeToEdge = [
         i++;
       }
       this._stack.drawed = true;
-      return condition_of_graph ? Way.DrawSimple : Way.DrawHard;
+      return condition_of_graph ? WAY.DRAW_SIMPLE : WAY.DRAW_HARD;
     }
-    return Way.Wait;
+    return WAY.WAIT;
   }
   private normalize(vector3: THREE.Vector3): number {
     return Math.abs(vector3.x) + Math.abs(vector3.y) + Math.abs(vector3.z);
-}
+  }
   private Numerator(a: number, b: number, c: number, d: number, dot1: THREE.Vector3): number {
     return (-d - a * dot1.x - b * dot1.y - c * dot1.z);
   }
@@ -123,6 +137,7 @@ private planeToEdge = [
   public onEdgeCube(d: THREE.Vector3): boolean {
     return Math.abs(d.x) <= 50 && Math.abs(d.y) <= 50 && Math.abs(d.z) <= 50;
   }
+  /*
   private maxArray(array: any[]): number {
     let max = array[0];
     for (let i = 1; i < array.length; i++) {
@@ -131,21 +146,182 @@ private planeToEdge = [
       }
     }
     return max;
-  }
-  public generateExtra() {/*
-    let graph = this.generateGraph(this._stack.edge_num);
-    let work_plane = this.getWorkPlane(this._stack.edge_num, this.arr, graph, section);
-    let stackForDraw = [];
-    dfsAndDraw(work_plane, this.arr, graph, section, stackForDraw);
-
-    const geometry = new THREE.Geometry();
-    for (let dot of this.arr) {
-      if (this.onEdgeCube(dot)) {
-        geometry.vertices.push(dot);
+  }*/
+  private find(array: any[], value: any): number {
+    if (array.indexOf) { // если браузер поддерживает
+      return array.indexOf(value);
+    }
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        return i;
       }
-    }*/
+    }
+    return -1;
+  }
+  private getNumsEdgFromPlane(num_plane: number): number[] {
+    switch (num_plane) {
+      case 0:
+        return [0, 1, 9, 10];
+      case 1:
+        return [2, 3, 8, 11];
+      case 2:
+        return [0, 3, 4, 5];
+      case 4:
+        return [4, 7, 8, 9];
+      case 3:
+        return [1, 2, 6, 7];
+      case 5:
+        return [5, 6, 10, 11];
+      default:
+        console.error('Try to get edge from don\'t exist plane');
+        return undefined;
+    }
+    return undefined;
+  }
+  private generateGraph(base_edge: number[]): {table: any[][]} {
+    const graph = new Array(6), queue_for_draw = new Array(12).fill(1);
+    /*
+      рассмотрим плоскость i:
+      если на пересечении с плоскостью j есть ребро с заданной точкой,
+      то количество существующих (отрисованных) точек на плоскости увеличивается
+    */
+    for (let i = 0; i < this.planeToEdge.length; i++) {
+      graph[i] = new Array(6);
+      graph[i].fill = false;
+      graph[i].ndraw = 0;
+      for (let j = 0; j < this.planeToEdge.length; j++) {
+        if (this.planeToEdge[i][j] >= 0) {
+          graph[i][j] = { way: true };
+          if (this.find(base_edge, this.planeToEdge[i][j]) >= 0) {
+            graph[i].ndraw++;
+          }
+        } else {
+          graph[i][j] = { way: false };
+        }
+      }
+    }
+    return {table: graph};
+  }
+  private dfsAndDraw(start: number, graph: any, planToDraw: any[]) {
+    const n = graph.table.length;
+    let visited = new Array(n).fill(false);
+    this.DFS(start, visited, graph, planToDraw);
+  }
+  private DFS(_start: number, _visited: boolean[], _graph: any, planToDraw: any[]) {
+    const _n = _graph.table.length;
+    _visited[_start] = true;
+    if (_graph.table[_start].ndraw >= 2 && !_graph.table[_start].fill) {
+      this.addStraightOnPlain(_start, planToDraw);
+      _graph.table[_start].fill = true;
+      /* для всех плоскостей со смежными ребрами */
+      for (const num_edge of this.planeToEdge[_start]) {
+        if (num_edge < 0) {
+          continue;
+        }
+        const i = this.edges[num_edge].plane[0] === _start ? this.edges[num_edge].plane[1] : this.edges[num_edge].plane[0];
+        _graph.table[i].ndraw++;
+      }
+    }
+    for (let r = 0; r < _n; r++) {
+      if ((_graph.table[_start][r].way) && (!_visited[r])) {
+        this.DFS(r, _visited, _graph, planToDraw);
+      }
+    }
+  }
+  private getWorkPlane(edge_nums: number[], graph: any, planToDraw: any[]) {
+    const _plane = new Array(6).fill(0);
+    for (let j = 0; j < edge_nums.length; j++) {
+      for (const pl of this.edges[edge_nums[j]].plane) {
+        _plane[pl]++;
+      }
+    }
+    if (Math.max(..._plane) >= 2) {
+      return _plane.indexOf(Math.max(..._plane));
+    }
+    const _arr = this.arr;
+    const edge3 = edge_nums.filter(function (i) {
+      return _arr[i].y === -50;
+    })[0];
+    const v = this.addExtra(edge_nums.filter(function (i) {
+      return i !== edge3;
+    }).map(function (i) {
+      return _arr[i];
+    }), planToDraw);
+    graph.table[2].ndraw = 2;
+    planToDraw.push([v, this.arr[edge3]]);
+    planToDraw[planToDraw.length - 1].type = TYPE.LINE;
+    return 2;
+  }
+  private addExtra(dots_under: THREE.Vector3[], planToDraw: any[]) {
+    const n_plane = 2;
+    const numsedge = this.getNumsEdgFromPlane(n_plane);
+    const dots = new Array<THREE.Vector3>();
+    for (let i = 0; i < 3; i++) {
+      dots.push(this.edges[numsedge[i]].vert1);
+    }
+    const a = this.partExpA(dots[0], dots[1], dots[2]), b = this.partExpB(dots[0], dots[1], dots[2]),
+      c = this.partExpC(dots[0], dots[1], dots[2]), d = this.partExpD(dots[0], dots[1], dots[2]);
+    const numerator = this.Numerator(a, b, c, d, dots_under[0]);
+    const denominator = this.Denominator(a, b, c, d, dots_under[0], dots_under[1]);
+    if (denominator === 0) {
+      console.error("Straight line parallel to the plane - try another plane");//!
+    } else {
+      const l = numerator / denominator;
+      const v = new THREE.Vector3(this.getCoord(dots_under[0].x, dots_under[1].x, l),
+        this.getCoord(dots_under[0].y, dots_under[1].y, l), this.getCoord(dots_under[0].z, dots_under[1].z, l));
+      //рисуем линии
+      //вертикали
+      let collect = new Array<Array<THREE.Vector3>>();
+      for (const dot of dots_under) {
+        collect.push([new THREE.Vector3(dot.x, -50, dot.z), dot]);
+      }
+      planToDraw.push(collect);
+      planToDraw[planToDraw.length - 1].type = TYPE.LINES;
+      collect = [];
+      //верхняя
+      for (const dot of dots_under) {
+        collect.push([dot, v]);
+      }
+      //нижняя
+      for (const dot of dots_under) {
+        collect.push([new THREE.Vector3(dot.x, -50, dot.z), v]);
+      }
+      //рисуем точку пересечения
+      planToDraw.push(collect);
+      planToDraw[planToDraw.length - 1].type = TYPE.LINES;
+      return v;
+    }
+  }
+  private addStraightOnPlain(num_plane: number, planToDraw: any[]) {
+    const _arr = this.arr;
+    const ind = this.getNumsEdgFromPlane(num_plane);
+    const dots = ind.map(function (j) {
+      return _arr[j];
+    }) as Array<THREE.Vector3>;
+    let dotsFromSection = new Array<THREE.Vector3>();
+    let asix = new Array<Array<THREE.Vector3>>();
+    for (let i = 0; i < dots.length; i++) {
+      if (!this.onEdgeCube(dots[i])) {
+        asix.push([dots[i], this.edges[ind[i]].vert1]);
+      }
+    }
+    planToDraw.push({black: dots, gray: asix});
+    planToDraw[planToDraw.length - 1].type = TYPE.PLANE;
   }
 
+  public generateExtra(): any {
+    let graph = this.generateGraph(this._stack.edge_num);
+    let planToDraw = new Array<Array<THREE.Vector3>>();
+    let work_plane = this.getWorkPlane(this._stack.edge_num, graph, planToDraw);
+    this.dfsAndDraw(work_plane, graph, planToDraw);
+    let selectionDots = [];
+        for (const dot of this.arr) {
+          if (this.onEdgeCube(dot)) {
+            selectionDots.push(dot);
+          }
+        }
+    return { plan: planToDraw, dots: selectionDots };
+  }
   constructor() {
     //грани куба
     /*(X, Y, Z) = three.(y, z, x)*/
@@ -169,16 +345,10 @@ private planeToEdge = [
     this.edges.push({ vert1: new THREE.Vector3(-s / 2, -s / 2, -s / 2), vert2: new THREE.Vector3(-s / 2, s / 2, -s / 2), plane: [0, 5] });
     this.edges.push({ vert1: new THREE.Vector3(-s / 2, s / 2, s / 2), vert2: new THREE.Vector3(-s / 2, -s / 2, s / 2), plane: [1, 5] });
     //11
-    this._stack = { data: [], edge_num: [], drawed: false};
+    this._stack = { data: [], edge_num: [], drawed: false };
   }
 }
 
-export enum Way {
-  DrawSimple = 0,
-  DrawHard = 1,
-  Clear = 2,
-  Wait = 3
-}
 /*
 class THREE.Vector3 {
   x: number;

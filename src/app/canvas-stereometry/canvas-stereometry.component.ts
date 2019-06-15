@@ -1,7 +1,12 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener, Output, EventEmitter, Type } from '@angular/core';
 import * as THREE from 'three';
-import { CubeService, Way } from '../cube.service';
+import { CubeService, WAY, TYPE } from '../cube.service';
 import { TrustedHtmlString } from '@angular/core/src/sanitization/bypass';
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37
+}
 
 @Component({
   selector: 'app-canvas-stereometry',
@@ -64,19 +69,20 @@ export class CanvasStereometryComponent implements AfterViewInit {
   private material = {
     back: new THREE.MeshLambertMaterial({
       color: 0xffffff,
-      opacity: 0.7,
+      opacity: 0.5,
       transparent: true
     }),
     front: new THREE.MeshLambertMaterial({
       color: 0xffffff,
-      opacity: 0.5,
+      opacity: 0.3,
       transparent: true
     }),
     black: new THREE.MeshBasicMaterial({ color: 0x00000 }),
     blue: new THREE.MeshBasicMaterial({ color: 0x0000ff }),
     green: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
     red: new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-    gray: new THREE.MeshLambertMaterial({ color: 0x999999 }),
+    gray_line: new THREE.LineBasicMaterial({ color: 0x999999 }),
+    powder_blue_line: new THREE.LineBasicMaterial({ color: 0xB0E0E6 }),
     dash: new THREE.LineDashedMaterial({
       color: 0xffffff,
       linewidth: 1,
@@ -84,6 +90,7 @@ export class CanvasStereometryComponent implements AfterViewInit {
       dashSize: 3,
       gapSize: 1,
     }),
+    black_line: new THREE.LineBasicMaterial({color: 0x000000}),
     section: new THREE.MeshBasicMaterial({ color: 0x90EE90, 
       side: THREE.DoubleSide })
   };
@@ -165,6 +172,10 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.cube_line.add(mesh);
   }
   public initilaze() {
+    this.material.section.polygonOffset = true;
+    this.material.section.polygonOffsetFactor = -0.1;
+    this.material.black.side = THREE.BackSide;
+    this.material.front.side = THREE.FrontSide;
     this.scene.add(this.cube);
     this.y_asix(new THREE.Vector3(-this.cubeService.side, 0, 0), new THREE.Vector3(this.cubeService.side, 0, 0), this.material.blue);
     this.z_asix(new THREE.Vector3(0, -this.cubeService.side, 0), new THREE.Vector3(0, this.cubeService.side, 0), this.material.red);
@@ -196,8 +207,6 @@ export class CanvasStereometryComponent implements AfterViewInit {
 
     this.ray = new THREE.Ray(this.camera.position, null);
     this.scene.add(this.section);
-    this.material.section.polygonOffset = true;
-    this.material.section.polygonOffsetFactor = -0.1;
   }
 
   private isMouseDown: boolean = false;
@@ -279,7 +288,7 @@ export class CanvasStereometryComponent implements AfterViewInit {
   }
   mouseWheelFunc(event: any) {
     var event = window.event || event; // old IE support
-    var delta = Math.max(-10, Math.min(10, (event.wheelDelta * 7
+    var delta = Math.max(-15, Math.min(15, (event.wheelDelta * 7
       || event.wheelDeltaY || -event.deltaY * 4)));
     if (delta > 0) {
       this.mouseWheelUp.emit(event);
@@ -328,7 +337,7 @@ export class CanvasStereometryComponent implements AfterViewInit {
       this.section.add(hel);
     }
     const plane = this.cubeService.canBuildPlane();
-    if (plane === Way.Clear) {
+    if (plane === WAY.Clear) {
       this.clearSelection();
       for (const p of this.cubeService.stack) {
         let hel = new THREE.Mesh(new THREE.SphereGeometry(1, 240), new THREE.MeshNormalMaterial());
@@ -337,11 +346,11 @@ export class CanvasStereometryComponent implements AfterViewInit {
       }
       return;
     }
-    if (plane === Way.DrawSimple || plane === Way.DrawHard) {
+    if (plane === WAY.DRAW_SIMPLE || plane === WAY.DRAW_HARD) {
       /*
       проверка на принадлежность одной прямой:
       */
-      if (plane === Way.DrawSimple) {
+      if (plane === WAY.DRAW_SIMPLE) {
         const geometry = new THREE.Geometry();
         for (const dot of this.cubeService.arr) {
           if (this.cubeService.onEdgeCube(dot)) {
@@ -358,16 +367,86 @@ export class CanvasStereometryComponent implements AfterViewInit {
           this.section.add(a);
           a = this.setPosition(a, this.cubeService.arr[i]);
         }
-      } else {
+      } else { // hard version
+        let { plan: planToDraw, dots: selectionDots } = this.cubeService.generateExtra();
+        this.listOfScenes = new Array<THREE.Object3D>();
+        this.numDrawedStep = -1;
+        //создаем массив сцен
+        for (let list of planToDraw) {
+          let nowScene = new THREE.Scene();
+          let dots = new Set<THREE.Vector3>();
+          //может быть массив пар вершин, может быть массив вершин (черных и серых)
+          if (list.type === TYPE.PLANE) {
+            dots = new Set(list.black);
+            this.drawLines(nowScene, list.black);
+            for (const part of list.gray) {
+              this.drawLine(nowScene, part[0], part[1], this.material.gray_line);
+            }
+          } else if (list.type === TYPE.LINES) {
+            for (const part of list) {
+              dots.add(part[0]);
+              dots.add(part[1]);
+              this.drawLine(nowScene, part[0], part[1], this.material.black_line);
+            }
+          } else if (list.type === TYPE.LINE) { 
+            dots.add(list[0]);
+            dots.add(list[1]);
+            this.drawLine(nowScene, list[0], list[1], this.material.black_line);
+          }
+          this.drawDots(nowScene, dots);
+          nowScene.visible = false;
+          this.listOfScenes.push(nowScene);
+          this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
+        }
+        //последняя сцена: отрисовка сечения}
         const geometry = new THREE.Geometry();
+        geometry.vertices.push(...(selectionDots as Array<THREE.Vector3>));
         geometry.faces = this.combinations(geometry.vertices.length);
         console.log(geometry);
         geometry.computeBoundingSphere();
-        let mesh = new THREE.Mesh(geometry, this.material.section);
-        this.section.add(mesh);
+        this.listOfScenes.push((new THREE.Scene()).add(new THREE.Mesh(geometry, this.material.section)));
+        this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
+        this.listOfScenes[this.listOfScenes.length - 1].visible = false;
       }
       this.render();
       this.cubeService.stack.shift();
+    }
+  }
+  private listOfScenes: Array<THREE.Object3D>;
+  private numDrawedStep: number = -1;
+  @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
+    if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+      if (this.numDrawedStep < this.listOfScenes.length - 1) {
+        this.listOfScenes[++this.numDrawedStep].visible = true;
+        this.render();
+      }
+    }
+    if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+      if (this.numDrawedStep > 0) {
+        this.listOfScenes[this.numDrawedStep--].visible = false;
+        this.render();
+      }
+    }
+  }
+  private drawLine(_scene: THREE.Object3D, d1: THREE.Vector3, d2: THREE.Vector3, material: THREE.Material) {
+    const geom = new THREE.Geometry();
+    geom.vertices.push(d1);
+    geom.vertices.push(d2);
+    _scene.add(new THREE.Line(geom, material));
+  }
+  private drawLines(_scene: THREE.Object3D, dots: THREE.Vector3[]) {
+    for (let i = 1; i < dots.length; i++) {
+      const geom = new THREE.Geometry();
+      geom.vertices.push(dots[i - 1]);
+      geom.vertices.push(dots[i]);
+      _scene.add(new THREE.Line(geom, this.material.black_line));
+    }
+  }
+  private drawDots(_scene: THREE.Object3D, dots: Set<THREE.Vector3>) {
+    for (const dot of Array.from(dots)) {
+      let d = new THREE.Mesh(new THREE.SphereGeometry(0.7, 240), this.material.black);
+      _scene.add(d);
+      d = this.setPosition(d, dot);
     }
   }
   private clearSelection() {
@@ -380,8 +459,8 @@ export class CanvasStereometryComponent implements AfterViewInit {
     const out = [];
     for (let i = 0; i < n - 1; i++) {
       for (let j = i + 2; j < n; j++) {
-        const x = a.slice(i, i + 2).concat(a[j]);
-        out.push(new THREE.Face3(x[0], x[1], x[2]));
+        const _x = a.slice(i, i + 2).concat(a[j]);
+        out.push(new THREE.Face3(_x[0], _x[1], _x[2]));
       }
     }
     const x = a.slice(-2).concat(a[0]);
