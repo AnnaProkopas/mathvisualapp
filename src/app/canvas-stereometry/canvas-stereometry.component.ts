@@ -310,7 +310,7 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.render();
   }
   private section = new THREE.Object3D();
-  @HostListener('document:click', ['$event']) onClick(event: any) {
+  public onClick(event: any) {
     event.preventDefault();
     const mouse = new THREE.Vector2();
     const clientX = event.pageX - this.canvas.offsetLeft;

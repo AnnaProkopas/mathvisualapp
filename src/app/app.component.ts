@@ -12,16 +12,8 @@ import { DataService } from './data.service';
 export class AppComponent {
   @ViewChild('appcanvas') trigRef: CanvasComponent;
   title = 'mathvisualapp';
-  public numShowCanvas: string = '4';
+  public numShowCanvas: string = '1';
   constructor(private dataService: DataService) {  }
-  /*trigonometrySelect(evt) {
-    var target = evt.target;
-    if (target.checked) {
-      this.showTrigCanvas = true;
-    } else {
-      this.showTrigCanvas = false;
-    }
-  }*/
   partTrig: boolean[] = [false, false, false, false];
   public changeSin() {
     this.partTrig[0] = !this.partTrig[0];
@@ -40,7 +32,6 @@ export class AppComponent {
     }
   }
   public changeTan() {
-    console.log("honestly, i tried ...");
     this.partTrig[2] = !this.partTrig[2];
     if (this.partTrig[2]) {
       this.trigRef.showTg();
