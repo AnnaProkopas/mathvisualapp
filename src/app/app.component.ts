@@ -15,6 +15,12 @@ export class AppComponent {
   public numShowCanvas: string = '1';
   constructor(private dataService: DataService) {  }
   partTrig: boolean[] = [false, false, false, false];
+  public chooseCube() {
+    this.numShowCanvas = '4';
+  }
+  public chooseTetrahedron() {
+    this.numShowCanvas = '3';
+  }
   public changeSin() {
     this.partTrig[0] = !this.partTrig[0];
     if (this.partTrig[0]) {

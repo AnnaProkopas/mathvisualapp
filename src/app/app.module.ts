@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
 import { CanvasBeginningAnalysisComponent } from './canvas-beginning-analysis/canvas-beginning-analysis.component';
 import { CanvasStereometryComponent } from './canvas-stereometry/canvas-stereometry.component';
+import { CanvasStereometryTetrahedronComponent } from './canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { CanvasStereometryComponent } from './canvas-stereometry/canvas-stereome
     CanvasComponent,
     CanvasBeginningAnalysisComponent,
     CanvasStereometryComponent,
+    CanvasStereometryTetrahedronComponent,
   ],
   imports: [
     BrowserModule,
