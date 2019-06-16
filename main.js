@@ -788,6 +788,7 @@ var CanvasStereometryTetrahedronComponent = /** @class */ (function () {
             проверка на принадлежность одной прямой:
             */
             var _d = this.tetraService.generatePlan(plane), planToDraw = _d.plan, selectionDots = _d.dots;
+            //debugger;
             this.listOfScenes = new Array();
             this.numDrawedStep = -1;
             //создаем массив сцен
@@ -799,8 +800,7 @@ var CanvasStereometryTetrahedronComponent = /** @class */ (function () {
                 if (list.type === _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["TYPE"].PLANE) {
                     dots = new Set(list.black);
                     this.drawLines(nowScene, list.black);
-                    debugger;
-                    for (var i = 0; i < list.black.length; i++) {
+                    for (var i = 0; i < list.gray.length; i++) {
                         var tmp = this.drawLine(nowScene, list.black[i], list.gray[i], this.material.black_dash_line);
                         tmp.computeLineDistances();
                     }
@@ -820,7 +820,6 @@ var CanvasStereometryTetrahedronComponent = /** @class */ (function () {
             }
             //последняя сцена: отрисовка сечения}
             var geometry = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
-            debugger;
             geometry.vertices = selectionDots;
             geometry.faces = this.combinations(geometry.vertices.length);
             geometry.computeBoundingSphere();
@@ -2725,7 +2724,7 @@ var TetrahedronService = /** @class */ (function () {
             { vert1: 1, vert2: 2, plane: [0, 3] },
             { vert1: 0, vert2: 1, plane: [0, 2] },
             { vert1: 3, vert2: 1, plane: [2, 3] }]; //5
-        this._stack = { data: [], edge_num: [], drawed: false };
+        this._stack = { data: [], drawed: false };
     }
     TetrahedronService.prototype.getDot = function (i) {
         if (i >= this._stack.data.length) {
@@ -2764,9 +2763,8 @@ var TetrahedronService = /** @class */ (function () {
             var i = 0;
             this.arr = [];
             this.arr_on = new Array();
-            this._stack.edge_num = [];
-            for (var _i = 0, _a = this.edges; _i < _a.length; _i++) {
-                var edge = _a[_i];
+            for (var _i = 0, _b = this.edges; _i < _b.length; _i++) {
+                var edge = _b[_i];
                 var numerator = this.Numerator(a, b, c, d, this.getVertCoord(edge.vert1));
                 var denominator = this.Denominator(a, b, c, d, this.getVertCoord(edge.vert1), this.getVertCoord(edge.vert2));
                 if (Math.abs(denominator) < this.EPS * 10) {
@@ -2790,7 +2788,18 @@ var TetrahedronService = /** @class */ (function () {
                 }
             }
             this._stack.drawed = true;
-            return i === 3 ? WAY.DRAW_SIMPLE : WAY.DRAW_HARD;
+            this.listOfHasPlanes = new Set();
+            for (var j = 0; j < this.stack.length; j++) {
+                this.listOfHasPlanes.add(this.getNumPlaneForBaseDot(this.stack[j]));
+            }
+            debugger;
+            if (i === 3) {
+                //debugger;
+                if (this.listOfHasPlanes.size < this.stack.length) {
+                    return WAY.DRAW_SIMPLE;
+                }
+            }
+            return WAY.DRAW_HARD;
         }
         return WAY.WAIT;
     };
@@ -2818,22 +2827,21 @@ var TetrahedronService = /** @class */ (function () {
     private twoOutOfThree(f: boolean, s: boolean, t: boolean): boolean {
       return (f && s) || (s && t) || (t && f);
     }*/
+    TetrahedronService.prototype.getNumPlaneForBaseDot = function (dot) {
+        for (var i = 0; i < 4; i++) {
+            var d1 = this.getVertCoord(this.indices[i * 3]), d2 = this.getVertCoord(this.indices[i * 3 + 1]), d3 = this.getVertCoord(this.indices[i * 3 + 2]);
+            var _a = this.partExpA(d1, d2, d3), b = this.partExpB(d1, d2, d3), c = this.partExpC(d1, d2, d3), d = this.partExpD(d1, d2, d3);
+            console.log(_a * dot.x + b * dot.y + c * dot.z + d);
+            if (_a * dot.x + b * dot.y + c * dot.z + d < 1) {
+                return i;
+            }
+        }
+    };
     TetrahedronService.prototype.isTreeDotsOnCommonStraight = function (d1, d2, d3) {
         var l1 = (d2.x - d1.x) === 0 ? null : (d3.x - d1.x) / (d2.x - d1.x), l2 = (d2.y - d1.y) === 0 ? null : (d3.y - d1.y) / (d2.y - d1.y), l3 = (d2.z - d1.z) === 0 ? null : (d3.z - d1.z) / (d2.z - d1.z);
         return (l1 === null && Math.abs(l3 - l2) < this.EPS) ||
             (l2 === null && Math.abs(l1 - l3) < this.EPS) ||
             (l3 === null && Math.abs(l1 - l2) < this.EPS);
-    };
-    TetrahedronService.prototype.find = function (array, value) {
-        if (array.indexOf) { // если браузер поддерживает
-            return array.indexOf(value);
-        }
-        for (var i = 0; i < array.length; i++) {
-            if (array[i] === value) {
-                return i;
-            }
-        }
-        return -1;
     };
     TetrahedronService.prototype.getVertCoord = function (n) {
         return new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.vertices[3 * n], this.vertices[3 * n + 1], this.vertices[3 * n + 2]);
@@ -2874,19 +2882,51 @@ var TetrahedronService = /** @class */ (function () {
         }
         return false;
     };
-    TetrahedronService.prototype.addExtra = function (dots_under, planToDraw) {
-        var n_plane = 3;
-        var numsedge = this.getNumsEdgeFromPlane(n_plane);
-        var dots = new Array();
-        for (var i = 0; i < 3; i++) {
-            dots.push(this.getVertCoord(this.edges[numsedge[i]].vert1));
+    TetrahedronService.prototype.getVertOppositPlane = function (n) {
+        switch (n) {
+            case 0:
+                return 3;
+            case 3:
+                return 0;
+            default:
+                return n;
         }
+    };
+    TetrahedronService.prototype.getDistanse = function (d1, d2) {
+        return Math.sqrt(Math.pow(d1.x - d2.x, 2) + Math.pow(d1.y - d2.y, 2) + Math.pow(d1.z - d2.z, 2));
+    };
+    TetrahedronService.prototype.addExtra = function (dots_under, planToDraw) {
+        var _b;
+        var _this = this;
+        debugger;
+        //номер плоскости без точек:
+        var n_plane = [0, 1, 2, 3].filter(function (i) {
+            return !_this.listOfHasPlanes.has(i);
+        })[0];
+        var vertex = this.getVertCoord(this.getVertOppositPlane(n_plane));
+        var dots = this.getNumsEdgeFromPlane(n_plane).map(function (i) {
+            return _this.getVertCoord(_this.edges[i].vert1);
+        });
         var a = this.partExpA(dots[0], dots[1], dots[2]), b = this.partExpB(dots[0], dots[1], dots[2]), c = this.partExpC(dots[0], dots[1], dots[2]), d = this.partExpD(dots[0], dots[1], dots[2]);
-        var i_min = this.getMinIOfY(dots_under);
+        var numerator = _this.Numerator(a, b, c, d, vertex);
+        //debugger;
+        var projection = dots_under.map(function (i) {
+            var l = numerator / _this.Denominator(a, b, c, d, vertex, i);
+            return new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](_this.getCoord(vertex.x, i.x, l), _this.getCoord(vertex.y, i.y, l), _this.getCoord(vertex.z, i.z, l));
+            ;
+        });
+        var i_min = this.getMinI(dots_under.map(function (el, i) {
+            return _this.getDistanse(el, projection[i]);
+        }));
         var down = dots_under.slice(i_min, i_min + 1)[0];
-        for (var _i = 0, dots_under_1 = dots_under; _i < dots_under_1.length; _i++) {
-            var dot_u = dots_under_1[_i];
-            var numerator = this.Numerator(a, b, c, d, dot_u);
+        console.log(down);
+        var join = new Array();
+        for (var i = 0; i < dots_under.length; i++) {
+            if (i === i_min) {
+                continue;
+            }
+            var dot_u = dots_under[i];
+            numerator = this.Numerator(a, b, c, d, dot_u);
             var denominator = this.Denominator(a, b, c, d, dot_u, down);
             if (denominator === 0) {
                 console.error("Straight line parallel to the plane - try another plane"); //!
@@ -2894,49 +2934,60 @@ var TetrahedronService = /** @class */ (function () {
             else {
                 var l = numerator / denominator;
                 var v = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.getCoord(dot_u.x, down.x, l), this.getCoord(dot_u.y, down.y, l), this.getCoord(dot_u.z, down.z, l));
+                join.push(v);
                 //рисуем линии
                 var collect = new Array();
                 //верхняя
                 collect.push([dot_u, v]);
                 //нижняя
-                l = -dot_u.y / (this.getVertY(0) - dot_u.y);
-                var p = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.getCoord(dot_u.x, this.getVertX(0), l), 0, this.getCoord(dot_u.z, this.getVertZ(0), l));
-                collect.push([p, v]);
+                collect.push([projection[i], v]);
                 //вертикали
-                collect.push([p, this.getVertCoord(0)]);
+                collect.push([projection[i], vertex]);
                 //выводим данные
                 planToDraw.push(collect);
                 planToDraw[planToDraw.length - 1].type = TYPE.LINES;
             }
         }
+        var t = this.addStraightOnPlain(n_plane);
+        (_b = t.black).push.apply(_b, join);
+        planToDraw.push(t);
+        return n_plane;
     };
     TetrahedronService.prototype.addStraightOnPlain = function (num_plane) {
-        var _arr = this.arr;
+        var _this = this;
         var dots_i = this.getNumsEdgeFromPlane(num_plane).filter(function (i) {
-            return _arr[i] != null;
+            return _this.arr[i] != null;
         });
         var dots = dots_i.map(function (i) {
-            return _arr[i];
+            return _this.arr[i];
         });
-        var asix = new Array();
-        for (var i = 0; i < dots.length; i++) {
-            asix.push(this.getVertCoord(this.edges[dots_i[i]].vert1));
-        }
+        var asix = dots_i.map(function (i) {
+            return _this.getVertCoord(_this.edges[i].vert1);
+        });
         return { black: dots, gray: asix, type: TYPE.PLANE };
     };
+    TetrahedronService.prototype.addStraight = function (num_plane) {
+        var _this = this;
+        var dots = this.getNumsEdgeFromPlane(num_plane).filter(function (i) {
+            return _this.arr_on[i];
+        }).map(function (i) {
+            return _this.arr[i];
+        });
+        return { black: dots, gray: [], type: TYPE.PLANE };
+    };
     TetrahedronService.prototype.generatePlan = function (plan) {
-        var _a, _b;
+        var _b;
         var planToDraw = new Array();
+        var drawed_plane = -1;
         if (plan === WAY.DRAW_HARD) {
-            this.addExtra(this.stack, planToDraw);
-            planToDraw.push(this.addStraightOnPlain(3));
+            drawed_plane = this.addExtra(this.stack, planToDraw);
         }
-        debugger;
         var sub_plan = { black: new Array(), gray: new Array(), type: TYPE.PLANE };
-        for (var p = 0, tmp = void 0; p < 4 - (plan === WAY.DRAW_HARD ? 1 : 0); p++) {
-            tmp = this.addStraightOnPlain(p);
-            (_a = sub_plan.black).push.apply(_a, tmp.black);
-            (_b = sub_plan.gray).push.apply(_b, tmp.gray);
+        for (var p = 0; p < 4; p++) {
+            if (p === drawed_plane) {
+                continue;
+            }
+            (_b = sub_plan.black).push.apply(_b, this.addStraightOnPlain(p).black);
         }
         planToDraw.push(sub_plan);
         var selectionDots = new Array();
@@ -2947,14 +2998,9 @@ var TetrahedronService = /** @class */ (function () {
         }
         return { plan: planToDraw, dots: selectionDots };
     };
-    TetrahedronService.prototype.getMinIOfY = function (arr) {
-        var min = Math.min.apply(null, arr.map(function (i) {
-            return i.y;
-        }));
-        var o = arr.map(function (i) {
-            return i.y;
-        }).indexOf(min);
-        return o;
+    TetrahedronService.prototype.getMinI = function (arr) {
+        var min = Math.min.apply(null, arr);
+        return arr.indexOf(min);
     };
     TetrahedronService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
