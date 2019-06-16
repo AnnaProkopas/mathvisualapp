@@ -323,6 +323,7 @@ export class CanvasStereometryTetrahedronComponent implements AfterViewInit {
       проверка на принадлежность одной прямой:
       */
       let { plan: planToDraw, dots: selectionDots } = this.tetraService.generatePlan(plane);
+      //debugger;
       this.listOfScenes = new Array<THREE.Object3D>();
       this.numDrawedStep = -1;
       //создаем массив сцен
@@ -333,8 +334,7 @@ export class CanvasStereometryTetrahedronComponent implements AfterViewInit {
         if (list.type === TYPE.PLANE) {
           dots = new Set(list.black);
           this.drawLines(nowScene, list.black);
-          debugger;
-          for (let i = 0; i < list.black.length; i++) {
+          for (let i = 0; i < list.gray.length; i++) {
             let tmp = this.drawLine(nowScene, list.black[i], list.gray[i], this.material.black_dash_line);
             tmp.computeLineDistances();
           }
@@ -352,7 +352,6 @@ export class CanvasStereometryTetrahedronComponent implements AfterViewInit {
       }
       //последняя сцена: отрисовка сечения}
       let geometry = new THREE.Geometry();
-      debugger;
       geometry.vertices = selectionDots as Array<THREE.Vector3>;
       geometry.faces = this.combinations(geometry.vertices.length);
       geometry.computeBoundingSphere();
