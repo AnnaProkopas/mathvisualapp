@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "app-canvas {\n\theight: 1000px;\n\twidth: 600px;\n}\n.left-menu {\n\twidth: 200px;\n\theight: 500px;\n}\n.inline{\n    display: flex;\n    margin: auto;\n    justify-content: flex-start;\n    margin-left: 15%;\n}\nbody {background: #e0e3ec url(http://netcribe.com/example/bgnoise_lg.jpg) repeat top left;}\n.ac-container{\n    width: inherit;\n    margin: 10px auto 30px auto;\n}\n.ac-container .ac-label, .ac-list div{\n    font-family: 'Arial Narrow', Arial, sans-serif;\n    padding: 5px 20px;\n    position: relative;\n    z-index: 20;\n    display: block;\n    height: 30px;\n    cursor: pointer;\n    color: #777;\n    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);\n    line-height: 33px;\n    font-size: 19px;\n    background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 );\n    /*box-shadow: \n        0px 0px 0px 1px rgba(155,155,155,0.3), \n        1px 0px 0px 0px rgba(255,255,255,0.9) inset, \n        0px 2px 2px rgba(0,0,0,0.1);*/\n}\n.ac-container .ac-label:hover{\n    background: #fff;\n}\n/*.ac-container .ac-checkbox:checked + .ac-label {\n    background: #c6e1ec;\n    color: #3d7489;\n    text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);\n    box-shadow: \n        0px 0px 0px 1px rgba(155,155,155,0.3), \n        0px 2px 2px rgba(0,0,0,0.1);\n}*/\n.ac-container input:checked + label,\n.ac-container input:checked + label:hover{\n    background: #c6e1ec;\n    color: #3d7489;\n    text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);\n    box-shadow: \n        0px 0px 0px 1px rgba(155,155,155,0.3), \n        0px 2px 2px rgba(0,0,0,0.1);\n}\n.ac-container .ac-label:hover:after,\n.ac-container .ac-checkbox:checked + .ac-label:hover:after{\n    content: '';\n    position: absolute;\n    width: 24px;\n    height: 24px;\n    right: 13px;\n    top: 7px;\n    background: transparent url(http://netcribe.com/example/arrow_down.png) no-repeat center center;  \n}\n.ac-container .ac-checkbox:checked + .ac-label:hover:after {\n    background-image: url(http://netcribe.com/example/arrow_up.png);\n}\n.ac-container .ac-checkbox {\n    display: none;\n}\n.ac-container article{\n    background: rgba(255, 255, 255, 0.5);\n    margin-top: -1px;\n    overflow: hidden;\n    height: 0px;\n    position: relative;\n    z-index: 10;\n    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;\n}\n.ac-container .ac-checkbox:checked ~ article {\n    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;\n    box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);\n    height: 140px;/*change this!*/\n}\n.ac-container article p{\n    font-style: italic;\n    color: #777;\n    line-height: 23px;\n    font-size: 14px;\n    padding: 20px;\n    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Q0FDQyxjQUFjO0NBQ2QsWUFBWTtBQUNiO0FBQ0E7Q0FDQyxZQUFZO0NBQ1osYUFBYTtBQUNkO0FBRUE7SUFDSSxhQUFhO0lBQ2IsWUFBWTtJQUNaLDJCQUEyQjtJQUMzQixnQkFBZ0I7QUFDcEI7QUFFQSxNQUFNLG1GQUFtRixDQUFDO0FBQzFGO0lBQ0ksY0FBYztJQUNkLDJCQUEyQjtBQUMvQjtBQUVBO0lBQ0ksOENBQThDO0lBQzlDLGlCQUFpQjtJQUNqQixrQkFBa0I7SUFDbEIsV0FBVztJQUNYLGNBQWM7SUFDZCxZQUFZO0lBQ1osZUFBZTtJQUNmLFdBQVc7SUFDWCw4Q0FBOEM7SUFDOUMsaUJBQWlCO0lBQ2pCLGVBQWU7SUFLZiw2REFBNkQ7SUFDN0QsbUhBQW1IO0lBQ25IOzs7cUNBR2lDO0FBQ3JDO0FBRUE7SUFDSSxnQkFBZ0I7QUFDcEI7QUFFQTs7Ozs7OztFQU9FO0FBRUY7O0lBRUksbUJBQW1CO0lBQ25CLGNBQWM7SUFDZCwrQ0FBK0M7SUFDL0M7O21DQUUrQjtBQUNuQztBQUVBOztJQUVJLFdBQVc7SUFDWCxrQkFBa0I7SUFDbEIsV0FBVztJQUNYLFlBQVk7SUFDWixXQUFXO0lBQ1gsUUFBUTtJQUNSLCtGQUErRjtBQUNuRztBQUVBO0lBQ0ksK0RBQStEO0FBQ25FO0FBRUE7SUFDSSxhQUFhO0FBQ2pCO0FBRUE7SUFDSSxvQ0FBb0M7SUFDcEMsZ0JBQWdCO0lBQ2hCLGdCQUFnQjtJQUNoQixXQUFXO0lBQ1gsa0JBQWtCO0lBQ2xCLFdBQVc7SUFLWCwyREFBMkQ7QUFDL0Q7QUFDQTtJQUtJLDJEQUEyRDtJQUMzRCxpREFBaUQ7SUFDakQsYUFBYSxDQUFDLGVBQWU7QUFDakM7QUFFQTtJQUNJLGtCQUFrQjtJQUNsQixXQUFXO0lBQ1gsaUJBQWlCO0lBQ2pCLGVBQWU7SUFDZixhQUFhO0lBQ2IsOENBQThDO0FBQ2xEIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJhcHAtY2FudmFzIHtcblx0aGVpZ2h0OiAxMDAwcHg7XG5cdHdpZHRoOiA2MDBweDtcbn1cbi5sZWZ0LW1lbnUge1xuXHR3aWR0aDogMjAwcHg7XG5cdGhlaWdodDogNTAwcHg7XG59XG5cbi5pbmxpbmV7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAganVzdGlmeS1jb250ZW50OiBmbGV4LXN0YXJ0O1xuICAgIG1hcmdpbi1sZWZ0OiAxNSU7XG59XG5cbmJvZHkge2JhY2tncm91bmQ6ICNlMGUzZWMgdXJsKGh0dHA6Ly9uZXRjcmliZS5jb20vZXhhbXBsZS9iZ25vaXNlX2xnLmpwZykgcmVwZWF0IHRvcCBsZWZ0O31cbi5hYy1jb250YWluZXJ7XG4gICAgd2lkdGg6IGluaGVyaXQ7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG8gMzBweCBhdXRvO1xufVxuXG4uYWMtY29udGFpbmVyIC5hYy1sYWJlbCwgLmFjLWxpc3QgZGl2e1xuICAgIGZvbnQtZmFtaWx5OiAnQXJpYWwgTmFycm93JywgQXJpYWwsIHNhbnMtc2VyaWY7XG4gICAgcGFkZGluZzogNXB4IDIwcHg7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHotaW5kZXg6IDIwO1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIGhlaWdodDogMzBweDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgY29sb3I6ICM3Nzc7XG4gICAgdGV4dC1zaGFkb3c6IDFweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsMC44KTtcbiAgICBsaW5lLWhlaWdodDogMzNweDtcbiAgICBmb250LXNpemU6IDE5cHg7XG4gICAgYmFja2dyb3VuZDogLW1vei1saW5lYXItZ3JhZGllbnQodG9wLCAjZmZmZmZmIDElLCAjZWFlYWVhIDEwMCUpO1xuICAgIGJhY2tncm91bmQ6IC13ZWJraXQtZ3JhZGllbnQobGluZWFyLCBsZWZ0IHRvcCwgbGVmdCBib3R0b20sIGNvbG9yLXN0b3AoMSUsI2ZmZmZmZiksIGNvbG9yLXN0b3AoMTAwJSwjZWFlYWVhKSk7XG4gICAgYmFja2dyb3VuZDogLXdlYmtpdC1saW5lYXItZ3JhZGllbnQodG9wLCAjZmZmZmZmIDElLCNlYWVhZWEgMTAwJSk7XG4gICAgYmFja2dyb3VuZDogLW8tbGluZWFyLWdyYWRpZW50KHRvcCwgI2ZmZmZmZiAxJSwjZWFlYWVhIDEwMCUpO1xuICAgIGJhY2tncm91bmQ6IC1tcy1saW5lYXItZ3JhZGllbnQodG9wLCAjZmZmZmZmIDElLCNlYWVhZWEgMTAwJSk7XG4gICAgZmlsdGVyOiBwcm9naWQ6RFhJbWFnZVRyYW5zZm9ybS5NaWNyb3NvZnQuZ3JhZGllbnQoIHN0YXJ0Q29sb3JzdHI9JyNmZmZmZmYnLCBlbmRDb2xvcnN0cj0nI2VhZWFlYScsR3JhZGllbnRUeXBlPTAgKTtcbiAgICAvKmJveC1zaGFkb3c6IFxuICAgICAgICAwcHggMHB4IDBweCAxcHggcmdiYSgxNTUsMTU1LDE1NSwwLjMpLCBcbiAgICAgICAgMXB4IDBweCAwcHggMHB4IHJnYmEoMjU1LDI1NSwyNTUsMC45KSBpbnNldCwgXG4gICAgICAgIDBweCAycHggMnB4IHJnYmEoMCwwLDAsMC4xKTsqL1xufVxuXG4uYWMtY29udGFpbmVyIC5hYy1sYWJlbDpob3ZlcntcbiAgICBiYWNrZ3JvdW5kOiAjZmZmO1xufVxuXG4vKi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94OmNoZWNrZWQgKyAuYWMtbGFiZWwge1xuICAgIGJhY2tncm91bmQ6ICNjNmUxZWM7XG4gICAgY29sb3I6ICMzZDc0ODk7XG4gICAgdGV4dC1zaGFkb3c6IDBweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsIDAuNik7XG4gICAgYm94LXNoYWRvdzogXG4gICAgICAgIDBweCAwcHggMHB4IDFweCByZ2JhKDE1NSwxNTUsMTU1LDAuMyksIFxuICAgICAgICAwcHggMnB4IDJweCByZ2JhKDAsMCwwLDAuMSk7XG59Ki9cblxuLmFjLWNvbnRhaW5lciBpbnB1dDpjaGVja2VkICsgbGFiZWwsXG4uYWMtY29udGFpbmVyIGlucHV0OmNoZWNrZWQgKyBsYWJlbDpob3ZlcntcbiAgICBiYWNrZ3JvdW5kOiAjYzZlMWVjO1xuICAgIGNvbG9yOiAjM2Q3NDg5O1xuICAgIHRleHQtc2hhZG93OiAwcHggMXB4IDFweCByZ2JhKDI1NSwyNTUsMjU1LCAwLjYpO1xuICAgIGJveC1zaGFkb3c6IFxuICAgICAgICAwcHggMHB4IDBweCAxcHggcmdiYSgxNTUsMTU1LDE1NSwwLjMpLCBcbiAgICAgICAgMHB4IDJweCAycHggcmdiYSgwLDAsMCwwLjEpO1xufVxuXG4uYWMtY29udGFpbmVyIC5hYy1sYWJlbDpob3ZlcjphZnRlcixcbi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94OmNoZWNrZWQgKyAuYWMtbGFiZWw6aG92ZXI6YWZ0ZXJ7XG4gICAgY29udGVudDogJyc7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiAyNHB4O1xuICAgIGhlaWdodDogMjRweDtcbiAgICByaWdodDogMTNweDtcbiAgICB0b3A6IDdweDtcbiAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudCB1cmwoaHR0cDovL25ldGNyaWJlLmNvbS9leGFtcGxlL2Fycm93X2Rvd24ucG5nKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlcjsgIFxufVxuXG4uYWMtY29udGFpbmVyIC5hYy1jaGVja2JveDpjaGVja2VkICsgLmFjLWxhYmVsOmhvdmVyOmFmdGVyIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoaHR0cDovL25ldGNyaWJlLmNvbS9leGFtcGxlL2Fycm93X3VwLnBuZyk7XG59XG5cbi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94IHtcbiAgICBkaXNwbGF5OiBub25lO1xufVxuXG4uYWMtY29udGFpbmVyIGFydGljbGV7XG4gICAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjUpO1xuICAgIG1hcmdpbi10b3A6IC0xcHg7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBoZWlnaHQ6IDBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgei1pbmRleDogMTA7XG4gICAgLXdlYmtpdC10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICAtbW96LXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1vLXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1tcy10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICB0cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbn1cbi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94OmNoZWNrZWQgfiBhcnRpY2xlIHtcbiAgICAgLXdlYmtpdC10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICAtbW96LXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1vLXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1tcy10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICB0cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICBib3gtc2hhZG93OiAwcHggMHB4IDBweCAxcHggcmdiYSgxNTUsMTU1LDE1NSwwLjMpO1xuICAgIGhlaWdodDogMTQwcHg7LypjaGFuZ2UgdGhpcyEqL1xufVxuXG4uYWMtY29udGFpbmVyIGFydGljbGUgcHtcbiAgICBmb250LXN0eWxlOiBpdGFsaWM7XG4gICAgY29sb3I6ICM3Nzc7XG4gICAgbGluZS1oZWlnaHQ6IDIzcHg7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIHBhZGRpbmc6IDIwcHg7XG4gICAgdGV4dC1zaGFkb3c6IDFweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsMC44KTtcbn0iXX0= */"
+module.exports = "app-canvas {\n\theight: 1000px;\n\twidth: 600px;\n}\napp-canvas-stereometry {\n    height: 1000px;\n    width: 700px;\n}\n.left-menu {\n\twidth: 200px;\n\theight: 500px;\n}\n.inline{\n    display: flex;\n    margin: auto;\n    justify-content: flex-start;\n    margin-left: 15%;\n}\nbody {background: #e0e3ec repeat top left;}\n.ac-container{\n    width: inherit;\n    margin: 10px auto 30px auto;\n}\n.ac-container .ac-label, .ac-list div{\n    font-family: 'Arial Narrow', Arial, sans-serif;\n    padding: 5px 20px;\n    position: relative;\n    z-index: 20;\n    display: block;\n    height: 30px;\n    cursor: pointer;\n    color: #777;\n    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);\n    line-height: 33px;\n    font-size: 19px;\n    /*background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(100%,#eaeaea));\n    */\n    background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 );\n    /*box-shadow: \n        0px 0px 0px 1px rgba(155,155,155,0.3), \n        1px 0px 0px 0px rgba(255,255,255,0.9) inset, \n        0px 2px 2px rgba(0,0,0,0.1);*/\n}\n.ac-container .ac-label:hover{\n    background: #fff;\n}\n/*.ac-container .ac-checkbox:checked + .ac-label {\n    background: #c6e1ec;\n    color: #3d7489;\n    text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);\n    box-shadow: \n        0px 0px 0px 1px rgba(155,155,155,0.3), \n        0px 2px 2px rgba(0,0,0,0.1);\n}*/\n.ac-container input:checked + label,\n.ac-container input:checked + label:hover{\n    background: #c6e1ec;\n    color: #3d7489;\n    text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);\n    box-shadow: \n        0px 0px 0px 1px rgba(155,155,155,0.3), \n        0px 2px 2px rgba(0,0,0,0.1);\n}\n.ac-container .ac-label:hover:after,\n.ac-container .ac-checkbox:checked + .ac-label:hover:after{\n    content: '';\n    position: absolute;\n    width: 24px;\n    height: 24px;\n    right: 13px;\n    top: 7px;\n    background: transparent url(http://netcribe.com/example/arrow_down.png) no-repeat center center;  \n}\n.ac-container .ac-checkbox:checked + .ac-label:hover:after {\n    background-image: url(http://netcribe.com/example/arrow_up.png);\n}\n.ac-container .ac-checkbox {\n    display: none;\n}\n.ac-container article{\n    background: rgba(255, 255, 255, 0.5);\n    margin-top: -1px;\n    overflow: hidden;\n    height: 0px;\n    position: relative;\n    z-index: 10;\n    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;\n}\n.ac-container .ac-checkbox:checked ~ article {\n    transition: height 0.3s ease-in-out, box-shadow 0.6s linear;\n    box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);\n    height: 140px;/*change this!*/\n}\n.ac-container article p{\n    font-style: italic;\n    color: #777;\n    line-height: 23px;\n    font-size: 14px;\n    padding: 20px;\n    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Q0FDQyxjQUFjO0NBQ2QsWUFBWTtBQUNiO0FBQ0E7SUFDSSxjQUFjO0lBQ2QsWUFBWTtBQUNoQjtBQUNBO0NBQ0MsWUFBWTtDQUNaLGFBQWE7QUFDZDtBQUVBO0lBQ0ksYUFBYTtJQUNiLFlBQVk7SUFDWiwyQkFBMkI7SUFDM0IsZ0JBQWdCO0FBQ3BCO0FBRUEsTUFBTSxtQ0FBbUMsQ0FBQztBQUMxQztJQUNJLGNBQWM7SUFDZCwyQkFBMkI7QUFDL0I7QUFFQTtJQUNJLDhDQUE4QztJQUM5QyxpQkFBaUI7SUFDakIsa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWCxjQUFjO0lBQ2QsWUFBWTtJQUNaLGVBQWU7SUFDZixXQUFXO0lBQ1gsOENBQThDO0lBQzlDLGlCQUFpQjtJQUNqQixlQUFlO0lBRWY7S0FDQztJQUVELDZEQUE2RDtJQUM3RCxtSEFBbUg7SUFDbkg7OztxQ0FHaUM7QUFDckM7QUFFQTtJQUNJLGdCQUFnQjtBQUNwQjtBQUVBOzs7Ozs7O0VBT0U7QUFFRjs7SUFFSSxtQkFBbUI7SUFDbkIsY0FBYztJQUNkLCtDQUErQztJQUMvQzs7bUNBRStCO0FBQ25DO0FBRUE7O0lBRUksV0FBVztJQUNYLGtCQUFrQjtJQUNsQixXQUFXO0lBQ1gsWUFBWTtJQUNaLFdBQVc7SUFDWCxRQUFRO0lBQ1IsK0ZBQStGO0FBQ25HO0FBRUE7SUFDSSwrREFBK0Q7QUFDbkU7QUFFQTtJQUNJLGFBQWE7QUFDakI7QUFFQTtJQUNJLG9DQUFvQztJQUNwQyxnQkFBZ0I7SUFDaEIsZ0JBQWdCO0lBQ2hCLFdBQVc7SUFDWCxrQkFBa0I7SUFDbEIsV0FBVztJQUtYLDJEQUEyRDtBQUMvRDtBQUNBO0lBS0ksMkRBQTJEO0lBQzNELGlEQUFpRDtJQUNqRCxhQUFhLENBQUMsZUFBZTtBQUNqQztBQUVBO0lBQ0ksa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWCxpQkFBaUI7SUFDakIsZUFBZTtJQUNmLGFBQWE7SUFDYiw4Q0FBOEM7QUFDbEQiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbImFwcC1jYW52YXMge1xuXHRoZWlnaHQ6IDEwMDBweDtcblx0d2lkdGg6IDYwMHB4O1xufVxuYXBwLWNhbnZhcy1zdGVyZW9tZXRyeSB7XG4gICAgaGVpZ2h0OiAxMDAwcHg7XG4gICAgd2lkdGg6IDcwMHB4O1xufVxuLmxlZnQtbWVudSB7XG5cdHdpZHRoOiAyMDBweDtcblx0aGVpZ2h0OiA1MDBweDtcbn1cblxuLmlubGluZXtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGZsZXgtc3RhcnQ7XG4gICAgbWFyZ2luLWxlZnQ6IDE1JTtcbn1cblxuYm9keSB7YmFja2dyb3VuZDogI2UwZTNlYyByZXBlYXQgdG9wIGxlZnQ7fVxuLmFjLWNvbnRhaW5lcntcbiAgICB3aWR0aDogaW5oZXJpdDtcbiAgICBtYXJnaW46IDEwcHggYXV0byAzMHB4IGF1dG87XG59XG5cbi5hYy1jb250YWluZXIgLmFjLWxhYmVsLCAuYWMtbGlzdCBkaXZ7XG4gICAgZm9udC1mYW1pbHk6ICdBcmlhbCBOYXJyb3cnLCBBcmlhbCwgc2Fucy1zZXJpZjtcbiAgICBwYWRkaW5nOiA1cHggMjBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgei1pbmRleDogMjA7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgaGVpZ2h0OiAzMHB4O1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBjb2xvcjogIzc3NztcbiAgICB0ZXh0LXNoYWRvdzogMXB4IDFweCAxcHggcmdiYSgyNTUsMjU1LDI1NSwwLjgpO1xuICAgIGxpbmUtaGVpZ2h0OiAzM3B4O1xuICAgIGZvbnQtc2l6ZTogMTlweDtcbiAgICBiYWNrZ3JvdW5kOiAtbW96LWxpbmVhci1ncmFkaWVudCh0b3AsICNmZmZmZmYgMSUsICNlYWVhZWEgMTAwJSk7XG4gICAgLypiYWNrZ3JvdW5kOiAtd2Via2l0LWdyYWRpZW50KGxpbmVhciwgbGVmdCB0b3AsIGxlZnQgYm90dG9tLCBjb2xvci1zdG9wKDElLCNmZmZmZmYpLCBjb2xvci1zdG9wKDEwMCUsI2VhZWFlYSkpO1xuICAgICovYmFja2dyb3VuZDogLXdlYmtpdC1saW5lYXItZ3JhZGllbnQodG9wLCAjZmZmZmZmIDElLCNlYWVhZWEgMTAwJSk7XG4gICAgYmFja2dyb3VuZDogLW8tbGluZWFyLWdyYWRpZW50KHRvcCwgI2ZmZmZmZiAxJSwjZWFlYWVhIDEwMCUpO1xuICAgIGJhY2tncm91bmQ6IC1tcy1saW5lYXItZ3JhZGllbnQodG9wLCAjZmZmZmZmIDElLCNlYWVhZWEgMTAwJSk7XG4gICAgZmlsdGVyOiBwcm9naWQ6RFhJbWFnZVRyYW5zZm9ybS5NaWNyb3NvZnQuZ3JhZGllbnQoIHN0YXJ0Q29sb3JzdHI9JyNmZmZmZmYnLCBlbmRDb2xvcnN0cj0nI2VhZWFlYScsR3JhZGllbnRUeXBlPTAgKTtcbiAgICAvKmJveC1zaGFkb3c6IFxuICAgICAgICAwcHggMHB4IDBweCAxcHggcmdiYSgxNTUsMTU1LDE1NSwwLjMpLCBcbiAgICAgICAgMXB4IDBweCAwcHggMHB4IHJnYmEoMjU1LDI1NSwyNTUsMC45KSBpbnNldCwgXG4gICAgICAgIDBweCAycHggMnB4IHJnYmEoMCwwLDAsMC4xKTsqL1xufVxuXG4uYWMtY29udGFpbmVyIC5hYy1sYWJlbDpob3ZlcntcbiAgICBiYWNrZ3JvdW5kOiAjZmZmO1xufVxuXG4vKi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94OmNoZWNrZWQgKyAuYWMtbGFiZWwge1xuICAgIGJhY2tncm91bmQ6ICNjNmUxZWM7XG4gICAgY29sb3I6ICMzZDc0ODk7XG4gICAgdGV4dC1zaGFkb3c6IDBweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsIDAuNik7XG4gICAgYm94LXNoYWRvdzogXG4gICAgICAgIDBweCAwcHggMHB4IDFweCByZ2JhKDE1NSwxNTUsMTU1LDAuMyksIFxuICAgICAgICAwcHggMnB4IDJweCByZ2JhKDAsMCwwLDAuMSk7XG59Ki9cblxuLmFjLWNvbnRhaW5lciBpbnB1dDpjaGVja2VkICsgbGFiZWwsXG4uYWMtY29udGFpbmVyIGlucHV0OmNoZWNrZWQgKyBsYWJlbDpob3ZlcntcbiAgICBiYWNrZ3JvdW5kOiAjYzZlMWVjO1xuICAgIGNvbG9yOiAjM2Q3NDg5O1xuICAgIHRleHQtc2hhZG93OiAwcHggMXB4IDFweCByZ2JhKDI1NSwyNTUsMjU1LCAwLjYpO1xuICAgIGJveC1zaGFkb3c6IFxuICAgICAgICAwcHggMHB4IDBweCAxcHggcmdiYSgxNTUsMTU1LDE1NSwwLjMpLCBcbiAgICAgICAgMHB4IDJweCAycHggcmdiYSgwLDAsMCwwLjEpO1xufVxuXG4uYWMtY29udGFpbmVyIC5hYy1sYWJlbDpob3ZlcjphZnRlcixcbi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94OmNoZWNrZWQgKyAuYWMtbGFiZWw6aG92ZXI6YWZ0ZXJ7XG4gICAgY29udGVudDogJyc7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHdpZHRoOiAyNHB4O1xuICAgIGhlaWdodDogMjRweDtcbiAgICByaWdodDogMTNweDtcbiAgICB0b3A6IDdweDtcbiAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudCB1cmwoaHR0cDovL25ldGNyaWJlLmNvbS9leGFtcGxlL2Fycm93X2Rvd24ucG5nKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlcjsgIFxufVxuXG4uYWMtY29udGFpbmVyIC5hYy1jaGVja2JveDpjaGVja2VkICsgLmFjLWxhYmVsOmhvdmVyOmFmdGVyIHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoaHR0cDovL25ldGNyaWJlLmNvbS9leGFtcGxlL2Fycm93X3VwLnBuZyk7XG59XG5cbi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94IHtcbiAgICBkaXNwbGF5OiBub25lO1xufVxuXG4uYWMtY29udGFpbmVyIGFydGljbGV7XG4gICAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjUpO1xuICAgIG1hcmdpbi10b3A6IC0xcHg7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBoZWlnaHQ6IDBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgei1pbmRleDogMTA7XG4gICAgLXdlYmtpdC10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICAtbW96LXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1vLXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1tcy10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICB0cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbn1cbi5hYy1jb250YWluZXIgLmFjLWNoZWNrYm94OmNoZWNrZWQgfiBhcnRpY2xlIHtcbiAgICAgLXdlYmtpdC10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICAtbW96LXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1vLXRyYW5zaXRpb246IGhlaWdodCAwLjNzIGVhc2UtaW4tb3V0LCBib3gtc2hhZG93IDAuNnMgbGluZWFyO1xuICAgIC1tcy10cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICB0cmFuc2l0aW9uOiBoZWlnaHQgMC4zcyBlYXNlLWluLW91dCwgYm94LXNoYWRvdyAwLjZzIGxpbmVhcjtcbiAgICBib3gtc2hhZG93OiAwcHggMHB4IDBweCAxcHggcmdiYSgxNTUsMTU1LDE1NSwwLjMpO1xuICAgIGhlaWdodDogMTQwcHg7LypjaGFuZ2UgdGhpcyEqL1xufVxuXG4uYWMtY29udGFpbmVyIGFydGljbGUgcHtcbiAgICBmb250LXN0eWxlOiBpdGFsaWM7XG4gICAgY29sb3I6ICM3Nzc7XG4gICAgbGluZS1oZWlnaHQ6IDIzcHg7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIHBhZGRpbmc6IDIwcHg7XG4gICAgdGV4dC1zaGFkb3c6IDFweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsMC44KTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "app-canvas {\n\theight: 1000px;\n\twidth: 600px;\n}\n.left-men
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div class=\"inline\">\n    <div class=\"left-menu\">\n        <!--<div>\n  <ul>\n    <li *ngFor=\"let item of items;let i = index;\"[ngClass]=\"{item:item}\">\n\t<button (click)=\"myEvent($event, i);\">{{item}}</button>\n\t<div *ngIf=\"\">Content of {{i}}</div>\n\t</li>\n  </ul>\n</div>-->\n\n        <section class=\"ac-container\">\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-1\" name=\"accordion-1\" type=\"radio\" value=\"1\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-1\">Тригонометрия</label>\n                <article class=\"ac-list\">\n                    <div>\n                        <input type=\"checkbox\" (change)=\"changeSin()\">Sin<Br>\n                        <input type=\"checkbox\" (change)=\"changeCos()\">Cos<Br>\n                        <input type=\"checkbox\" (change)=\"changeTan()\">Tan<Br>\n                        <input type=\"checkbox\" (change)=\"changeCtan()\">Ctan<Br>\n                    </div>\n                </article>\n            </div>\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-2\" name=\"accordion-1\" type=\"radio\" value=\"2\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-2\">Начала анализа</label>\n            </div>\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-3\" name=\"accordion-1\" type=\"radio\" value=\"3\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-3\">Векторы</label>\n            </div>\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-4\" name=\"accordion-1\" type=\"radio\" value=\"4\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-4\">Стереометрия</label>\n            </div>\n        </section>\n    </div>\n    <div [ngSwitch]=\"numShowCanvas\">\n        <app-canvas #appcanvas *ngSwitchCase=\"1\"></app-canvas>\n        <app-canvas-beginning-analysis *ngSwitchCase=\"2\"></app-canvas-beginning-analysis>\n        <app-canvas-stereometry *ngSwitchCase=\"4\"></app-canvas-stereometry>\n        <label *ngSwitchDefault> </label>\n    </div>\n</div>"
+module.exports = "<div class=\"inline\">\n    <div class=\"left-menu\">\n         <section class=\"ac-container\">\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-1\" name=\"accordion-1\" type=\"radio\" value=\"1\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-1\">Тригонометрия</label>\n                <article class=\"ac-list\">\n                    <div>\n                        <input type=\"checkbox\" (change)=\"changeSin()\">Sin<Br>\n                        <input type=\"checkbox\" (change)=\"changeCos()\">Cos<Br>\n                        <input type=\"checkbox\" (change)=\"changeTan()\">Tan<Br>\n                        <input type=\"checkbox\" (change)=\"changeCtan()\">Ctan<Br>\n                    </div>\n                </article>\n            </div>\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-2\" name=\"accordion-1\" type=\"radio\" value=\"2\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-2\">Начала анализа</label>\n            </div>\n            <div>\n                <input class=\"ac-checkbox\" id=\"ac-4\" name=\"accordion-1\" type=\"radio\" value=\"4\"\n                    [(ngModel)]=\"numShowCanvas\" />\n                <label class=\"ac-label\" for=\"ac-4\">Стереометрия</label>\n                <article class=\"ac-list\">\n                    <div>\n                        <button (click)=\"chooseCube()\">Куб</button>\n                        <button (click)=\"chooseTetrahedron()\">Тетраэдр</button>\n                    </div>\n                </article>\n            </div>\n        </section>\n    </div>\n    <div [ngSwitch]=\"numShowCanvas\">\n        <app-canvas #appcanvas *ngSwitchCase=\"1\"></app-canvas>\n        <app-canvas-beginning-analysis *ngSwitchCase=\"2\"></app-canvas-beginning-analysis>\n        <app-canvas-stereometry-tetrahedron *ngSwitchCase=\"3\"></app-canvas-stereometry-tetrahedron>\n        <app-canvas-stereometry *ngSwitchCase=\"4\"></app-canvas-stereometry>\n        <label *ngSwitchDefault> </label>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -71,6 +71,12 @@ var AppComponent = /** @class */ (function () {
         this.numShowCanvas = '1';
         this.partTrig = [false, false, false, false];
     }
+    AppComponent.prototype.chooseCube = function () {
+        this.numShowCanvas = '4';
+    };
+    AppComponent.prototype.chooseTetrahedron = function () {
+        this.numShowCanvas = '3';
+    };
     AppComponent.prototype.changeSin = function () {
         this.partTrig[0] = !this.partTrig[0];
         if (this.partTrig[0]) {
@@ -145,6 +151,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_canvas_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./canvas/canvas.component */ "./src/app/canvas/canvas.component.ts");
 /* harmony import */ var _canvas_beginning_analysis_canvas_beginning_analysis_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./canvas-beginning-analysis/canvas-beginning-analysis.component */ "./src/app/canvas-beginning-analysis/canvas-beginning-analysis.component.ts");
 /* harmony import */ var _canvas_stereometry_canvas_stereometry_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./canvas-stereometry/canvas-stereometry.component */ "./src/app/canvas-stereometry/canvas-stereometry.component.ts");
+/* harmony import */ var _canvas_stereometry_tetrahedron_canvas_stereometry_tetrahedron_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component */ "./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.ts");
+
 
 
 
@@ -163,6 +171,7 @@ var AppModule = /** @class */ (function () {
                 _canvas_canvas_component__WEBPACK_IMPORTED_MODULE_5__["CanvasComponent"],
                 _canvas_beginning_analysis_canvas_beginning_analysis_component__WEBPACK_IMPORTED_MODULE_6__["CanvasBeginningAnalysisComponent"],
                 _canvas_stereometry_canvas_stereometry_component__WEBPACK_IMPORTED_MODULE_7__["CanvasStereometryComponent"],
+                _canvas_stereometry_tetrahedron_canvas_stereometry_tetrahedron_component__WEBPACK_IMPORTED_MODULE_8__["CanvasStereometryTetrahedronComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -435,6 +444,519 @@ var CanvasBeginningAnalysisComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.css":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.css ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#canvas {\n    width: 700px;\n    height: 550px;\n}\n\nlabel {\n    font-family: 'Arial Narrow', Arial, sans-serif;\n    color: #777;\n    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);\n    line-height: 33px;\n    font-size: 19px;\n    position: relative;\n    z-index: 20;\n}\n\n.help-text-box {\n    width: 650;\n    min-width: 400;\n    height: 70px;\n    margin: 10px auto 30px auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FudmFzLXN0ZXJlb21ldHJ5LXRldHJhaGVkcm9uL2NhbnZhcy1zdGVyZW9tZXRyeS10ZXRyYWhlZHJvbi5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7QUFDakI7O0FBRUE7SUFDSSw4Q0FBOEM7SUFDOUMsV0FBVztJQUNYLDhDQUE4QztJQUM5QyxpQkFBaUI7SUFDakIsZUFBZTtJQUNmLGtCQUFrQjtJQUNsQixXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxVQUFVO0lBQ1YsY0FBYztJQUNkLFlBQVk7SUFDWiwyQkFBMkI7QUFDL0IiLCJmaWxlIjoic3JjL2FwcC9jYW52YXMtc3RlcmVvbWV0cnktdGV0cmFoZWRyb24vY2FudmFzLXN0ZXJlb21ldHJ5LXRldHJhaGVkcm9uLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY2FudmFzIHtcbiAgICB3aWR0aDogNzAwcHg7XG4gICAgaGVpZ2h0OiA1NTBweDtcbn1cblxubGFiZWwge1xuICAgIGZvbnQtZmFtaWx5OiAnQXJpYWwgTmFycm93JywgQXJpYWwsIHNhbnMtc2VyaWY7XG4gICAgY29sb3I6ICM3Nzc7XG4gICAgdGV4dC1zaGFkb3c6IDFweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsMC44KTtcbiAgICBsaW5lLWhlaWdodDogMzNweDtcbiAgICBmb250LXNpemU6IDE5cHg7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHotaW5kZXg6IDIwO1xufVxuXG4uaGVscC10ZXh0LWJveCB7XG4gICAgd2lkdGg6IDY1MDtcbiAgICBtaW4td2lkdGg6IDQwMDtcbiAgICBoZWlnaHQ6IDcwcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG8gMzBweCBhdXRvO1xufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.html":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.html ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"help-text-box\">\n  <label>{{user_assistance}}</label>\n</div>\n<div id=\"canvas\" #canvas (mousedown)=\"onMouseDown($event)\" (mouseup)=\"onMouseUp($event)\"\n  (mousemove)=\"onMouseMove($event)\" (mouseWheelUp)=\"mouseWheelFunc($event)\" (click)=\"onClick($event)\"></div>"
+
+/***/ }),
+
+/***/ "./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: KEY_CODE, CanvasStereometryTetrahedronComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KEY_CODE", function() { return KEY_CODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasStereometryTetrahedronComponent", function() { return CanvasStereometryTetrahedronComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tetrahedron.service */ "./src/app/tetrahedron.service.ts");
+
+
+
+
+var KEY_CODE;
+(function (KEY_CODE) {
+    KEY_CODE[KEY_CODE["RIGHT_ARROW"] = 39] = "RIGHT_ARROW";
+    KEY_CODE[KEY_CODE["LEFT_ARROW"] = 37] = "LEFT_ARROW";
+})(KEY_CODE || (KEY_CODE = {}));
+var CanvasStereometryTetrahedronComponent = /** @class */ (function () {
+    function CanvasStereometryTetrahedronComponent(tetraService) {
+        this.tetraService = tetraService;
+        this.near_plane = 1;
+        this.far_plane = 10000;
+        this.onOffForm = [];
+        this.cube = new three__WEBPACK_IMPORTED_MODULE_2__["Group"]();
+        this.main_group = new three__WEBPACK_IMPORTED_MODULE_2__["Object3D"]();
+        this.material = {
+            black: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x00000 }),
+            blue: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x0000ff }),
+            green: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x00ff00 }),
+            red: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0xff0000 }),
+            black_dash_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineDashedMaterial"]({ color: 0x000000, dashSize: 3, gapSize: 2 }),
+            dim_gray_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x292929 }),
+            black_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x000000 }),
+            section: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({
+                color: 0x90EE90,
+                side: three__WEBPACK_IMPORTED_MODULE_2__["DoubleSide"]
+            }),
+            base: new three__WEBPACK_IMPORTED_MODULE_2__["MeshPhongMaterial"]({
+                color: 0x15628f, emissive: 0x072534, side: three__WEBPACK_IMPORTED_MODULE_2__["DoubleSide"], flatShading: true,
+                opacity: 0.7, transparent: true
+            }),
+            base_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x000000 })
+        };
+        this.isMouseDown = false;
+        this.radious = 270;
+        this.theta = 45;
+        this.onMouseDownTheta = 45;
+        this.phi = 60;
+        this.onMouseDownPhi = 60;
+        this.onMouseDownPosition = new three__WEBPACK_IMPORTED_MODULE_2__["Vector2"]();
+        this.onMouseLastPosition = new three__WEBPACK_IMPORTED_MODULE_2__["Vector2"]();
+        this.raycaster = new three__WEBPACK_IMPORTED_MODULE_2__["Raycaster"]();
+        this.mouseWheelUp = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.section = new three__WEBPACK_IMPORTED_MODULE_2__["Object3D"]();
+        this.numDrawedStep = -1;
+        this.user_assistance = 'Отметьте три точки на ребрах куба, не больше двух точек на одном ребре.';
+        this.render = this.render.bind(this);
+    }
+    Object.defineProperty(CanvasStereometryTetrahedronComponent.prototype, "canvas", {
+        get: function () {
+            return this.canvasRef.nativeElement;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CanvasStereometryTetrahedronComponent.prototype.getAspectRatio = function (w, h) {
+        if (h === 0) {
+            return 0;
+        }
+        return w / h;
+    };
+    CanvasStereometryTetrahedronComponent.prototype.startRendering = function (w, h) {
+        this.renderer = new three__WEBPACK_IMPORTED_MODULE_2__["WebGLRenderer"]();
+        this.renderer.setSize(w, h);
+        this.renderer.setClearColor(0xffffff, 1);
+        this.renderer.autoClear = true;
+        this.camera = new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](50, this.getAspectRatio(w, h), this.near_plane, this.far_plane);
+        this.camera.position.set(100, 134, 210);
+        this.camera.lookAt(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, 0));
+        this.scene = new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]();
+        this.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](0xffffff);
+        this.scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["AmbientLight"](0x555555));
+    };
+    CanvasStereometryTetrahedronComponent.prototype.render = function () {
+        this.camera.lookAt(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, 0));
+        this.renderer.render(this.scene, this.camera);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.ngAfterViewInit = function () {
+        this.startRendering(this.canvas.clientWidth, this.canvas.clientHeight);
+        this.initilaze();
+        this.canvasRef.nativeElement.appendChild(this.renderer.domElement);
+        this.render();
+    };
+    CanvasStereometryTetrahedronComponent.prototype.setPosition = function (a, b) {
+        a.position.x = b.x;
+        a.position.y = b.y;
+        a.position.z = b.z;
+        return a;
+    };
+    CanvasStereometryTetrahedronComponent.prototype.y_asix = function (fromDot, toDot, material) {
+        var y = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
+        y.vertices.push(fromDot);
+        y.vertices.push(toDot);
+        this.scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](y, material));
+        var m = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["ConeGeometry"](1, 7, 16), material);
+        m.position.x = toDot.x;
+        m.rotation.z = -Math.PI / 2;
+        this.scene.add(m);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.z_asix = function (fromDot, toDot, material) {
+        var y = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
+        y.vertices.push(fromDot);
+        y.vertices.push(toDot);
+        this.scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](y, material));
+        var m = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["ConeGeometry"](1, 7, 16), material);
+        m.position.y = toDot.y;
+        this.scene.add(m);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.x_asix = function (fromDot, toDot, material) {
+        var y = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
+        y.vertices.push(fromDot);
+        y.vertices.push(toDot);
+        this.scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](y, material));
+        var m = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["ConeGeometry"](1, 7, 16), material);
+        m.position.z = toDot.z;
+        m.rotation.x = Math.PI / 2;
+        this.scene.add(m);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.generateText = function (arr) {
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"](), new three__WEBPACK_IMPORTED_MODULE_2__["MeshPhongMaterial"]({ color: 0xfffffff }));
+        this.scene.add(mesh);
+        var loader = new three__WEBPACK_IMPORTED_MODULE_2__["FontLoader"]();
+        var component = this;
+        loader.load('https://threejs.org//examples/fonts/helvetiker_regular.typeface.json', function (_font) {
+            for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
+                var el = arr_1[_i];
+                var geometry = new three__WEBPACK_IMPORTED_MODULE_2__["TextGeometry"](el.text, {
+                    font: Object(_font),
+                    size: 5,
+                    height: 0.1,
+                    curveSegments: 12,
+                    bevelEnabled: false,
+                    bevelThickness: 1,
+                    bevelSize: 0.2,
+                    bevelSegments: 10
+                });
+                var textMaterial = new three__WEBPACK_IMPORTED_MODULE_2__["MeshPhongMaterial"]({ color: 0xff0000 });
+                var m = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geometry, textMaterial);
+                component.scene.add(m);
+                m = component.setPosition(m, el.position);
+                m.rotation.y = Math.PI / 4;
+                component.render();
+            }
+        });
+    };
+    CanvasStereometryTetrahedronComponent.prototype.initilaze = function () {
+        this.material.section.polygonOffset = true;
+        this.material.section.polygonOffsetFactor = -0.1;
+        this.material.dim_gray_line.polygonOffset = true;
+        this.material.dim_gray_line.polygonOffsetFactor = -0.1;
+        /*this.material.black.side = THREE.BackSide;
+        this.material.front.side = THREE.FrontSide;*/
+        this.scene.add(this.cube);
+        this.y_asix(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](-this.tetraService.side, 0, 0), new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.tetraService.side, 0, 0), this.material.blue);
+        this.z_asix(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, -this.tetraService.side, 0), new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, this.tetraService.side, 0), this.material.red);
+        this.x_asix(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, -this.tetraService.side), new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, this.tetraService.side), this.material.green);
+        this.generateText([{ text: 'x', position: new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, -5, 99) },
+            { text: 'y', position: new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](99, -5, 0) },
+            { text: 'z', position: new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](5, 99, 0) }]);
+        this.scene.add(this.main_group);
+        //рисуем тетраэдр
+        var geom = new three__WEBPACK_IMPORTED_MODULE_2__["PolyhedronBufferGeometry"](this.tetraService.vertices, this.tetraService.indices, Math.sqrt(3) * this.tetraService.a / 3, 0);
+        this.main_group.add(new three__WEBPACK_IMPORTED_MODULE_2__["LineSegments"](geom, this.material.base_line));
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geom, this.material.base);
+        mesh.renderOrder = 1;
+        this.main_group.add(mesh);
+        this.onOffForm.push(this.main_group);
+        this.helper = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](2, 240), new three__WEBPACK_IMPORTED_MODULE_2__["MeshNormalMaterial"]());
+        this.scene.add(this.helper);
+        this.render();
+        this.scene.add(this.section);
+    };
+    /* EVENTS */
+    CanvasStereometryTetrahedronComponent.prototype.onMouseDown = function (event) {
+        event.preventDefault();
+        this.isMouseDown = true;
+        this.onMouseDownTheta = this.theta;
+        this.onMouseDownPhi = this.phi;
+        this.onMouseDownPosition.x = this.onMouseLastPosition.x = event.pageX - this.canvas.offsetLeft;
+        this.onMouseDownPosition.y = this.onMouseLastPosition.y = event.pageY - this.canvas.offsetTop;
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseMove = function (event) {
+        event.preventDefault();
+        var clientX = event.pageX - this.canvas.offsetLeft;
+        var clientY = event.pageY - this.canvas.offsetTop;
+        var mouse = new three__WEBPACK_IMPORTED_MODULE_2__["Vector2"]();
+        mouse.x = ((clientX) / this.canvas.clientWidth) * 2 - 1;
+        mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
+        this.raycaster.setFromCamera(mouse, this.camera);
+        var intersects = this.raycaster.intersectObjects(this.onOffForm, true);
+        if (intersects.length > 0) {
+            this.helper.position.copy(intersects[0].point);
+        }
+        if (this.isMouseDown) {
+            this.theta = -((clientX - this.onMouseDownPosition.x) * 0.3)
+                + this.onMouseDownTheta;
+            this.phi = ((clientY - this.onMouseDownPosition.y) * 0.3)
+                + this.onMouseDownPhi;
+            this.phi = Math.min(180, Math.max(-40, this.phi));
+            this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
+            this.camera.position.y = this.radious * Math.sin(this.phi * Math.PI / 360);
+            this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
+            this.onMouseLastPosition.x = clientX;
+            this.onMouseLastPosition.y = clientY;
+        }
+        this.render();
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onWindowMouseUp = function (event) {
+        this.onMouseUp(event);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseUp = function (event) {
+        event.preventDefault();
+        var clientX = event.pageX - this.canvas.offsetLeft;
+        var clientY = event.pageY - this.canvas.offsetTop;
+        this.isMouseDown = false;
+        this.onMouseDownPosition.x = clientX - this.onMouseDownPosition.x;
+        this.onMouseDownPosition.y = clientY - this.onMouseDownPosition.y;
+        if (this.onMouseDownPosition.length() > 5) {
+            return;
+        }
+        this.render();
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseWheel = function (event) {
+        this.mouseWheelFunc(event);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseWheelChrome = function (event) {
+        this.mouseWheelFunc(event);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseWheelFirefox = function (event) {
+        this.mouseWheelFunc(event);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseWheelIE = function (event) {
+        this.mouseWheelFunc(event);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onMouseWheelFirefoxOld = function (event) {
+        this.mouseWheelFunc(event);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.mouseWheelFunc = function (event) {
+        var event = window.event || event; // old IE support
+        var delta = Math.max(-15, Math.min(15, (event.wheelDelta * 7
+            || event.wheelDeltaY || -event.deltaY * 4)));
+        if (delta > 0) {
+            this.mouseWheelUp.emit(event);
+        }
+        // for IE
+        event.returnValue = false;
+        // for Chrome and Firefox
+        if (event.preventDefault) {
+            event.preventDefault();
+        }
+        this.onWheel(delta);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onWheel = function (wheelDeltaY) {
+        this.radious -= wheelDeltaY * 0.4;
+        this.radious = Math.min(Math.max(this.radious, 60), 500);
+        this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
+        this.camera.position.y = this.radious * Math.sin(this.phi * Math.PI / 360);
+        this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
+        this.camera.updateMatrix();
+        this.render();
+    };
+    CanvasStereometryTetrahedronComponent.prototype.onClick = function (event) {
+        event.preventDefault();
+        var mouse = new three__WEBPACK_IMPORTED_MODULE_2__["Vector2"]();
+        var clientX = event.pageX - this.canvas.offsetLeft;
+        var clientY = event.pageY - this.canvas.offsetTop;
+        mouse.x = ((clientX) / this.canvas.clientWidth) * 2 - 1;
+        mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
+        this.raycaster.setFromCamera(mouse, this.camera);
+        var intersects = this.raycaster.intersectObjects(this.onOffForm, true);
+        //если точка на ребразх - то она добавляется в стек
+        if (intersects.length > 0) {
+            var p = intersects[0].point;
+            var hel = this.drawBaseDot();
+            hel = this.setPosition(hel, p);
+            if (this.tetraService.drawed) {
+                this.clearSelection();
+                for (var _i = 0, _a = this.tetraService.stack; _i < _a.length; _i++) {
+                    var point = _a[_i];
+                    var h = this.drawBaseDot();
+                    h = this.setPosition(h, point);
+                    this.section.add(h);
+                }
+                this.tetraService.drawed = false;
+            }
+            this.tetraService.stack.push(hel.position);
+            this.section.add(hel);
+        }
+        var plane = this.tetraService.getBuildPlane();
+        if (plane === _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["WAY"].Clear) {
+            this.user_assistance = 'Все три точки находятся на одной прямой. Отметьте третью точку на другом ребре.';
+            this.clearSelection();
+            for (var _b = 0, _c = this.tetraService.stack; _b < _c.length; _b++) {
+                var p = _c[_b];
+                var hel = this.drawBaseDot();
+                hel = this.setPosition(hel, p);
+                this.section.add(hel);
+            }
+            return;
+        }
+        if (plane === _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["WAY"].DRAW_SIMPLE || plane === _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["WAY"].DRAW_HARD) {
+            /*
+            проверка на принадлежность одной прямой:
+            */
+            var _d = this.tetraService.generatePlan(plane), planToDraw = _d.plan, selectionDots = _d.dots;
+            this.listOfScenes = new Array();
+            this.numDrawedStep = -1;
+            //создаем массив сцен
+            for (var _e = 0, planToDraw_1 = planToDraw; _e < planToDraw_1.length; _e++) {
+                var list = planToDraw_1[_e];
+                var nowScene = new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]();
+                var dots = new Set();
+                //может быть массив пар вершин, может быть массив вершин (черных и серых)
+                if (list.type === _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["TYPE"].PLANE) {
+                    dots = new Set(list.black);
+                    this.drawLines(nowScene, list.black);
+                    debugger;
+                    for (var i = 0; i < list.black.length; i++) {
+                        var tmp = this.drawLine(nowScene, list.black[i], list.gray[i], this.material.black_dash_line);
+                        tmp.computeLineDistances();
+                    }
+                }
+                else if (list.type === _tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["TYPE"].LINES) {
+                    for (var _f = 0, list_1 = list; _f < list_1.length; _f++) {
+                        var part = list_1[_f];
+                        dots.add(part[0]);
+                        dots.add(part[1]);
+                        this.drawLine(nowScene, part[0], part[1], this.material.dim_gray_line);
+                    }
+                }
+                this.drawDots(nowScene, dots);
+                nowScene.visible = false;
+                this.listOfScenes.push(nowScene);
+                this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
+            }
+            //последняя сцена: отрисовка сечения}
+            var geometry = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
+            debugger;
+            geometry.vertices = selectionDots;
+            geometry.faces = this.combinations(geometry.vertices.length);
+            geometry.computeBoundingSphere();
+            this.listOfScenes.push((new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]()).add(new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geometry, this.material.section)));
+            this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
+            this.listOfScenes[this.listOfScenes.length - 1].visible = false;
+            this.user_assistance = 'Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.';
+            this.render();
+            this.tetraService.stack.shift();
+        }
+    };
+    CanvasStereometryTetrahedronComponent.prototype.keyEvent = function (event) {
+        if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
+            if (this.numDrawedStep < this.listOfScenes.length - 1) {
+                this.listOfScenes[++this.numDrawedStep].visible = true;
+                this.render();
+            }
+        }
+        if (event.keyCode === KEY_CODE.LEFT_ARROW) {
+            if (this.numDrawedStep > -1) {
+                this.listOfScenes[this.numDrawedStep--].visible = false;
+                this.render();
+            }
+        }
+    };
+    CanvasStereometryTetrahedronComponent.prototype.drawBaseDot = function () {
+        return new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](1.5, 240), new three__WEBPACK_IMPORTED_MODULE_2__["MeshNormalMaterial"]());
+    };
+    CanvasStereometryTetrahedronComponent.prototype.drawLine = function (_scene, d1, d2, material) {
+        var geom = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
+        geom.vertices.push(d1);
+        geom.vertices.push(d2);
+        var t = new three__WEBPACK_IMPORTED_MODULE_2__["Line"](geom, material);
+        _scene.add(t);
+        return t;
+    };
+    CanvasStereometryTetrahedronComponent.prototype.drawLines = function (_scene, dots) {
+        for (var i = 1; i < dots.length; i++) {
+            var geom = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
+            geom.vertices.push(dots[i - 1]);
+            geom.vertices.push(dots[i]);
+            _scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](geom, this.material.dim_gray_line));
+        }
+    };
+    CanvasStereometryTetrahedronComponent.prototype.drawDots = function (_scene, dots) {
+        for (var _i = 0, _a = Array.from(dots); _i < _a.length; _i++) {
+            var dot = _a[_i];
+            var d = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](0.7, 240), this.material.black);
+            _scene.add(d);
+            d = this.setPosition(d, dot);
+        }
+    };
+    CanvasStereometryTetrahedronComponent.prototype.clearSelection = function () {
+        this.scene.remove(this.section);
+        this.section = new three__WEBPACK_IMPORTED_MODULE_2__["Object3D"]();
+        this.scene.add(this.section);
+    };
+    CanvasStereometryTetrahedronComponent.prototype.combinations = function (n) {
+        var a = Array.apply(null, Array(n)).map(function (_, i) { return i; });
+        var out = [];
+        for (var i = 0; i < n - 1; i++) {
+            for (var j = i + 2; j < n; j++) {
+                var _x = a.slice(i, i + 2).concat(a[j]);
+                out.push(new three__WEBPACK_IMPORTED_MODULE_2__["Face3"](_x[0], _x[1], _x[2]));
+            }
+        }
+        var x = a.slice(-2).concat(a[0]);
+        out.push(new three__WEBPACK_IMPORTED_MODULE_2__["Face3"](x[0], x[1], x[2]));
+        return out;
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvas'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], CanvasStereometryTetrahedronComponent.prototype, "canvasRef", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mouseup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "onWindowMouseUp", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], CanvasStereometryTetrahedronComponent.prototype, "mouseWheelUp", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('wheel', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "onMouseWheel", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('mousewheel', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "onMouseWheelChrome", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('DOMMouseScroll', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "onMouseWheelFirefox", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('onmousewheel', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "onMouseWheelIE", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('MozMousePixelScroll', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "onMouseWheelFirefoxOld", null);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:keyup', ['$event']),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [KeyboardEvent]),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+    ], CanvasStereometryTetrahedronComponent.prototype, "keyEvent", null);
+    CanvasStereometryTetrahedronComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-canvas-stereometry-tetrahedron',
+            template: __webpack_require__(/*! ./canvas-stereometry-tetrahedron.component.html */ "./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.html"),
+            providers: [_tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["TetrahedronService"]],
+            styles: [__webpack_require__(/*! ./canvas-stereometry-tetrahedron.component.css */ "./src/app/canvas-stereometry-tetrahedron/canvas-stereometry-tetrahedron.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_tetrahedron_service__WEBPACK_IMPORTED_MODULE_3__["TetrahedronService"]])
+    ], CanvasStereometryTetrahedronComponent);
+    return CanvasStereometryTetrahedronComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/canvas-stereometry/canvas-stereometry.component.css":
 /*!*********************************************************************!*\
   !*** ./src/app/canvas-stereometry/canvas-stereometry.component.css ***!
@@ -442,7 +964,7 @@ var CanvasBeginningAnalysisComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#canvas {\n    width: 700px;\n    height: 700px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FudmFzLXN0ZXJlb21ldHJ5L2NhbnZhcy1zdGVyZW9tZXRyeS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7QUFDakIiLCJmaWxlIjoic3JjL2FwcC9jYW52YXMtc3RlcmVvbWV0cnkvY2FudmFzLXN0ZXJlb21ldHJ5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY2FudmFzIHtcbiAgICB3aWR0aDogNzAwcHg7XG4gICAgaGVpZ2h0OiA3MDBweDtcbn0iXX0= */"
+module.exports = "#canvas {\n    width: 700px;\n    height: 550px;\n}\n\nlabel {\n    font-family: 'Arial Narrow', Arial, sans-serif;\n    color: #777;\n    text-shadow: 1px 1px 1px rgba(255,255,255,0.8);\n    line-height: 33px;\n    font-size: 19px;\n    position: relative;\n    z-index: 20;\n}\n\n.help-text-box {\n    width: 650;\n    min-width: 400;\n    height: 70px;\n    margin: 10px auto 30px auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FudmFzLXN0ZXJlb21ldHJ5L2NhbnZhcy1zdGVyZW9tZXRyeS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtJQUNaLGFBQWE7QUFDakI7O0FBRUE7SUFDSSw4Q0FBOEM7SUFDOUMsV0FBVztJQUNYLDhDQUE4QztJQUM5QyxpQkFBaUI7SUFDakIsZUFBZTtJQUNmLGtCQUFrQjtJQUNsQixXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxVQUFVO0lBQ1YsY0FBYztJQUNkLFlBQVk7SUFDWiwyQkFBMkI7QUFDL0IiLCJmaWxlIjoic3JjL2FwcC9jYW52YXMtc3RlcmVvbWV0cnkvY2FudmFzLXN0ZXJlb21ldHJ5LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY2FudmFzIHtcbiAgICB3aWR0aDogNzAwcHg7XG4gICAgaGVpZ2h0OiA1NTBweDtcbn1cblxubGFiZWwge1xuICAgIGZvbnQtZmFtaWx5OiAnQXJpYWwgTmFycm93JywgQXJpYWwsIHNhbnMtc2VyaWY7XG4gICAgY29sb3I6ICM3Nzc7XG4gICAgdGV4dC1zaGFkb3c6IDFweCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsMC44KTtcbiAgICBsaW5lLWhlaWdodDogMzNweDtcbiAgICBmb250LXNpemU6IDE5cHg7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHotaW5kZXg6IDIwO1xufVxuXG4uaGVscC10ZXh0LWJveCB7XG4gICAgd2lkdGg6IDY1MDtcbiAgICBtaW4td2lkdGg6IDQwMDtcbiAgICBoZWlnaHQ6IDcwcHg7XG4gICAgbWFyZ2luOiAxMHB4IGF1dG8gMzBweCBhdXRvO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -453,7 +975,7 @@ module.exports = "#canvas {\n    width: 700px;\n    height: 700px;\n}\n/*# sourc
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"canvas\" #canvas (mousedown)=\"onMouseDown($event)\" \n(mouseup)=\"onMouseUp($event)\" (mousemove)=\"onMouseMove($event)\"\n(mouseWheelUp)=\"mouseWheelFunc($event)\"\n(click)=\"onClick($event)\"></div>"
+module.exports = "<div class=\"help-text-box\">\n    <label>{{user_assistance}}</label>\n</div>\n<div id=\"canvas\" #canvas (mousedown)=\"onMouseDown($event)\" (mouseup)=\"onMouseUp($event)\"\n    (mousemove)=\"onMouseMove($event)\" (mouseWheelUp)=\"mouseWheelFunc($event)\" (click)=\"onClick($event)\"></div>"
 
 /***/ }),
 
@@ -504,7 +1026,7 @@ var CanvasStereometryComponent = /** @class */ (function () {
             blue: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x0000ff }),
             green: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x00ff00 }),
             red: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0xff0000 }),
-            gray_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x999999 }),
+            black_dash_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineDashedMaterial"]({ color: 0x000000, dashSize: 3, gapSize: 2 }),
             powder_blue_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0xB0E0E6 }),
             dash: new three__WEBPACK_IMPORTED_MODULE_2__["LineDashedMaterial"]({
                 color: 0xffffff,
@@ -513,6 +1035,7 @@ var CanvasStereometryComponent = /** @class */ (function () {
                 dashSize: 3,
                 gapSize: 1,
             }),
+            dim_gray_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x090909 }),
             black_line: new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x000000 }),
             section: new three__WEBPACK_IMPORTED_MODULE_2__["MeshBasicMaterial"]({ color: 0x90EE90,
                 side: three__WEBPACK_IMPORTED_MODULE_2__["DoubleSide"] })
@@ -529,6 +1052,7 @@ var CanvasStereometryComponent = /** @class */ (function () {
         this.mouseWheelUp = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.section = new three__WEBPACK_IMPORTED_MODULE_2__["Object3D"]();
         this.numDrawedStep = -1;
+        this.user_assistance = 'Отметьте три точки на ребрах куба, не больше двух точек на одном ребре.';
         this.render = this.render.bind(this);
     }
     Object.defineProperty(CanvasStereometryComponent.prototype, "canvas", {
@@ -550,7 +1074,7 @@ var CanvasStereometryComponent = /** @class */ (function () {
         this.renderer.setClearColor(0xffffff, 1);
         this.renderer.autoClear = true;
         this.camera = new three__WEBPACK_IMPORTED_MODULE_2__["PerspectiveCamera"](50, this.getAspectRatio(w, h), this.near_plane, this.far_plane);
-        this.camera.position.set(190, 0, 320.004125807650624);
+        this.camera.position.set(100, 134, 210);
         this.camera.lookAt(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, 0, 0));
         this.scene = new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]();
         this.scene.background = new three__WEBPACK_IMPORTED_MODULE_2__["Color"](0xffffff);
@@ -632,21 +1156,19 @@ var CanvasStereometryComponent = /** @class */ (function () {
         var y = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
         y.vertices.push(v1);
         y.vertices.push(v2);
-        var material = new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x090909, linewidth: 1.5, side: three__WEBPACK_IMPORTED_MODULE_2__["DoubleSide"] });
-        // var y = new THREE.CylinderGeometry( 0.5, 1, 100, 240 );
+        var material = new three__WEBPACK_IMPORTED_MODULE_2__["LineBasicMaterial"]({ color: 0x090909, linewidth: 2, side: three__WEBPACK_IMPORTED_MODULE_2__["DoubleSide"] });
         material.polygonOffset = true;
         material.polygonOffsetFactor = -0.1;
         var mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Line"](y, material);
-        /*mesh.position.x = (v1.x + v2.x) / 2;
-        mesh.position.y = (v1.y + v2.y) / 2;
-        mesh.position.z = (v1.z + v2.z) / 2;*/
         this.cube_line.add(mesh);
     };
     CanvasStereometryComponent.prototype.initilaze = function () {
         this.material.section.polygonOffset = true;
         this.material.section.polygonOffsetFactor = -0.1;
-        this.material.black.side = three__WEBPACK_IMPORTED_MODULE_2__["BackSide"];
-        this.material.front.side = three__WEBPACK_IMPORTED_MODULE_2__["FrontSide"];
+        this.material.dim_gray_line.polygonOffset = true;
+        this.material.dim_gray_line.polygonOffsetFactor = -0.1;
+        /*this.material.black.side = THREE.BackSide;
+        this.material.front.side = THREE.FrontSide;*/
         this.scene.add(this.cube);
         this.y_asix(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](-this.cubeService.side, 0, 0), new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.cubeService.side, 0, 0), this.material.blue);
         this.z_asix(new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, -this.cubeService.side, 0), new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](0, this.cubeService.side, 0), this.material.red);
@@ -655,13 +1177,9 @@ var CanvasStereometryComponent = /** @class */ (function () {
             { text: 'y', position: new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](99, -5, 0) },
             { text: 'z', position: new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](5, 99, 0) }]);
         //рисуем куб
-        var mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["BoxGeometry"](this.cubeService.side, this.cubeService.side, this.cubeService.side), this.material.back);
-        //mesh.material.side = THREE.BackSide; // back plane
-        mesh.renderOrder = 0;
+        var mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["BoxGeometry"](this.cubeService.side, this.cubeService.side, this.cubeService.side), this.material.front);
         this.cube.add(mesh);
         mesh = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["BoxGeometry"](this.cubeService.side, this.cubeService.side, this.cubeService.side), this.material.front);
-        //mesh.material.side = THREE.FrontSide; // front plane
-        mesh.renderOrder = 1;
         this.cube.add(mesh);
         this.scene.add(this.cube_line);
         for (var _i = 0, _a = this.cubeService.edges; _i < _a.length; _i++) {
@@ -755,6 +1273,7 @@ var CanvasStereometryComponent = /** @class */ (function () {
     };
     CanvasStereometryComponent.prototype.onWheel = function (wheelDeltaY) {
         this.radious -= wheelDeltaY * 0.4;
+        this.radious = Math.min(Math.max(this.radious, 60), 500);
         this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
         this.camera.position.y = this.radious * Math.sin(this.phi * Math.PI / 360);
         this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
@@ -771,16 +1290,16 @@ var CanvasStereometryComponent = /** @class */ (function () {
         mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
         this.raycaster.setFromCamera(mouse, this.camera);
         var intersects = this.raycaster.intersectObjects(this.onOffCubes, true);
-        //если точка на ребразх - то она добавляется в стек
+        //если точка на ребрах - то она добавляется в стек
         if (intersects.length > 0) {
             var p = intersects[0].point;
-            var hel = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](1, 240), new three__WEBPACK_IMPORTED_MODULE_2__["MeshNormalMaterial"]());
+            var hel = this.drawBaseDot();
             hel = this.setPosition(hel, p);
             if (this.cubeService.drawed) {
                 this.clearSelection();
                 for (var _i = 0, _b = this.cubeService.stack; _i < _b.length; _i++) {
                     var point = _b[_i];
-                    var h = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](1, 240), new three__WEBPACK_IMPORTED_MODULE_2__["MeshNormalMaterial"]());
+                    var h = this.drawBaseDot();
                     h = this.setPosition(h, point);
                     this.section.add(h);
                 }
@@ -791,10 +1310,11 @@ var CanvasStereometryComponent = /** @class */ (function () {
         }
         var plane = this.cubeService.canBuildPlane();
         if (plane === _cube_service__WEBPACK_IMPORTED_MODULE_3__["WAY"].Clear) {
+            this.user_assistance = 'Все три точки находятся на одной прямой. Отметьте третью точку на другом ребре.';
             this.clearSelection();
             for (var _c = 0, _d = this.cubeService.stack; _c < _d.length; _c++) {
                 var p = _d[_c];
-                var hel = new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](1, 240), new three__WEBPACK_IMPORTED_MODULE_2__["MeshNormalMaterial"]());
+                var hel = this.drawBaseDot();
                 hel = this.setPosition(hel, p);
                 this.section.add(hel);
             }
@@ -822,6 +1342,7 @@ var CanvasStereometryComponent = /** @class */ (function () {
                     this.section.add(a);
                     a = this.setPosition(a, this.cubeService.arr[i]);
                 }
+                this.user_assistance = 'Cечение расчитано и построено.';
             }
             else { // hard version
                 var _g = this.cubeService.generateExtra(), planToDraw = _g.plan, selectionDots = _g.dots;
@@ -838,7 +1359,8 @@ var CanvasStereometryComponent = /** @class */ (function () {
                         this.drawLines(nowScene, list.black);
                         for (var _j = 0, _k = list.gray; _j < _k.length; _j++) {
                             var part = _k[_j];
-                            this.drawLine(nowScene, part[0], part[1], this.material.gray_line);
+                            var tmp = this.drawLine(nowScene, part[0], part[1], this.material.black_dash_line);
+                            tmp.computeLineDistances();
                         }
                     }
                     else if (list.type === _cube_service__WEBPACK_IMPORTED_MODULE_3__["TYPE"].LINES) {
@@ -846,13 +1368,13 @@ var CanvasStereometryComponent = /** @class */ (function () {
                             var part = list_1[_l];
                             dots.add(part[0]);
                             dots.add(part[1]);
-                            this.drawLine(nowScene, part[0], part[1], this.material.black_line);
+                            this.drawLine(nowScene, part[0], part[1], this.material.dim_gray_line);
                         }
                     }
                     else if (list.type === _cube_service__WEBPACK_IMPORTED_MODULE_3__["TYPE"].LINE) {
                         dots.add(list[0]);
                         dots.add(list[1]);
-                        this.drawLine(nowScene, list[0], list[1], this.material.black_line);
+                        this.drawLine(nowScene, list[0], list[1], this.material.dim_gray_line);
                     }
                     this.drawDots(nowScene, dots);
                     nowScene.visible = false;
@@ -863,11 +1385,11 @@ var CanvasStereometryComponent = /** @class */ (function () {
                 var geometry = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
                 (_a = geometry.vertices).push.apply(_a, selectionDots);
                 geometry.faces = this.combinations(geometry.vertices.length);
-                console.log(geometry);
                 geometry.computeBoundingSphere();
                 this.listOfScenes.push((new three__WEBPACK_IMPORTED_MODULE_2__["Scene"]()).add(new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](geometry, this.material.section)));
                 this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
                 this.listOfScenes[this.listOfScenes.length - 1].visible = false;
+                this.user_assistance = 'Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.';
             }
             this.render();
             this.cubeService.stack.shift();
@@ -881,24 +1403,29 @@ var CanvasStereometryComponent = /** @class */ (function () {
             }
         }
         if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-            if (this.numDrawedStep > 0) {
+            if (this.numDrawedStep > -1) {
                 this.listOfScenes[this.numDrawedStep--].visible = false;
                 this.render();
             }
         }
     };
+    CanvasStereometryComponent.prototype.drawBaseDot = function () {
+        return new three__WEBPACK_IMPORTED_MODULE_2__["Mesh"](new three__WEBPACK_IMPORTED_MODULE_2__["SphereGeometry"](1.5, 240), new three__WEBPACK_IMPORTED_MODULE_2__["MeshNormalMaterial"]());
+    };
     CanvasStereometryComponent.prototype.drawLine = function (_scene, d1, d2, material) {
         var geom = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
         geom.vertices.push(d1);
         geom.vertices.push(d2);
-        _scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](geom, material));
+        var t = new three__WEBPACK_IMPORTED_MODULE_2__["Line"](geom, material);
+        _scene.add(t);
+        return t;
     };
     CanvasStereometryComponent.prototype.drawLines = function (_scene, dots) {
         for (var i = 1; i < dots.length; i++) {
             var geom = new three__WEBPACK_IMPORTED_MODULE_2__["Geometry"]();
             geom.vertices.push(dots[i - 1]);
             geom.vertices.push(dots[i]);
-            _scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](geom, this.material.black_line));
+            _scene.add(new three__WEBPACK_IMPORTED_MODULE_2__["Line"](geom, this.material.dim_gray_line));
         }
     };
     CanvasStereometryComponent.prototype.drawDots = function (_scene, dots) {
@@ -1772,7 +2299,7 @@ var CubeService = /** @class */ (function () {
     CubeService.prototype.canBuildPlane = function () {
         if (this._stack.data.length === 3) {
             if (this.isTreeDotsOnCommonStraightInCube(this.stack[0], this.stack[1], this.stack[2])) {
-                alert("Все три точки находятся на одной прямой.");
+                //alert("Все три точки находятся на одной прямой.");
                 this._stack.data.shift();
                 return WAY.Clear;
             }
@@ -2145,6 +2672,297 @@ var DataService = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], DataService);
     return DataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/tetrahedron.service.ts":
+/*!****************************************!*\
+  !*** ./src/app/tetrahedron.service.ts ***!
+  \****************************************/
+/*! exports provided: WAY, TYPE, TetrahedronService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WAY", function() { return WAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TYPE", function() { return TYPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TetrahedronService", function() { return TetrahedronService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+
+var WAY;
+(function (WAY) {
+    WAY[WAY["DRAW_SIMPLE"] = 0] = "DRAW_SIMPLE";
+    WAY[WAY["DRAW_HARD"] = 1] = "DRAW_HARD";
+    WAY[WAY["Clear"] = 2] = "Clear";
+    WAY[WAY["WAIT"] = 3] = "WAIT";
+})(WAY || (WAY = {}));
+var TYPE;
+(function (TYPE) {
+    TYPE[TYPE["LINES"] = 1] = "LINES";
+    TYPE[TYPE["PLANE"] = 2] = "PLANE";
+})(TYPE || (TYPE = {}));
+var TetrahedronService = /** @class */ (function () {
+    function TetrahedronService() {
+        this.side = 100;
+        this.a = 200 / Math.sqrt(3);
+        this.EPS = 0.001;
+        this.indices = [2, 1, 0, 0, 3, 2, 1, 3, 0, 2, 3, 1];
+        var a = this.a;
+        this.vertices = [0.0, Math.sqrt(3) * a / 3, 0.0,
+            a / 2, 0.0, -Math.sqrt(3) * a / 6,
+            -a / 2, 0.0, -Math.sqrt(3) * a / 6,
+            0.0, 0.0, Math.sqrt(3) * a / 3];
+        this.edges = [{ vert1: 2, vert2: 3, plane: [1, 3] },
+            { vert1: 0, vert2: 2, plane: [0, 1] },
+            { vert1: 0, vert2: 3, plane: [1, 2] },
+            { vert1: 1, vert2: 2, plane: [0, 3] },
+            { vert1: 0, vert2: 1, plane: [0, 2] },
+            { vert1: 3, vert2: 1, plane: [2, 3] }]; //5
+        this._stack = { data: [], edge_num: [], drawed: false };
+    }
+    TetrahedronService.prototype.getDot = function (i) {
+        if (i >= this._stack.data.length) {
+            console.error("Try to get don't exist dot.");
+        }
+        return this._stack.data[i];
+    };
+    Object.defineProperty(TetrahedronService.prototype, "stack", {
+        get: function () {
+            return this._stack.data;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TetrahedronService.prototype, "drawed", {
+        get: function () {
+            return this._stack.drawed;
+        },
+        set: function (i) {
+            this._stack.drawed = i;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TetrahedronService.prototype.getBuildPlane = function () {
+        if (this._stack.data.length === 3) {
+            if (this.isTreeDotsOnCommonStraight(this.stack[0], this.stack[1], this.stack[2])) {
+                //alert("Все три точки находятся на одной прямой.");
+                this._stack.data.shift();
+                return WAY.Clear;
+            }
+            /*
+              основные вычисления для получения координат точек
+            */
+            var a = this.partExpA(this.stack[0], this.stack[1], this.stack[2]), b = this.partExpB(this.stack[0], this.stack[1], this.stack[2]), c = this.partExpC(this.stack[0], this.stack[1], this.stack[2]), d = this.partExpD(this.stack[0], this.stack[1], this.stack[2]);
+            var i = 0;
+            this.arr = [];
+            this.arr_on = new Array();
+            this._stack.edge_num = [];
+            for (var _i = 0, _a = this.edges; _i < _a.length; _i++) {
+                var edge = _a[_i];
+                var numerator = this.Numerator(a, b, c, d, this.getVertCoord(edge.vert1));
+                var denominator = this.Denominator(a, b, c, d, this.getVertCoord(edge.vert1), this.getVertCoord(edge.vert2));
+                if (Math.abs(denominator) < this.EPS * 10) {
+                    if (Math.abs(numerator) < this.EPS) {
+                        console.log("line in plane");
+                    }
+                    else {
+                        console.log("||");
+                    }
+                    this.arr.push(null);
+                    this.arr_on.push(false);
+                }
+                else {
+                    var l = numerator / denominator;
+                    var v = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.getCoord(this.getVertX(edge.vert1), this.getVertX(edge.vert2), l), this.getCoord(this.getVertY(edge.vert1), this.getVertY(edge.vert2), l), this.getCoord(this.getVertZ(edge.vert1), this.getVertZ(edge.vert2), l));
+                    this.arr.push(v);
+                    this.arr_on.push(this.onEdge(this.getVertCoord(edge.vert1), this.getVertCoord(edge.vert2), v));
+                    if (this.arr_on[this.arr_on.length - 1]) {
+                        i++;
+                    }
+                }
+            }
+            this._stack.drawed = true;
+            return i === 3 ? WAY.DRAW_SIMPLE : WAY.DRAW_HARD;
+        }
+        return WAY.WAIT;
+    };
+    TetrahedronService.prototype.Numerator = function (a, b, c, d, dot1) {
+        return (-d - a * dot1.x - b * dot1.y - c * dot1.z);
+    };
+    TetrahedronService.prototype.Denominator = function (a, b, c, d, dot1, dot2) {
+        return a * (dot2.x - dot1.x) + b * (dot2.y - dot1.y) + c * (dot2.z - dot1.z);
+    };
+    TetrahedronService.prototype.partExpA = function (d0, d1, d2) {
+        return (d1.y - d0.y) * (d2.z - d0.z) - (d2.y - d0.y) * (d1.z - d0.z);
+    };
+    TetrahedronService.prototype.partExpB = function (d0, d1, d2) {
+        return -(d1.x - d0.x) * (d2.z - d0.z) + (d2.x - d0.x) * (d1.z - d0.z);
+    };
+    TetrahedronService.prototype.partExpC = function (d0, d1, d2) {
+        return (d1.x - d0.x) * (d2.y - d0.y) - (d2.x - d0.x) * (d1.y - d0.y);
+    };
+    TetrahedronService.prototype.partExpD = function (d0, d1, d2) {
+        return -d0.x * this.partExpA(d0, d1, d2) - d0.y * this.partExpB(d0, d1, d2) - d0.z * this.partExpC(d0, d1, d2);
+    };
+    TetrahedronService.prototype.getCoord = function (x1, x2, a) {
+        return x1 + (x2 - x1) * a;
+    }; /*
+    private twoOutOfThree(f: boolean, s: boolean, t: boolean): boolean {
+      return (f && s) || (s && t) || (t && f);
+    }*/
+    TetrahedronService.prototype.isTreeDotsOnCommonStraight = function (d1, d2, d3) {
+        var l1 = (d2.x - d1.x) === 0 ? null : (d3.x - d1.x) / (d2.x - d1.x), l2 = (d2.y - d1.y) === 0 ? null : (d3.y - d1.y) / (d2.y - d1.y), l3 = (d2.z - d1.z) === 0 ? null : (d3.z - d1.z) / (d2.z - d1.z);
+        return (l1 === null && Math.abs(l3 - l2) < this.EPS) ||
+            (l2 === null && Math.abs(l1 - l3) < this.EPS) ||
+            (l3 === null && Math.abs(l1 - l2) < this.EPS);
+    };
+    TetrahedronService.prototype.find = function (array, value) {
+        if (array.indexOf) { // если браузер поддерживает
+            return array.indexOf(value);
+        }
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] === value) {
+                return i;
+            }
+        }
+        return -1;
+    };
+    TetrahedronService.prototype.getVertCoord = function (n) {
+        return new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.vertices[3 * n], this.vertices[3 * n + 1], this.vertices[3 * n + 2]);
+    };
+    TetrahedronService.prototype.getVertX = function (n) {
+        return this.vertices[3 * n];
+    };
+    TetrahedronService.prototype.getVertY = function (n) {
+        return this.vertices[3 * n + 1];
+    };
+    TetrahedronService.prototype.getVertZ = function (n) {
+        return this.vertices[3 * n + 2];
+    };
+    TetrahedronService.prototype.getNumsEdgeFromPlane = function (num_plane) {
+        switch (num_plane) {
+            case 0:
+                return [0, 1, 3];
+            case 1:
+                return [0, 1, 2];
+            case 2:
+                return [2, 4, 5];
+            case 3:
+                return [0, 3, 5];
+            default:
+                console.error('Try to get edge from don\'t exist plane');
+                return undefined;
+        }
+        return undefined;
+    };
+    TetrahedronService.prototype.onEdge = function (d1, d2, v) {
+        /*d3 должен быть между d1 и d2*/
+        if (Math.abs(Math.abs(Math.abs(d2.x - v.x) + Math.abs(d1.x - v.x)) - Math.abs(d2.x - d1.x)) < this.EPS) {
+            if (Math.abs(Math.abs(Math.abs(d2.y - v.y) + Math.abs(d1.y - v.y)) - Math.abs(d2.y - d1.y)) < this.EPS) {
+                if (Math.abs(Math.abs(Math.abs(d2.z - v.z) + Math.abs(d1.z - v.z)) - Math.abs(d2.z - d1.z)) < this.EPS) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+    TetrahedronService.prototype.addExtra = function (dots_under, planToDraw) {
+        var n_plane = 3;
+        var numsedge = this.getNumsEdgeFromPlane(n_plane);
+        var dots = new Array();
+        for (var i = 0; i < 3; i++) {
+            dots.push(this.getVertCoord(this.edges[numsedge[i]].vert1));
+        }
+        var a = this.partExpA(dots[0], dots[1], dots[2]), b = this.partExpB(dots[0], dots[1], dots[2]), c = this.partExpC(dots[0], dots[1], dots[2]), d = this.partExpD(dots[0], dots[1], dots[2]);
+        var i_min = this.getMinIOfY(dots_under);
+        var down = dots_under.slice(i_min, i_min + 1)[0];
+        for (var _i = 0, dots_under_1 = dots_under; _i < dots_under_1.length; _i++) {
+            var dot_u = dots_under_1[_i];
+            var numerator = this.Numerator(a, b, c, d, dot_u);
+            var denominator = this.Denominator(a, b, c, d, dot_u, down);
+            if (denominator === 0) {
+                console.error("Straight line parallel to the plane - try another plane"); //!
+            }
+            else {
+                var l = numerator / denominator;
+                var v = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.getCoord(dot_u.x, down.x, l), this.getCoord(dot_u.y, down.y, l), this.getCoord(dot_u.z, down.z, l));
+                //рисуем линии
+                var collect = new Array();
+                //верхняя
+                collect.push([dot_u, v]);
+                //нижняя
+                l = -dot_u.y / (this.getVertY(0) - dot_u.y);
+                var p = new three__WEBPACK_IMPORTED_MODULE_2__["Vector3"](this.getCoord(dot_u.x, this.getVertX(0), l), 0, this.getCoord(dot_u.z, this.getVertZ(0), l));
+                collect.push([p, v]);
+                //вертикали
+                collect.push([p, this.getVertCoord(0)]);
+                //выводим данные
+                planToDraw.push(collect);
+                planToDraw[planToDraw.length - 1].type = TYPE.LINES;
+            }
+        }
+    };
+    TetrahedronService.prototype.addStraightOnPlain = function (num_plane) {
+        var _arr = this.arr;
+        var dots_i = this.getNumsEdgeFromPlane(num_plane).filter(function (i) {
+            return _arr[i] != null;
+        });
+        var dots = dots_i.map(function (i) {
+            return _arr[i];
+        });
+        var asix = new Array();
+        for (var i = 0; i < dots.length; i++) {
+            asix.push(this.getVertCoord(this.edges[dots_i[i]].vert1));
+        }
+        return { black: dots, gray: asix, type: TYPE.PLANE };
+    };
+    TetrahedronService.prototype.generatePlan = function (plan) {
+        var _a, _b;
+        var planToDraw = new Array();
+        if (plan === WAY.DRAW_HARD) {
+            this.addExtra(this.stack, planToDraw);
+            planToDraw.push(this.addStraightOnPlain(3));
+        }
+        debugger;
+        var sub_plan = { black: new Array(), gray: new Array(), type: TYPE.PLANE };
+        for (var p = 0, tmp = void 0; p < 4 - (plan === WAY.DRAW_HARD ? 1 : 0); p++) {
+            tmp = this.addStraightOnPlain(p);
+            (_a = sub_plan.black).push.apply(_a, tmp.black);
+            (_b = sub_plan.gray).push.apply(_b, tmp.gray);
+        }
+        planToDraw.push(sub_plan);
+        var selectionDots = new Array();
+        for (var i = 0; i < this.arr.length; i++) {
+            if (this.arr_on[i]) {
+                selectionDots.push(this.arr[i]);
+            }
+        }
+        return { plan: planToDraw, dots: selectionDots };
+    };
+    TetrahedronService.prototype.getMinIOfY = function (arr) {
+        var min = Math.min.apply(null, arr.map(function (i) {
+            return i.y;
+        }));
+        var o = arr.map(function (i) {
+            return i.y;
+        }).indexOf(min);
+        return o;
+    };
+    TetrahedronService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], TetrahedronService);
+    return TetrahedronService;
 }());
 
 
