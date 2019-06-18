@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanvasStereometryTetrahedronComponent } from './canvas-stereometry-tetrahedron.component';
+import { CanvasTetrahedronComponent } from './canvas-tetrahedron.component';
 
 describe('CanvasStereometryTetrahedronComponent', () => {
-  let component: CanvasStereometryTetrahedronComponent;
-  let fixture: ComponentFixture<CanvasStereometryTetrahedronComponent>;
+  let component: CanvasTetrahedronComponent;
+  let fixture: ComponentFixture<CanvasTetrahedronComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasStereometryTetrahedronComponent ]
+      declarations: [ CanvasTetrahedronComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CanvasStereometryTetrahedronComponent);
+    fixture = TestBed.createComponent(CanvasTetrahedronComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

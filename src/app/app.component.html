@@ -35,8 +35,8 @@
     <div [ngSwitch]="numShowCanvas">
         <app-canvas #appcanvas *ngSwitchCase="1"></app-canvas>
         <app-canvas-beginning-analysis *ngSwitchCase="2"></app-canvas-beginning-analysis>
-        <app-canvas-stereometry-tetrahedron *ngSwitchCase="3"></app-canvas-stereometry-tetrahedron>
-        <app-canvas-stereometry *ngSwitchCase="4"></app-canvas-stereometry>
+        <app-canvas-tetrahedron *ngSwitchCase="3"></app-canvas-tetrahedron>
+        <app-canvas-cube *ngSwitchCase="4"></app-canvas-cube>
         <label *ngSwitchDefault> </label>
     </div>
 </div>

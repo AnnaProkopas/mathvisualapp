@@ -3,17 +3,15 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import * as THREE from 'three';
-import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css'],
-  providers: [DataService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CanvasComponent implements AfterViewInit {
+export class CanvasTrigComponent implements AfterViewInit {
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
   public scene: THREE.Scene;
@@ -28,7 +26,7 @@ export class CanvasComponent implements AfterViewInit {
   @ViewChild('canvas')
   private canvasRef: ElementRef;
 
-  constructor(private dataService: DataService, private ref: ChangeDetectorRef) {
+  constructor(private ref: ChangeDetectorRef) {
     this.render = this.render.bind(this);
   }
 
@@ -101,7 +99,7 @@ export class CanvasComponent implements AfterViewInit {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setClearColor(0xffffff, 1);
     this.renderer.autoClear = true;
-    let component: CanvasComponent = this;
+    let component: CanvasTrigComponent = this;
     (function render() {
       //requestAnimationFrame(render);
       component.render();
@@ -163,23 +161,6 @@ export class CanvasComponent implements AfterViewInit {
     console.log('Up');
     this.mouseOnLastPosPointer = false;
   }
-
-  /*
-  @HostListener('window:resize', ['$event'])
-  public onResize(event: Event) {
-    this.canvas.style.width = "100%";
-    this.canvas.style.height = "100%";
-    console.log("onResize: " + this.canvas.clientWidth + ", " + this.canvas.clientHeight);
-  
-    this.camera.aspect = this.getAspectRatio();
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-    this.render();
-  }
-  @HostListener('document:keypress', ['$event'])
-  public onKeyPress(event: KeyboardEvent) {
-    console.log("onKeyPress: " + event.key);
-  }*/
   ngAfterViewInit() {
     this.createScene();
     this.createLight();
@@ -189,11 +170,9 @@ export class CanvasComponent implements AfterViewInit {
 
     this.canvasRef.nativeElement.appendChild(this.renderer.domElement);
     this.render();
-    // document.getElementById("scene").appendChild(this.renderer.domElement);
   }
 
   public getAngle(): number {
-    // a = (radius, 0) b = (pointer.x, pointer.y)
     function cosAngle(vec1: THREE.Vector2, vec2: THREE.Vector3): number {
       return (vec1.x * vec2.x + vec1.y * vec2.y) /
         (Math.sqrt(vec1.x ** 2 + vec1.y ** 2) * Math.sqrt(vec2.x ** 2 + vec2.y ** 2));
@@ -224,18 +203,10 @@ export class CanvasComponent implements AfterViewInit {
     camera.position.set(0, 0, this.far_plane);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     const renderer = new THREE.WebGLRenderer();
-    /*new THREE.WebGLRenderer(/*{
-      canvas: this.canvasSin
-  });
-    renderer.setPixelRatio(devicePixelRatio);*/
-    //debugger;
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    /*
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;*/
     renderer.setClearColor(0xffffff, 1);
     renderer.autoClear = true;
-    const component: CanvasComponent = this;
+    const component: CanvasTrigComponent = this;
     (function render() {
       //requestAnimationFrame(render);
       component.render();
@@ -289,11 +260,6 @@ export class CanvasComponent implements AfterViewInit {
     this.selectionSin.dotSin.position.y = 0;//this.pointer.position.y / 2;
     this.selectionSin.dotSin.position.z = 1;
 
-    /*let sinText = new THREE.Mesh(new THREE.TextGeometry("sin:"),
-      new THREE.MeshBasicMaterial({ color: 0x000000 }));
-    sinText.position.x = 25;
-    sinText.position.y = 10;
-    this.scene.add(sinText);*/
     const base = this.createSubCanvas(15, sinScene, this.canvasSin);
     this.selectionSin.renderer = base.renderer;
     this.selectionSin.camera = base.camera;

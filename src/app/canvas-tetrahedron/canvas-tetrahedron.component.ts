@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener, Output, EventEmitter, Type } from '@angular/core';
 import * as THREE from 'three';
-import { CubeService, WAY, TYPE } from '../cube.service';
+import { TetrahedronService, WAY, TYPE } from '../tetrahedron.service';
 import { TrustedHtmlString } from '@angular/core/src/sanitization/bypass';
 
 export enum KEY_CODE {
@@ -9,18 +9,18 @@ export enum KEY_CODE {
 }
 
 @Component({
-  selector: 'app-canvas-stereometry',
-  templateUrl: './canvas-stereometry.component.html',
-  styleUrls: ['./canvas-stereometry.component.css'],
-  providers: [CubeService]
+  selector: 'app-canvas-tetrahedron',
+  templateUrl: './canvas-tetrahedron.component.html',
+  styleUrls: ['./canvas-tetrahedron.component.css'],
+  providers: [TetrahedronService]
 })
-export class CanvasStereometryComponent implements AfterViewInit {
+export class CanvasTetrahedronComponent implements AfterViewInit {
   @ViewChild('canvas')
   private canvasRef: ElementRef;
   private get canvas(): HTMLCanvasElement {
     return this.canvasRef.nativeElement;
   }
-  constructor(private cubeService: CubeService) {
+  constructor(private tetraService: TetrahedronService) {
     this.render = this.render.bind(this);
   }
   private renderer: THREE.WebGLRenderer;
@@ -62,38 +62,27 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.render();
   }
 
-  private onOffCubes = [];
+  private onOffForm = [];
   private cube = new THREE.Group();
-  private cube_line = new THREE.Object3D();
+  private main_group = new THREE.Object3D();
   private helper: THREE.Mesh;
   private material = {
-    back: new THREE.MeshLambertMaterial({
-      color: 0xffffff,
-      opacity: 0.5,
-      transparent: true
-    }),
-    front: new THREE.MeshLambertMaterial({
-      color: 0xffffff,
-      opacity: 0.3,
-      transparent: true
-    }),
     black: new THREE.MeshBasicMaterial({ color: 0x00000 }),
     blue: new THREE.MeshBasicMaterial({ color: 0x0000ff }),
     green: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
     red: new THREE.MeshBasicMaterial({ color: 0xff0000 }),
     black_dash_line: new THREE.LineDashedMaterial({ color: 0x000000, dashSize: 3, gapSize: 2 }),
-    powder_blue_line: new THREE.LineBasicMaterial({ color: 0xB0E0E6 }),
-    dash: new THREE.LineDashedMaterial({
-      color: 0xffffff,
-      linewidth: 1,
-      scale: 1,
-      dashSize: 3,
-      gapSize: 1,
+    dim_gray_line: new THREE.LineBasicMaterial({ color: 0x292929 }),
+    black_line: new THREE.LineBasicMaterial({ color: 0x000000 }),
+    section: new THREE.MeshBasicMaterial({
+      color: 0x90EE90,
+      side: THREE.DoubleSide
     }),
-    dim_gray_line: new THREE.LineBasicMaterial({color: 0x090909}),
-    black_line: new THREE.LineBasicMaterial({color: 0x000000}),
-    section: new THREE.MeshBasicMaterial({ color: 0x90EE90, 
-      side: THREE.DoubleSide })
+    base: new THREE.MeshPhongMaterial({
+      color: 0x15628f, emissive: 0x072534, side: THREE.DoubleSide, flatShading: true,
+      opacity: 0.7, transparent: true
+    }),
+    base_line: new THREE.LineBasicMaterial({ color: 0x000000 })
   };
   public setPosition(a: THREE.Mesh, b: THREE.Vector3): THREE.Mesh {
     a.position.x = b.x;
@@ -134,8 +123,8 @@ export class CanvasStereometryComponent implements AfterViewInit {
     const mesh = new THREE.Mesh(new THREE.Geometry(), new THREE.MeshPhongMaterial({ color: 0xfffffff }));
     this.scene.add(mesh);
     const loader = new THREE.FontLoader();
-    let component: CanvasStereometryComponent = this;
-    loader.load('https://threejs.org//examples/fonts/helvetiker_regular.typeface.json', function (_font) {
+    let component: CanvasTetrahedronComponent = this;
+    loader.load('https://raw.githubusercontent.com/AnnaProkopas/mathvisualapp/master/src/app/canvas-cube/Roboto_Regular.json', function (_font) {
       for (let el of arr) {
         const geometry = new THREE.TextGeometry(el.text, {
           font: Object(_font) as THREE.Font,
@@ -158,16 +147,6 @@ export class CanvasStereometryComponent implements AfterViewInit {
       }
     });
   }
-  private drawLineOnGroup(v1: THREE.Vector3, v2: THREE.Vector3) {
-    let y = new THREE.Geometry();
-    y.vertices.push(v1);
-    y.vertices.push(v2);
-    let material = new THREE.LineBasicMaterial({ color: 0x090909, linewidth: 2, side: THREE.DoubleSide });
-    material.polygonOffset = true;
-    material.polygonOffsetFactor = -0.1;
-    let mesh = new THREE.Line(y, material);
-    this.cube_line.add(mesh);
-  }
   public initilaze() {
     this.material.section.polygonOffset = true;
     this.material.section.polygonOffsetFactor = -0.1;
@@ -176,31 +155,26 @@ export class CanvasStereometryComponent implements AfterViewInit {
     /*this.material.black.side = THREE.BackSide;
     this.material.front.side = THREE.FrontSide;*/
     this.scene.add(this.cube);
-    this.y_asix(new THREE.Vector3(-this.cubeService.side, 0, 0), new THREE.Vector3(this.cubeService.side, 0, 0), this.material.blue);
-    this.z_asix(new THREE.Vector3(0, -this.cubeService.side, 0), new THREE.Vector3(0, this.cubeService.side, 0), this.material.red);
-    this.x_asix(new THREE.Vector3(0, 0, -this.cubeService.side), new THREE.Vector3(0, 0, this.cubeService.side), this.material.green);
+    this.y_asix(new THREE.Vector3(-this.tetraService.side, 0, 0), new THREE.Vector3(this.tetraService.side, 0, 0), this.material.blue);
+    this.z_asix(new THREE.Vector3(0, -this.tetraService.side, 0), new THREE.Vector3(0, this.tetraService.side, 0), this.material.red);
+    this.x_asix(new THREE.Vector3(0, 0, -this.tetraService.side), new THREE.Vector3(0, 0, this.tetraService.side), this.material.green);
     this.generateText([{ text: 'x', position: new THREE.Vector3(0, -5, 99) },
     { text: 'y', position: new THREE.Vector3(99, -5, 0) },
     { text: 'z', position: new THREE.Vector3(5, 99, 0) }]);
 
-    //рисуем куб
-    let mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(this.cubeService.side, this.cubeService.side, this.cubeService.side), this.material.front);
-    this.cube.add(mesh);
-    mesh = new THREE.Mesh(new THREE.BoxGeometry(this.cubeService.side, this.cubeService.side, this.cubeService.side), this.material.front);
-    this.cube.add(mesh);
-
-    this.scene.add(this.cube_line);
-    for (const edge of this.cubeService.edges) {
-      this.drawLineOnGroup(edge.vert1, edge.vert2);
-    }
-    this.onOffCubes.push(this.cube_line);
+    this.scene.add(this.main_group);
+    //рисуем тетраэдр
+    const geom = new THREE.PolyhedronBufferGeometry(this.tetraService.vertices,
+      this.tetraService.indices, Math.sqrt(3) * this.tetraService.a / 3, 0);
+    this.main_group.add(new THREE.LineSegments(geom, this.material.base_line));
+    const mesh = new THREE.Mesh(geom, this.material.base);
+    mesh.renderOrder = 1;
+    this.main_group.add(mesh);
+    this.onOffForm.push(this.main_group);
     this.helper = new THREE.Mesh(new THREE.SphereGeometry(2, 240),
       new THREE.MeshNormalMaterial());
     this.scene.add(this.helper);
     this.render();
-
-    this.ray = new THREE.Ray(this.camera.position, null);
     this.scene.add(this.section);
   }
 
@@ -212,7 +186,6 @@ export class CanvasStereometryComponent implements AfterViewInit {
   private onMouseDownPhi: number = 60;
   private onMouseDownPosition = new THREE.Vector2();
   private onMouseLastPosition = new THREE.Vector2();
-  private ray: THREE.Ray;
   private raycaster = new THREE.Raycaster();
 
   /* EVENTS */
@@ -232,9 +205,8 @@ export class CanvasStereometryComponent implements AfterViewInit {
     mouse.x = ((clientX) / this.canvas.clientWidth) * 2 - 1;
     mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
     this.raycaster.setFromCamera(mouse, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.onOffCubes, true);
+    const intersects = this.raycaster.intersectObjects(this.onOffForm, true);
     if (intersects.length > 0) {
-      //this.helper.position.set(0, 0, 0);
       this.helper.position.copy(intersects[0].point);
     }
 
@@ -243,7 +215,7 @@ export class CanvasStereometryComponent implements AfterViewInit {
         + this.onMouseDownTheta;
       this.phi = ((clientY - this.onMouseDownPosition.y) * 0.3)
         + this.onMouseDownPhi;
-      this.phi = Math.min(180, Math.max(0, this.phi));
+      this.phi = Math.min(180, Math.max(-40, this.phi));
       this.camera.position.x = this.radious * Math.sin(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
       this.camera.position.y = this.radious * Math.sin(this.phi * Math.PI / 360);
       this.camera.position.z = this.radious * Math.cos(this.theta * Math.PI / 360) * Math.cos(this.phi * Math.PI / 360);
@@ -252,6 +224,9 @@ export class CanvasStereometryComponent implements AfterViewInit {
     }
     this.render();
   }
+  @HostListener('mouseup', ['$event']) onWindowMouseUp(event: any) {
+    this.onMouseUp(event);
+  }
   public onMouseUp(event: MouseEvent) {
     event.preventDefault();
     const clientX = event.pageX - this.canvas.offsetLeft;
@@ -259,7 +234,6 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.isMouseDown = false;
     this.onMouseDownPosition.x = clientX - this.onMouseDownPosition.x;
     this.onMouseDownPosition.y = clientY - this.onMouseDownPosition.y;
-
     if (this.onMouseDownPosition.length() > 5) {
       return;
     }
@@ -305,6 +279,7 @@ export class CanvasStereometryComponent implements AfterViewInit {
     this.camera.updateMatrix();
     this.render();
   }
+
   private section = new THREE.Object3D();
   public onClick(event: any) {
     event.preventDefault();
@@ -314,29 +289,29 @@ export class CanvasStereometryComponent implements AfterViewInit {
     mouse.x = ((clientX) / this.canvas.clientWidth) * 2 - 1;
     mouse.y = -((clientY) / this.canvas.clientHeight) * 2 + 1;
     this.raycaster.setFromCamera(mouse, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.onOffCubes, true);
-    //если точка на ребрах - то она добавляется в стек
+    const intersects = this.raycaster.intersectObjects(this.onOffForm, true);
+    //если точка на ребразх - то она добавляется в стек
     if (intersects.length > 0) {
       const p = intersects[0].point;
       let hel = this.drawBaseDot();
       hel = this.setPosition(hel, p);
-      if (this.cubeService.drawed) {
+      if (this.tetraService.drawed) {
         this.clearSelection();
-        for (const point of this.cubeService.stack) {
+        for (const point of this.tetraService.stack) {
           let h = this.drawBaseDot();
           h = this.setPosition(h, point);
           this.section.add(h);
         }
-        this.cubeService.drawed = false;
+        this.tetraService.drawed = false;
       }
-      this.cubeService.stack.push(hel.position);
+      this.tetraService.stack.push(hel.position);
       this.section.add(hel);
     }
-    const plane = this.cubeService.canBuildPlane();
+    const plane = this.tetraService.getBuildPlane();
     if (plane === WAY.Clear) {
       this.user_assistance = 'Все три точки находятся на одной прямой. Отметьте третью точку на другом ребре.';
       this.clearSelection();
-      for (const p of this.cubeService.stack) {
+      for (const p of this.tetraService.stack) {
         let hel = this.drawBaseDot();
         hel = this.setPosition(hel, p);
         this.section.add(hel);
@@ -347,73 +322,51 @@ export class CanvasStereometryComponent implements AfterViewInit {
       /*
       проверка на принадлежность одной прямой:
       */
-      if (plane === WAY.DRAW_SIMPLE) {
-        const geometry = new THREE.Geometry();
-        for (const dot of this.cubeService.arr) {
-          if (this.cubeService.onEdgeCube(dot)) {
-            geometry.vertices.push(dot);
+      let { plan: planToDraw, dots: selectionDots } = this.tetraService.generatePlan(plane);
+      //debugger;
+      this.listOfScenes = new Array<THREE.Object3D>();
+      this.numDrawedStep = -1;
+      //создаем массив сцен
+      for (let list of planToDraw) {
+        let nowScene = new THREE.Scene();
+        let dots = new Set<THREE.Vector3>();
+        //может быть массив пар вершин, может быть массив вершин (черных и серых)
+        if (list.type === TYPE.PLANE) {
+          dots = new Set(list.black);
+          this.drawLines(nowScene, list.black);
+          for (let i = 0; i < list.gray.length; i++) {
+            let tmp = this.drawLine(nowScene, list.black[i], list.gray[i], this.material.black_dash_line);
+            tmp.computeLineDistances();
+          }
+        } else if (list.type === TYPE.LINES) {
+          for (const part of list) {
+            dots.add(part[0]);
+            dots.add(part[1]);
+            this.drawLine(nowScene, part[0], part[1], this.material.dim_gray_line);
           }
         }
-        geometry.faces = this.combinations(geometry.vertices.length);
-        geometry.computeBoundingSphere();
-        const mesh = new THREE.Mesh(geometry, this.material.section);
-        mesh.renderOrder = 3;
-        this.section.add(mesh);
-        for (let i = 0; i < this.cubeService.arr.length; i++) {
-          let a = new THREE.Mesh(new THREE.SphereGeometry(0.7, 240), this.material.black);
-          this.section.add(a);
-          a = this.setPosition(a, this.cubeService.arr[i]);
-        }
-        this.user_assistance = 'Cечение расчитано и построено.';
-      } else { // hard version
-        let { plan: planToDraw, dots: selectionDots } = this.cubeService.generateExtra();
-        this.listOfScenes = new Array<THREE.Object3D>();
-        this.numDrawedStep = -1;
-        //создаем массив сцен
-        for (let list of planToDraw) {
-          let nowScene = new THREE.Scene();
-          let dots = new Set<THREE.Vector3>();
-          //может быть массив пар вершин, может быть массив вершин (черных и серых)
-          if (list.type === TYPE.PLANE) {
-            dots = new Set(list.black);
-            this.drawLines(nowScene, list.black);
-            for (const part of list.gray) {
-              let tmp = this.drawLine(nowScene, part[0], part[1], this.material.black_dash_line);
-              tmp.computeLineDistances();
-            }
-          } else if (list.type === TYPE.LINES) {
-            for (const part of list) {
-              dots.add(part[0]);
-              dots.add(part[1]);
-              this.drawLine(nowScene, part[0], part[1], this.material.dim_gray_line);
-            }
-          } else if (list.type === TYPE.LINE) {
-            dots.add(list[0]);
-            dots.add(list[1]);
-            this.drawLine(nowScene, list[0], list[1], this.material.dim_gray_line);
-          }
-          this.drawDots(nowScene, dots);
-          nowScene.visible = false;
-          this.listOfScenes.push(nowScene);
-          this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
-        }
-        //последняя сцена: отрисовка сечения}
-        const geometry = new THREE.Geometry();
-        geometry.vertices.push(...(selectionDots as Array<THREE.Vector3>));
-        geometry.faces = this.combinations(geometry.vertices.length);
-        geometry.computeBoundingSphere();
-        this.listOfScenes.push((new THREE.Scene()).add(new THREE.Mesh(geometry, this.material.section)));
+        this.drawDots(nowScene, dots);
+        nowScene.visible = false;
+        this.listOfScenes.push(nowScene);
         this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
-        this.listOfScenes[this.listOfScenes.length - 1].visible = false;
-        this.user_assistance = 'Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.';
       }
+      //последняя сцена: отрисовка сечения}
+      let geometry = new THREE.Geometry();
+      geometry.vertices = selectionDots as Array<THREE.Vector3>;
+      geometry.faces = this.combinations(geometry.vertices.length);
+      geometry.computeBoundingSphere();
+      this.listOfScenes.push((new THREE.Scene()).add(new THREE.Mesh(geometry, this.material.section)));
+      this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
+      this.listOfScenes[this.listOfScenes.length - 1].visible = false;
+      this.user_assistance = 'Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.';
       this.render();
-      this.cubeService.stack.shift();
+      this.tetraService.stack.shift();
     }
   }
+
   private listOfScenes: Array<THREE.Object3D>;
   private numDrawedStep: number = -1;
-  public user_assistance: string = 
+  public user_assistance: string =
     'Отметьте три точки на ребрах куба, не больше двух точек на одном ребре.';
   @HostListener('window:keyup', ['$event']) keyEvent(event: KeyboardEvent) {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {

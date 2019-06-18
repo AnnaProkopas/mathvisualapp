@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
 import { AfterViewInit, ElementRef, Directive, Input, ViewChild, HostListener } from '@angular/core';
-import { CanvasComponent } from './canvas/canvas.component';
-import { DataService } from './data.service';
+import { CanvasTrigComponent } from './canvas-trig/canvas.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [DataService]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @ViewChild('appcanvas') trigRef: CanvasComponent;
+  @ViewChild('appcanvas') trigRef: CanvasTrigComponent;
   title = 'mathvisualapp';
   public numShowCanvas: string = '1';
-  constructor(private dataService: DataService) {  }
   partTrig: boolean[] = [false, false, false, false];
   public chooseCube() {
     this.numShowCanvas = '4';
