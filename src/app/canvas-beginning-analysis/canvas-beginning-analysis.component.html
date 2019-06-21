@@ -1,3 +1,9 @@
 <div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"></div>
 <label>f(x) = </label><input type="text" [(ngModel)]="expression" (ngModelChange)="saverange()"/><br>
 <label>f'(x) = {{derivateFunction}}</label>
+<p>+ , - , * , / </p>
+<p>sqrt(x), ^</p>
+<p>sin(x), cos(x), </p>
+<p>45 deg</p>
+<p>log(x, 2), log(e)</p>
+<p>pi, e</p>

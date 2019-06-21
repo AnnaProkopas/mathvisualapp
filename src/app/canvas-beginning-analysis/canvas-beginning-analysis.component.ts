@@ -53,12 +53,12 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
   public parser: any;
 
   public saverange() {
-    if (this.renderer == undefined) {
+    if (this.renderer === undefined) {
       return;
     }
     this.scene.remove(this.line);
     this.parser = math.parser();
-    if (this.expression == '') {
+    if (this.expression === '') {
       return;
     } else {
       this.parser.eval('f(x)=' + this.expression);
