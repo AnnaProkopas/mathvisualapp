@@ -358,7 +358,7 @@ export class CanvasTetrahedronComponent implements AfterViewInit {
       this.listOfScenes.push((new THREE.Scene()).add(new THREE.Mesh(geometry, this.material.section)));
       this.section.add(this.listOfScenes[this.listOfScenes.length - 1]);
       this.listOfScenes[this.listOfScenes.length - 1].visible = false;
-      this.user_assistance = 'Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.';
+      this.user_assistance = "Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.";
       this.render();
       this.tetraService.stack.shift();
     }

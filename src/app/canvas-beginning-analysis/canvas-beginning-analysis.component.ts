@@ -16,6 +16,7 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
   private scaleConst = 1.2;
   public near_plane = 99;
   public far_plane = 100;
+  public pos_on_OX: number = 0;
 
   public pointer: THREE.Mesh;
 
@@ -28,7 +29,7 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
   public expression: string;
   public derivateFunction: string;
   public OXl: string = "-24";
-  public OXr: string = "25";
+  public OXr: string = "21";
   private OYu: number;
   private OYd: number;
 
@@ -69,14 +70,21 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
     this.derivateFunction = math.derivative(this.expression, 'x');
   }
   private updateGrafic() {
-    debugger; 
     const graph1 = new THREE.Geometry();
     let arrY: number[] = [];
     let xl = parseFloat(this.OXl), xr = parseFloat(this.OXr);
     for (let i = xl; i < xr; i++) {
+      if (i % 3 == 0) {
+        this.addText(this.scene, i.toString(), new THREE.Vector3(i, -2, 0));
+        this.addHatch(this.scene, new THREE.Vector3(i, 0.5, 0), new THREE.Vector3(i, -0.5, 0));
+      }
       graph1.vertices.push(
         new THREE.Vector3(i, this.getY(i), 0));
       arrY.push(this.getY(i));
+    }
+    for (let i = -10; i < 12; i += 2) {
+      this.addText(this.scene, i.toString(), new THREE.Vector3(1, i, 0));
+      this.addHatch(this.scene, new THREE.Vector3(0.5, i, 0), new THREE.Vector3(-0.5, i, 0));
     }
     this.OYu = Math.max(...arrY);
     this.OYd = Math.min(...arrY);
@@ -196,7 +204,8 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
       this.render();
     }
   }
-
+  public dF_in_dot: number;
+  public angle: number;
   public onMouseMove(event: MouseEvent) {
     if (this.mouseOnLastPosPointer) {
       const EPS = 2;
@@ -204,6 +213,7 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
       this.pointer.position.x = pos.x;
       this.pointer.position.y = this.getY(pos.x);
       this.scene.remove(this.lineD);
+      this.pos_on_OX = pos.x.toFixed(3);
       this.lineD = this.drawDerivative(new THREE.Vector3(pos.x - EPS / 4, this.getY(pos.x - EPS / 4), 0),
         new THREE.Vector3(pos.x + EPS / 4, this.getY(pos.x + EPS / 4), 0));
       this.scene.add(this.lineD);
@@ -225,6 +235,8 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
       let y = new THREE.Geometry();
       const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
       const k = (dot1.y - dot.y) / (dot1.x - dot.x);
+      this.dF_in_dot = k.toFixed(3);
+      this.angle = Math.atan(k).toFixed(3);
       const b = dot.y - k * dot.x;
       let x = dot.x - 5;
       y.vertices.push(new THREE.Vector3(x, x * k + b, 0));
@@ -258,6 +270,7 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
     y.vertices.push(toDot);
     y.vertices.push(new THREE.Vector3(toDot.x - 2, toDot.y - 1, 0));
     localScene.add(new THREE.Line(y, black_material));
+    this.addText(localScene, 'x', new THREE.Vector3(toDot.x, toDot.y - 2, toDot.z));
     return localScene;
   }
 
@@ -275,6 +288,7 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
     y.vertices.push(toDot);
     y.vertices.push(new THREE.Vector3(toDot.x - 1, toDot.y - 2, 0));
     localScene.add(new THREE.Line(y, black_material));
+    this.addText(localScene, 'y', new THREE.Vector3(toDot.x + 2, toDot.y, toDot.z));
     return localScene;
   }
 
@@ -290,5 +304,37 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
     const distance = - this.camera.position.z / vec.z;
     pos.copy(this.camera.position).add(vec.multiplyScalar(distance));
     return pos.divide(new THREE.Vector3(this.scaleConst, this.scaleConst, this.scaleConst));
+  }
+  private addText(localScene: THREE.Scene, text: string, pos: THREE.Vector3) {
+    let component: CanvasBeginningAnalysisComponent = this;
+    new THREE.FontLoader().load('assets/font//Roboto_Regular.json', function (_font) {
+      const geometry = new THREE.TextGeometry(text, {
+        font: Object(_font) as THREE.Font,
+        size: 1,
+        height: 0.2,
+        curveSegments: 12,
+        bevelEnabled: false,
+        bevelThickness: 1,
+        bevelSize: 0.2,
+        bevelSegments: 10
+      });
+      const textMaterial = new THREE.MeshPhongMaterial(
+        { color: 0x000000 }
+      );
+      let m = new THREE.Mesh(geometry, textMaterial);
+      localScene.add(m);
+      m.position.x = pos.x;
+      m.position.y = pos.y;
+      m.position.z = pos.z;
+      component.render();
+    });
+  }
+  private addHatch(localScene: THREE.Scene, one: THREE.Vector3, two: THREE.Vector3) {
+    let y = new THREE.Geometry();
+    const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
+    y.vertices.push(one);
+    y.vertices.push(two);
+    localScene.add(new THREE.Line(y, black_material));
+    y = new THREE.Geometry();
   }
 }

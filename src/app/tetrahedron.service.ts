@@ -87,7 +87,6 @@ export class TetrahedronService {
       for (let j = 0; j < this.stack.length; j++) {
         this.listOfHasPlanes.add(this.getNumPlaneForBaseDot(this.stack[j]));
       }
-      debugger;
       if (i === 3) {
         if (this.listOfHasPlanes.size < this.stack.length) {
           return WAY.DRAW_SIMPLE;

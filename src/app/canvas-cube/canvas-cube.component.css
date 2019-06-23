@@ -11,10 +11,11 @@ label {
     font-size: 19px;
     position: relative;
     z-index: 20;
+    width: 700;
 }
 
 .help-text-box {
-    width: 650;
+    max-width: 650;
     min-width: 400;
     height: 70px;
     margin: 10px auto 30px auto;

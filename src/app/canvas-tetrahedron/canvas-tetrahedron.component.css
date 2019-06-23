@@ -3,19 +3,11 @@
     height: 550px;
 }
 
-label {
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    color: #777;
+#help {
     text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
     line-height: 33px;
     font-size: 19px;
     position: relative;
     z-index: 20;
-}
-
-.help-text-box {
-    width: 650;
-    min-width: 400;
-    height: 70px;
-    margin: 10px auto 30px auto;
+    width: 700;
 }
