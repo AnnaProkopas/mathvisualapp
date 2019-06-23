@@ -1,9 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild, HostListener } from '@angular/core';
 import * as THREE from 'three';
 import * as math from 'mathjs';
-import { mathjsc } from 'mathjs-cmathml';
-import { angularMath } from 'angular-ts-math';
-import { Vector3 } from 'three';
 
 @Component({
   selector: 'app-canvas-beginning-analysis',
@@ -13,7 +10,7 @@ import { Vector3 } from 'three';
 
 export class CanvasBeginningAnalysisComponent implements AfterViewInit {
   private renderer: THREE.WebGLRenderer;
-  private camera: THREE.PerspectiveCamera;
+  private camera: THREE.OrthographicCamera;
   public scene: THREE.Scene;
 
   private scaleConst = 1.2;
@@ -22,11 +19,18 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
 
   public pointer: THREE.Mesh;
 
+  public graph: THREE.Geometry;
+  public parser: any;
+  
   @ViewChild('canvas')
   private canvasRef: ElementRef;
 
   public expression: string;
   public derivateFunction: string;
+  public OXl: string = "-24";
+  public OXr: string = "25";
+  private OYu: number;
+  private OYd: number;
 
   public line: THREE.Line;
   public lineD: THREE.Line;
@@ -49,33 +53,61 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
     this.scene.add(this.line);
   }
 
-  public graph: THREE.Geometry;
-  public parser: any;
-
   public saverange() {
     if (this.renderer === undefined) {
       return;
     }
     this.scene.remove(this.line);
     this.parser = math.parser();
-    if (this.expression === '') {
-      return;
-    } else {
+    try {
       this.parser.eval('f(x)=' + this.expression);
+    } catch (e) {
+      e.printStackTrace();
     }
+    this.updateGrafic();
+
+    this.derivateFunction = math.derivative(this.expression, 'x');
+  }
+  private updateGrafic() {
+    debugger; 
     const graph1 = new THREE.Geometry();
-    for (let i = -24; i < 25; i++) {
+    let arrY: number[] = [];
+    let xl = parseFloat(this.OXl), xr = parseFloat(this.OXr);
+    for (let i = xl; i < xr; i++) {
       graph1.vertices.push(
         new THREE.Vector3(i, this.getY(i), 0));
+      arrY.push(this.getY(i));
     }
+    this.OYu = Math.max(...arrY);
+    this.OYd = Math.min(...arrY);
     this.graph = graph1;
-    console.log(this.graph);
+    this.camera.left = -xl - 5;
+    this.camera.right = xr + 5;
+    this.camera.top = this.OYu + 5;
+    this.camera.bottom = this.OYd - 5;
+    /*this.camera.position.x = (xl + xr) / 2;
+    this.camera.position.y = (this.OYd + this.OYu) / 2;
+    this.camera.position.z = Math.max(this.far_plane / 28 * (this.OYu - this.OYd));
+    //this.camera.lookAt(new THREE.Vector3((xl + xr) / 2, (this.OYd + this.OYu) / 2, 0));*/
+    this.camera.updateMatrixWorld(true);
     this.line = new THREE.Line(this.graph,
       new THREE.LineBasicMaterial({ color: 0x20B2AA, linewidth: 2.5 }));
     this.scene.add(this.line);
     this.render();
-
-    this.derivateFunction = math.derivative(this.expression, 'x');
+  }
+  public saveOXl() {
+    let xl = parseFloat(this.OXl), xr = parseFloat(this.OXr);
+    if (xl > xr) {
+      this.OXl = (xr - 1).toString();
+    }
+    this.updateGrafic();
+  }
+  public saveOXr() {
+    let xl = parseFloat(this.OXl), xr = parseFloat(this.OXr);
+    if (xl > xr) {
+      this.OXr = (xl + 1).toString();
+    }
+    this.updateGrafic();
   }
 
   public getY(x: number): number {
@@ -90,9 +122,11 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
 
   private createCamera() {
     const aspectRatio = this.getAspectRatio();
-    this.camera = new THREE.PerspectiveCamera(
+    this.camera = new THREE.OrthographicCamera(
+      -30,
       30,
-      aspectRatio,
+      20,
+      -20,
       this.near_plane,
       this.far_plane
     );
@@ -165,7 +199,6 @@ export class CanvasBeginningAnalysisComponent implements AfterViewInit {
 
   public onMouseMove(event: MouseEvent) {
     if (this.mouseOnLastPosPointer) {
-      console.log('----');
       const EPS = 2;
       const pos = this.worldToCanvas(new THREE.Vector2(event.clientX, event.clientY));
       this.pointer.position.x = pos.x;

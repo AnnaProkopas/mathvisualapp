@@ -21,7 +21,7 @@ export enum TYPE {
 export class CubeService {
   public side = 100;
   public edges: { vert1: THREE.Vector3, vert2: THREE.Vector3, plane: number[] }[];
-  private _stack: { data: THREE.Vector3[], edge_num: number[], drawed: boolean };
+  private _queue: { data: THREE.Vector3[], edge_num: number[], drawed: boolean };
 
   private planeToEdge = [
     [-1, -2, 0, 1, 9, 10],
@@ -32,39 +32,39 @@ export class CubeService {
     [10, 11, 5, 6, -2, -1]];
   public arr: THREE.Vector3[];
   public getDot(i: number): THREE.Vector3 {
-    if (i >= this._stack.data.length) {
+    if (i >= this._queue.data.length) {
       console.error("Try to get don't exist dot.");
     }
-    return this._stack.data[i];
+    return this._queue.data[i];
   }
-  get stack() {
-    return this._stack.data;
+  get queue() {
+    return this._queue.data;
   }
   get drawed() {
-    return this._stack.drawed;
+    return this._queue.drawed;
   }
   set drawed(i: boolean) { //?
-    this._stack.drawed = i;
+    this._queue.drawed = i;
   }
 
   public canBuildPlane() {
-    if (this._stack.data.length === 3) {
-      if (this.isTreeDotsOnCommonStraightInCube(this.stack[0], this.stack[1], this.stack[2])) {
+    if (this._queue.data.length === 3) {
+      if (this.isTreeDotsOnCommonStraightInCube(this.queue[0], this.queue[1], this.queue[2])) {
         //alert("Все три точки находятся на одной прямой.");
-        this._stack.data.shift();
+        this._queue.data.shift();
         return WAY.Clear;
       }
       /*
         основные вычисления для получения координат точек
       */
-      const a = this.partExpA(this.stack[0], this.stack[1], this.stack[2]), b = this.partExpB(this.stack[0], this.stack[1], this.stack[2]),
-        c = this.partExpC(this.stack[0], this.stack[1], this.stack[2]), d = this.partExpD(this.stack[0], this.stack[1], this.stack[2]);
+      const a = this.partExpA(this.queue[0], this.queue[1], this.queue[2]), b = this.partExpB(this.queue[0], this.queue[1], this.queue[2]),
+        c = this.partExpC(this.queue[0], this.queue[1], this.queue[2]), d = this.partExpD(this.queue[0], this.queue[1], this.queue[2]);
       let i = 0;
       this.arr = [];
-      this._stack.edge_num = [];
-      const condition_of_graph = this.isTreeDotsOnOnePlaneOfCube(this.stack[0], this.stack[1], this.stack[2])
-        || this.isTwoDotOnOneEdgeOfCube(this.stack[0], this.stack[1]) ||
-        this.isTwoDotOnOneEdgeOfCube(this.stack[0], this.stack[2]) || this.isTwoDotOnOneEdgeOfCube(this.stack[1], this.stack[2]);
+      this._queue.edge_num = [];
+      const condition_of_graph = this.isTreeDotsOnOnePlaneOfCube(this.queue[0], this.queue[1], this.queue[2])
+        || this.isTwoDotOnOneEdgeOfCube(this.queue[0], this.queue[1]) ||
+        this.isTwoDotOnOneEdgeOfCube(this.queue[0], this.queue[2]) || this.isTwoDotOnOneEdgeOfCube(this.queue[1], this.queue[2]);
       for (const edge of this.edges) {
         const numerator = this.Numerator(a, b, c, d, edge.vert1);
         const denominator = this.Denominator(a, b, c, d, edge.vert1, edge.vert2);
@@ -80,9 +80,9 @@ export class CubeService {
           this.arr.push(v);
           if (!condition_of_graph) {
             for (let j = 0; j < 3; j++) {
-              if (this._stack.edge_num[j] === undefined) {
-                if (this.normalize((new THREE.Vector3()).subVectors(v, this.stack[j])) < 0.1) {
-                  this._stack.edge_num[j] = i; // запоминаем номер грани для заданной точки
+              if (this._queue.edge_num[j] === undefined) {
+                if (this.normalize((new THREE.Vector3()).subVectors(v, this.queue[j])) < 0.1) {
+                  this._queue.edge_num[j] = i; // запоминаем номер грани для заданной точки
                 }
               }
             }
@@ -90,7 +90,7 @@ export class CubeService {
         }
         i++;
       }
-      this._stack.drawed = true;
+      this._queue.drawed = true;
       return condition_of_graph ? WAY.DRAW_SIMPLE : WAY.DRAW_HARD;
     }
     return WAY.WAIT;
@@ -310,9 +310,9 @@ export class CubeService {
   }
 
   public generateExtra(): any {
-    let graph = this.generateGraph(this._stack.edge_num);
+    let graph = this.generateGraph(this._queue.edge_num);
     let planToDraw = new Array<Array<THREE.Vector3>>();
-    let work_plane = this.getWorkPlane(this._stack.edge_num, graph, planToDraw);
+    let work_plane = this.getWorkPlane(this._queue.edge_num, graph, planToDraw);
     this.dfsAndDraw(work_plane, graph, planToDraw);
     let selectionDots = [];
         for (const dot of this.arr) {
@@ -345,7 +345,7 @@ export class CubeService {
     this.edges.push({ vert1: new THREE.Vector3(-s / 2, -s / 2, -s / 2), vert2: new THREE.Vector3(-s / 2, s / 2, -s / 2), plane: [0, 5] });
     this.edges.push({ vert1: new THREE.Vector3(-s / 2, s / 2, s / 2), vert2: new THREE.Vector3(-s / 2, -s / 2, s / 2), plane: [1, 5] });
     //11
-    this._stack = { data: [], edge_num: [], drawed: false };
+    this._queue = { data: [], edge_num: [], drawed: false };
   }
 }
 

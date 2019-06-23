@@ -6,7 +6,7 @@ import * as THREE from 'three';
 
 @Component({
   selector: 'app-canvas',
- // template: `<img src="assets/img/logo.png">`,
+  // template: `<img src="assets/img/logo.png">`,
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,29 +15,29 @@ import * as THREE from 'three';
 export class CanvasTrigComponent implements AfterViewInit {
   private renderer: THREE.WebGLRenderer;
   private camera: THREE.PerspectiveCamera;
-  public scene: THREE.Scene;
-
   private scaleConst = 1.5;
+  public valSin: string = '0';
+  public valCos: string = '1';
+  public valTg: string = '0';
+  public valCtg: string = '∞';
+  public angle_rad: string = '0';
+  public angle_deg: string = '0';
+  public scene: THREE.Scene;
   public near_plane = 97;
   public far_plane = 100;
-
   public pointer: THREE.Mesh;
   public circle: { radius: number, x: number, y: number };
 
-  private valSin: string = '0';
-  private valCos: string = '1';
-  private valTg: string = '0';
-  private valCtg: string = '∞';
-  private angle_rad: string = '0';
-  private angle_deg: string = '0';
+  public visibleSin: boolean = true;
+  public visibleCos: boolean = true;
+  public visibleTg: boolean = true;
+  public visibleCtg: boolean = true;
 
   @ViewChild('canvas')
   private canvasRef: ElementRef;
-
   constructor(private ref: ChangeDetectorRef) {
     this.render = this.render.bind(this);
   }
-
   private get canvas(): HTMLCanvasElement {
     return this.canvasRef.nativeElement;
   }
@@ -48,9 +48,9 @@ export class CanvasTrigComponent implements AfterViewInit {
     const url = "assets/img/back-circle.gif";
     let loader = new THREE.TextureLoader();
     loader.load(url, function (_texture) {
-        var materialTexture = new THREE.MeshBasicMaterial({ map: _texture });
-      let m = new THREE.Mesh(new THREE.PlaneGeometry( 27, 27 ), materialTexture);
-     _this.scene.add(m);
+      var materialTexture = new THREE.MeshBasicMaterial({ map: _texture });
+      let m = new THREE.Mesh(new THREE.PlaneGeometry(27, 27), materialTexture);
+      _this.scene.add(m);
       _this.render();
     });
 
@@ -173,9 +173,9 @@ export class CanvasTrigComponent implements AfterViewInit {
   }
 
   public onMouseUp(event: MouseEvent) {
-    console.log('Up');
     this.mouseOnLastPosPointer = false;
   }
+
   ngAfterViewInit() {
     this.createScene();
     this.createLight();
@@ -228,11 +228,13 @@ export class CanvasTrigComponent implements AfterViewInit {
     }());
     return { renderer: renderer, scene: scene, camera: camera };
   }
+
   @ViewChild('canvasSin')
   private canvasSinRef: ElementRef;
   private get canvasSin(): HTMLCanvasElement {
     return this.canvasSinRef.nativeElement;
   }
+
   private selectionSin = {
     renderer: new THREE.WebGLRenderer(), camera: new THREE.Camera(),
     lineSin: new THREE.Mesh(), dottedLineSin: new THREE.Mesh(),
@@ -244,6 +246,7 @@ export class CanvasTrigComponent implements AfterViewInit {
       this.renderer.render(this.sceneSin, this.camera);
     }
   };
+
   private createSin() {
     const _color = 0xFFA07A;
     const geometry = new THREE.BoxGeometry(1, this.pointer.position.y);
@@ -281,6 +284,7 @@ export class CanvasTrigComponent implements AfterViewInit {
     this.selectionSin.sceneSin = base.scene;
     this.hideSin();
   }
+
   private drawSin() {
     this.selectionSin.lineSin.geometry = new THREE.BoxGeometry(1, Math.abs(this.pointer.position.y));
     this.selectionSin.lineSin.position.y = this.pointer.position.y / 2;
@@ -291,7 +295,7 @@ export class CanvasTrigComponent implements AfterViewInit {
   }
   public showSin() {
     this.drawSin();
-this.selectionSin.lineSin.visible = true;
+    this.selectionSin.lineSin.visible = true;
     this.visibleSin = true;
     this.ref.detectChanges();
     const el: HTMLElement = this.canvasSinRef.nativeElement;
@@ -300,15 +304,12 @@ this.selectionSin.lineSin.visible = true;
     this.render();
   }
   public hideSin() {
-this.selectionSin.lineSin.visible = false;
+    this.selectionSin.lineSin.visible = false;
     this.visibleSin = false;
     this.ref.detectChanges();
     this.render();
   }
-public visibleSin: boolean = true;
-public visibleCos: boolean = true;
-public visibleTg: boolean = true;
-public visibleCtg: boolean = true;
+
   @ViewChild('canvasCos')
   private canvasCosRef: ElementRef;
   private get canvasCos(): HTMLCanvasElement {
@@ -345,15 +346,15 @@ public visibleCtg: boolean = true;
           this.circle.radius * Math.cos(Math.PI * i / this.circle.radius / 2 + this.getAngle()) / 2, 0));
     }
 
-    this.addText(cosScene, '-п', new THREE.Vector3( -2 * this.circle.radius, -2, 0));
-    this.addText(cosScene, '-п/2', new THREE.Vector3( -this.circle.radius , -2, 0));
-    this.addText(cosScene, '0', new THREE.Vector3( 2, -2, 0));
-    this.addText(cosScene, '-1', new THREE.Vector3( -this.circle.radius, -10, 0));
-    this.addHatch(cosScene, new THREE.Vector3( - this.circle.radius, -0.5, 0), new THREE.Vector3( - this.circle.radius, 0.5, 0));
-    this.addText(cosScene, '1', new THREE.Vector3( this.circle.radius, 10, 0));
-    this.addHatch(cosScene, new THREE.Vector3( this.circle.radius, -0.5, 0), new THREE.Vector3( this.circle.radius, 0.5, 0));
-    this.addText(cosScene, 'п', new THREE.Vector3( 2 * this.circle.radius, -2, 0));
-    this.addText(cosScene, 'п/2', new THREE.Vector3( this.circle.radius, -2, 0));
+    this.addText(cosScene, '-п', new THREE.Vector3(-2 * this.circle.radius, -2, 0));
+    this.addText(cosScene, '-п/2', new THREE.Vector3(-this.circle.radius, -2, 0));
+    this.addText(cosScene, '0', new THREE.Vector3(2, -2, 0));
+    this.addText(cosScene, '-1', new THREE.Vector3(-this.circle.radius, -10, 0));
+    this.addHatch(cosScene, new THREE.Vector3(- this.circle.radius, -0.5, 0), new THREE.Vector3(- this.circle.radius, 0.5, 0));
+    this.addText(cosScene, '1', new THREE.Vector3(this.circle.radius, 10, 0));
+    this.addHatch(cosScene, new THREE.Vector3(this.circle.radius, -0.5, 0), new THREE.Vector3(this.circle.radius, 0.5, 0));
+    this.addText(cosScene, 'п', new THREE.Vector3(2 * this.circle.radius, -2, 0));
+    this.addText(cosScene, 'п/2', new THREE.Vector3(this.circle.radius, -2, 0));
     cosScene.add(new THREE.Line(graph,
       new THREE.LineBasicMaterial({ color: _color, linewidth: 2.5 })));
     /*Math.PI * i  = x */
@@ -468,17 +469,17 @@ public visibleCtg: boolean = true;
     TgScene.add(this.selectionTg.getGraph({ from: Math.atan(-2.3), to: Math.atan(2.3) }));
     //3я часть графика [pi/2, pi]
     TgScene.add(this.selectionTg.getGraph({ from: Math.PI + Math.atan(-2.3), to: Math.PI }));
-    this.addText(TgScene, '-п', new THREE.Vector3( -180 / 8, -2, 0));
-    this.addText(TgScene, '-п/2', new THREE.Vector3( -180 / 16 , -2, 0));
-    this.addText(TgScene, '0', new THREE.Vector3( 2, -2, 0));
-    this.addText(TgScene, '-1', new THREE.Vector3( 2, -10, 0));
-    this.addHatch(TgScene, new THREE.Vector3( -0.5, -10, 0), new THREE.Vector3( 0.5, -10, 0));
-    this.addText(TgScene, '1', new THREE.Vector3( -2, 10, 0));
-    this.addHatch(TgScene, new THREE.Vector3( -0.5, 10, 0), new THREE.Vector3( 0.5, 10, 0));
-    this.addText(TgScene, '-2.3', new THREE.Vector3( 2, -23, 0));
-    this.addText(TgScene, '2.3', new THREE.Vector3( -4, 23, 0));
-    this.addText(TgScene, 'п', new THREE.Vector3( 180 / 8, -2, 0));
-    this.addText(TgScene, 'п/2', new THREE.Vector3( 180 / 16, -2, 0));
+    this.addText(TgScene, '-п', new THREE.Vector3(-180 / 8, -2, 0));
+    this.addText(TgScene, '-п/2', new THREE.Vector3(-180 / 16, -2, 0));
+    this.addText(TgScene, '0', new THREE.Vector3(2, -2, 0));
+    this.addText(TgScene, '-1', new THREE.Vector3(2, -10, 0));
+    this.addHatch(TgScene, new THREE.Vector3(-0.5, -10, 0), new THREE.Vector3(0.5, -10, 0));
+    this.addText(TgScene, '1', new THREE.Vector3(-2, 10, 0));
+    this.addHatch(TgScene, new THREE.Vector3(-0.5, 10, 0), new THREE.Vector3(0.5, 10, 0));
+    this.addText(TgScene, '-2.3', new THREE.Vector3(2, -23, 0));
+    this.addText(TgScene, '2.3', new THREE.Vector3(-4, 23, 0));
+    this.addText(TgScene, 'п', new THREE.Vector3(180 / 8, -2, 0));
+    this.addText(TgScene, 'п/2', new THREE.Vector3(180 / 16, -2, 0));
 
     const base = this.createSubCanvas(30, TgScene, this.canvasTg);
     this.selectionTg.renderer = base.renderer;
@@ -491,7 +492,7 @@ public visibleCtg: boolean = true;
     if (Math.abs(Math.tan(angle)) > 100) {
       this.valTg = Math.tan(angle) > 0 ? "∞" : "-∞";
     } else {
-    this.valTg = Math.tan(angle).toFixed(2);
+      this.valTg = Math.tan(angle).toFixed(2);
     }
     let geom = new THREE.Geometry();
     let height_line = 0;
@@ -522,7 +523,7 @@ public visibleCtg: boolean = true;
   public showTg() {
     this.drawTg();
     this.selectionTg.slopingLine.visible = true;
-this.selectionTg._lineTg.visible = true;
+    this.selectionTg._lineTg.visible = true;
     this.visibleTg = true;
     this.ref.detectChanges();
     const el: HTMLElement = this.canvasTgRef.nativeElement;
@@ -532,7 +533,7 @@ this.selectionTg._lineTg.visible = true;
   }
   public hideTg() {
     this.selectionTg.slopingLine.visible = false;
-this.selectionTg._lineTg.visible = false;
+    this.selectionTg._lineTg.visible = false;
     this.visibleTg = false;
     this.ref.detectChanges();
     this.render();
@@ -616,13 +617,13 @@ this.selectionTg._lineTg.visible = false;
     CtgScene.add(this.selectionCtg.getGraph({ from: this.arcctg(2.3), to: this.arcctg(-2.3) }));
     this.addText(CtgScene, '-п', new THREE.Vector3((this.arcctg(2.4) - Math.PI) * 180 / 8 / Math.PI, -2, 0));
     this.addText(CtgScene, '-п/2', new THREE.Vector3((this.arcctg(2.4) - Math.PI) * 180 / 16 / Math.PI, -2, 0));
-    this.addText(CtgScene, '0', new THREE.Vector3( 2, -2, 0));
-    this.addText(CtgScene, '-1', new THREE.Vector3( 2, -10, 0));
-    this.addHatch(CtgScene, new THREE.Vector3( -0.5, -10, 0), new THREE.Vector3( 0.5, -10, 0));
-    this.addText(CtgScene, '1', new THREE.Vector3( -2, 10, 0));
-    this.addHatch(CtgScene, new THREE.Vector3( -0.5, 10, 0), new THREE.Vector3( 0.5, 10, 0));
-    this.addText(CtgScene, '-2.3', new THREE.Vector3( 2, -23, 0));
-    this.addText(CtgScene, '2.3', new THREE.Vector3( -4, 23, 0));
+    this.addText(CtgScene, '0', new THREE.Vector3(2, -2, 0));
+    this.addText(CtgScene, '-1', new THREE.Vector3(2, -10, 0));
+    this.addHatch(CtgScene, new THREE.Vector3(-0.5, -10, 0), new THREE.Vector3(0.5, -10, 0));
+    this.addText(CtgScene, '1', new THREE.Vector3(-2, 10, 0));
+    this.addHatch(CtgScene, new THREE.Vector3(-0.5, 10, 0), new THREE.Vector3(0.5, 10, 0));
+    this.addText(CtgScene, '-2.3', new THREE.Vector3(2, -23, 0));
+    this.addText(CtgScene, '2.3', new THREE.Vector3(-4, 23, 0));
     this.addText(CtgScene, 'п', new THREE.Vector3((this.arcctg(-2.4)) * 180 / 8 / Math.PI, -2, 0));
     this.addText(CtgScene, 'п/2', new THREE.Vector3((this.arcctg(-2.4)) * 180 / 16 / Math.PI - 1, -2, 0));
     const base = this.createSubCanvas(30, CtgScene, this.canvasCtg);
@@ -636,7 +637,7 @@ this.selectionTg._lineTg.visible = false;
     if (Math.abs(this.ctg(angle)) > 100) {
       this.valCtg = this.ctg(angle) > 0 ? "∞" : "-∞";
     } else {
-    this.valCtg = this.ctg(angle).toFixed(2);
+      this.valCtg = this.ctg(angle).toFixed(2);
     }
     let geom = new THREE.Geometry();
     let width_line = this.circle.radius / (this.pointer.position.y / this.pointer.position.x);
@@ -665,7 +666,7 @@ this.selectionTg._lineTg.visible = false;
   public showCtg() {
     this.drawCtg();
     this.selectionCtg.slopingLine.visible = true;
-this.selectionCtg._lineCtg.visible = true;
+    this.selectionCtg._lineCtg.visible = true;
     this.visibleCtg = true;
     this.ref.detectChanges();
     const el: HTMLElement = this.canvasCtgRef.nativeElement;
@@ -675,7 +676,7 @@ this.selectionCtg._lineCtg.visible = true;
   }
   public hideCtg() {
     this.selectionCtg.slopingLine.visible = false;
-this.selectionCtg._lineCtg.visible = false;
+    this.selectionCtg._lineCtg.visible = false;
     this.visibleCtg = false;
     this.ref.detectChanges();
     this.render();
@@ -731,9 +732,9 @@ this.selectionCtg._lineCtg.visible = false;
     return localScene;
   }
 
-private addText(localScene: THREE.Scene, text: string, pos: THREE.Vector3) {
-  let component: CanvasTrigComponent = this;
-  new THREE.FontLoader().load('assets/font//Roboto_Regular.json', function (_font) {
+  private addText(localScene: THREE.Scene, text: string, pos: THREE.Vector3) {
+    let component: CanvasTrigComponent = this;
+    new THREE.FontLoader().load('assets/font//Roboto_Regular.json', function (_font) {
       const geometry = new THREE.TextGeometry(text, {
         font: Object(_font) as THREE.Font,
         size: 1.5,
@@ -753,14 +754,14 @@ private addText(localScene: THREE.Scene, text: string, pos: THREE.Vector3) {
       m.position.y = pos.y;
       m.position.z = pos.z;
       component.render();
-  });
-}
-private addHatch(localScene: THREE.Scene, one: THREE.Vector3, two: THREE.Vector3){
-  let y = new THREE.Geometry();
-  const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
-  y.vertices.push(one);
-  y.vertices.push(two);
-  localScene.add(new THREE.Line(y, black_material));
-  y = new THREE.Geometry();
-}
+    });
+  }
+  private addHatch(localScene: THREE.Scene, one: THREE.Vector3, two: THREE.Vector3) {
+    let y = new THREE.Geometry();
+    const black_material = new THREE.MeshBasicMaterial({ color: 0x00000 });
+    y.vertices.push(one);
+    y.vertices.push(two);
+    localScene.add(new THREE.Line(y, black_material));
+    y = new THREE.Geometry();
+  }
 }

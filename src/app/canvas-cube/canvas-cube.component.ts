@@ -322,25 +322,15 @@ export class CanvasCubeComponent implements AfterViewInit {
       hel = this.setPosition(hel, p);
       if (this.cubeService.drawed) {
         this.clearSelection();
-        for (const point of this.cubeService.stack) {
-          let h = this.drawBaseDot();
-          h = this.setPosition(h, point);
-          this.section.add(h);
-        }
         this.cubeService.drawed = false;
       }
-      this.cubeService.stack.push(hel.position);
+      this.cubeService.queue.push(hel.position);
       this.section.add(hel);
     }
     const plane = this.cubeService.canBuildPlane();
     if (plane === WAY.Clear) {
       this.user_assistance = 'Все три точки находятся на одной прямой. Отметьте третью точку на другом ребре.';
       this.clearSelection();
-      for (const p of this.cubeService.stack) {
-        let hel = this.drawBaseDot();
-        hel = this.setPosition(hel, p);
-        this.section.add(hel);
-      }
       return;
     }
     if (plane === WAY.DRAW_SIMPLE || plane === WAY.DRAW_HARD) {
@@ -408,7 +398,7 @@ export class CanvasCubeComponent implements AfterViewInit {
         this.user_assistance = 'Cечение расчитано, для просмотра этапов построения используйте клавиши клавиатуры:\n → (право), следующий шаг, ← (лево), предыдущий шаг.';
       }
       this.render();
-      this.cubeService.stack.shift();
+      this.cubeService.queue.shift();
     }
   }
   private listOfScenes: Array<THREE.Object3D>;
@@ -459,6 +449,11 @@ export class CanvasCubeComponent implements AfterViewInit {
     this.scene.remove(this.section);
     this.section = new THREE.Object3D();
     this.scene.add(this.section);
+    for (const point of this.cubeService.queue) {
+      let h = this.drawBaseDot();
+      h = this.setPosition(h, point);
+      this.section.add(h);
+    }
   }
   private combinations(n: number): THREE.Face3[] {
     const a = Array.apply(null, Array(n)).map(function (_, i) { return i; });

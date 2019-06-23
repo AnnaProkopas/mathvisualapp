@@ -89,7 +89,6 @@ export class TetrahedronService {
       }
       debugger;
       if (i === 3) {
-        //debugger;
         if (this.listOfHasPlanes.size < this.stack.length) {
           return WAY.DRAW_SIMPLE;
         }
@@ -264,15 +263,6 @@ export class TetrahedronService {
       return _this.getVertCoord(_this.edges[i].vert1);
     });
     return { black: dots, gray: asix, type: TYPE.PLANE };
-  }
-  private addStraight(num_plane: number): {black: Array<THREE.Vector3>, gray: Array<THREE.Vector3>, type: TYPE} {
-    const _this = this;
-    let dots = this.getNumsEdgeFromPlane(num_plane).filter(function (i) {
-      return _this.arr_on[i];
-    }).map(function(i) {
-      return _this.arr[i];
-    });
-    return { black: dots, gray: [], type: TYPE.PLANE };
   }
   public generatePlan(plan: WAY): any {
     let planToDraw = new Array<any>();
