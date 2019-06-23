@@ -1,9 +1,48 @@
-<div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)"></div>
-<label>f(x) = </label><input type="text" [(ngModel)]="expression" (ngModelChange)="saverange()"/><br>
-<label>f'(x) = {{derivateFunction}}</label>
-<p>+ , - , * , / </p>
-<p>sqrt(x), ^</p>
-<p>sin(x), cos(x), </p>
-<p>45 deg</p>
-<p>log(x, 2), log(e)</p>
-<p>pi, e</p>
+<div class="anal__wrapper">
+    <div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
+        (mousemove)="onMouseMove($event)"></div>
+    <ul class="ref">
+        <li>
+            <h3 class="ref__caption">Формы записи чисел, действий и функций</h3>
+        </li>
+        <li class="ref__el" title="Числа">
+            <span>2, 3.14, 1.4e3, 22e-3</span>
+        </li>
+        <li class="ref__el" title="Элементарные математические действия">
+            <span>+ , - , * , / </span>
+        </li>
+        <li class="ref__el" title="Функция возведения в квадрат, либо в другую степень">
+            <span>sqrt(x), ^</span>
+        </li>
+        <li class="ref__el" title="Тригонометрические функции">
+            <span>sin(x), cos(x), </span>
+        </li>
+        <li class="ref__el" title="Градусы">
+            <span>45 deg</span>
+        </li>
+        <li class="ref__el" title="Логарифмы">
+            <span>log(x, 2), log(e)</span>
+        </li>
+        <li class="ref__el" title="Используемые константы">
+            <span>pi, e</span>
+        </li>
+    </ul>
+    <label class="anal__label">
+        f(x) = <input class="anal__input" type="text" [(ngModel)]="expression"
+            (ngModelChange)="saverange()" />
+
+        <span class="anal__der">f'(x) = {{derivateFunction}}</span>
+    </label>
+    <label class="anal__label" title="Границы по оси Х">
+        Область определения функции <br> от
+        <input class="anal__input anal__input--borders" type="text">
+        до
+        <input class="anal__input anal__input--borders" type="text">
+    </label>
+    <label class="anal__label" title="Границы по оси У">
+            Область значений функции <br> от
+            <input class="anal__input anal__input--borders" type="text">
+            до
+            <input class="anal__input anal__input--borders" type="text">
+        </label>
+</div>

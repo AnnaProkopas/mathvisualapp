@@ -1,4 +1,44 @@
 #canvas {
-    width: 700px;
+    width: 500px;
     height: 300px;
+}
+
+.anal__wrapper {
+    width: 700px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ref {
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.anal__label {
+    width: 700px;
+    margin-bottom: 10px;
+    line-height: 28px;
+}
+
+.anal__der {
+    display: block;
+}
+
+.ref__caption {
+    font-weight: 400;
+    color: #777;
+    font-size: 19px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+}
+
+.ref__el {
+    width: 180px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.anal__input--borders {
+    width: 50px;
 }

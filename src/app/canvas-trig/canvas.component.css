@@ -1,12 +1,12 @@
-#canvas {
-    width: 250px;
-    height: 250px;
+.canvas {
+    width: 300px;
+    height: 300px;
 }
-#canvasSmall {
+.canvasSmall {
     width: 300px;
     height: 150px;
 }
-#canvasBig {
+.canvasBig {
     width: 300px;
     height: 300px;
 }
@@ -21,4 +21,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+}
+
+td {
+    padding-left: 5px;
 }

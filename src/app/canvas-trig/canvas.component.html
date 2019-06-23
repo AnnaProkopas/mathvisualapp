@@ -1,12 +1,42 @@
 <div class="inline">
     <div class="incolumn">
-        <div id="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
+        <div class="canvas" #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)"
             (mousemove)="onMouseMove($event)"></div>
-        <div id="canvasSmall" #canvasSin *ngIf="visibleSin"></div>
-        <div id="canvasSmall" #canvasCos *ngIf="visibleCos"></div>
+        <div class="canvasSmall" #canvasSin *ngIf="visibleSin"></div>
+        <div class="canvasSmall" #canvasCos *ngIf="visibleCos"></div>
     </div>
     <div class="incolumn">
-        <div id="canvasBig" #canvasTg *ngIf="visibleTg"></div>
-        <div id="canvasBig" #canvasCtg *ngIf="visibleCtg"></div>
+        <div class="canvasBig" #canvasTg *ngIf="visibleTg"></div>
+        <div class="canvasBig" #canvasCtg *ngIf="visibleCtg"></div>
     </div>
+    <table>
+        <tr>
+            <th></th>
+            <th>Значение</th>
+        </tr>
+        <tr>
+            <th>Угол (в градусах)</th>
+            <td>{{angle_deg}}</td>
+        </tr>
+        <tr>
+            <th>Угол (в радианах)</th>
+            <td>{{angle_rad}} * pi</td>
+        </tr>
+        <tr *ngIf="visibleSin">
+                <th>Sin</th>
+                <td>{{valSin}}</td>
+        </tr>
+        <tr *ngIf="visibleCos">
+                <th>Cos</th>
+                <td>{{valCos}}</td>
+        </tr>
+        <tr *ngIf="visibleTg">
+                <th>Tg</th>
+                <td>{{valTg}}</td>
+        </tr>
+        <tr *ngIf="visibleCtg">
+                <th>Ctg</th>
+                <td>{{valCtg}}</td>
+        </tr>
+    </table>
 </div>

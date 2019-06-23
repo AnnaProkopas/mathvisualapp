@@ -1,16 +1,16 @@
 <div class="inline">
     <div class="left-menu">
-         <section class="ac-container">
+        <section class="ac-container">
             <div>
                 <input class="ac-checkbox" id="ac-1" name="accordion-1" type="radio" value="1"
                     [(ngModel)]="numShowCanvas" />
                 <label class="ac-label" for="ac-1">Тригонометрия</label>
                 <article class="ac-list">
                     <div>
-                        <input type="checkbox" (change)="changeSin()">Sin<Br>
-                        <input type="checkbox" (change)="changeCos()">Cos<Br>
-                        <input type="checkbox" (change)="changeTan()">Tan<Br>
-                        <input type="checkbox" (change)="changeCtan()">Ctan<Br>
+                        <label><input type="checkbox" (change)="changeSin()">Sin<Br></label>
+                        <label><input type="checkbox" (change)="changeCos()">Cos<Br></label>
+                        <label><input type="checkbox" (change)="changeTan()">Tan<Br></label>
+                        <label><input type="checkbox" (change)="changeCtan()">Ctan<Br></label>
                     </div>
                 </article>
             </div>
@@ -23,11 +23,15 @@
                 <input class="ac-checkbox" id="ac-4" name="accordion-1" type="radio" value="4"
                     [(ngModel)]="numShowCanvas" />
                 <label class="ac-label" for="ac-4">Стереометрия</label>
-                <article class="ac-list">
-                    <div>
-                        <button (click)="chooseCube()">Куб</button>
-                        <button (click)="chooseTetrahedron()">Тетраэдр</button>
-                    </div>
+                <article class="stereo">
+                    <ul class="stereo__list">
+                        <li class="stereo__el">
+                            <button class="stereo__btn" (click)="chooseCube()">Куб</button>
+                        </li>
+                        <li class="stereo__el">
+                            <button class="stereo__btn" (click)="chooseTetrahedron()">Тетраэдр</button>
+                        </li>
+                    </ul>
                 </article>
             </div>
         </section>

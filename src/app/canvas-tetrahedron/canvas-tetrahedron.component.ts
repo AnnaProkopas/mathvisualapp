@@ -124,7 +124,7 @@ export class CanvasTetrahedronComponent implements AfterViewInit {
     this.scene.add(mesh);
     const loader = new THREE.FontLoader();
     let component: CanvasTetrahedronComponent = this;
-    loader.load('https://raw.githubusercontent.com/AnnaProkopas/mathvisualapp/master/src/app/canvas-cube/Roboto_Regular.json', function (_font) {
+    loader.load('assets/font//Roboto_Regular.json', function (_font) {
       for (let el of arr) {
         const geometry = new THREE.TextGeometry(el.text, {
           font: Object(_font) as THREE.Font,
